@@ -209,6 +209,9 @@
   <ItemGroup>
     <Content Include="Client\app.js" />
     <Content Include="Client\Controllers\homeController.js" />
+    <Content Include="Client\Controllers\loginController.js" />
+    <Content Include="Client\Controllers\registerController.js" />
+    <Content Include="Client\Interceptors\authInterceptor.js" />
     <Content Include="Client\Interceptors\errorInterceptor.js" />
     <Content Include="Client\Services\authService.js" />
     <Content Include="Content\bootstrap.css" />
@@ -216,7 +219,9 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Site.css" />
+    <Content Include="Partial\Account\Login.html" />
     <Content Include="Partial\Home.html" />
+    <Content Include="Partial\Account\Register.html" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />

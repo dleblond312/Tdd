@@ -26,13 +26,16 @@ namespace Tdd
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-route.js",
-                "~/Scripts/angular-resource.js"));
+                "~/Scripts/angular-resource.js",
+                "~/Scripts/angular-cookies.js",
+                "~/Scripts/Lib/angular-local-storage/angular-locale-storage.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/client").IncludeDirectory("~/Client", "*.js", true));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                "~/Scripts/angular-csp.css",    
+                "~/Content/bootstrap.css",
+                "~/Content/site.css"));
 
         }
     }

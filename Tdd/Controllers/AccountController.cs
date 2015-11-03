@@ -21,7 +21,6 @@ namespace Tdd.Controllers
             repo = new AuthRepository();
         }
 
-        // POST api/Account/Register
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> Register()
@@ -30,6 +29,7 @@ namespace Tdd.Controllers
             string jsonData = new StreamReader(Request.InputStream).ReadToEnd();
 
             var userModel = JsonConvert.DeserializeObject<UserModel>(jsonData);
+
 
             if (!ModelState.IsValid)
             {

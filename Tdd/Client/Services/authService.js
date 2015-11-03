@@ -1,7 +1,6 @@
-﻿'use strict';
-app.factory('authService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
+﻿app.factory('authService', ['$http', '$q', '$location', '$cookies', function ($http, $q, $location, $cookies) {
 
-    var serviceBase = 'http://ngauthenticationapi.azurewebsites.net/';
+    var serviceBase = 'https://' + $location.host() + ':' + $location.port() + '/';
     var authServiceFactory = {};
 
     var _authentication = {
@@ -16,18 +15,21 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
         return $http.post(serviceBase + 'api/account/register', registration).then(function (response) {
             return response;
         });
-
     };
 
     var _login = function (loginData) {
 
-        var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
+        var data = "grant_type=password&username=" +
+        loginData.userName + "&password=" + loginData.password;
 
         var deferred = $q.defer();
 
-        $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
+        $http.post(serviceBase + 'token', data, {
+            headers:
+            { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (response) {
 
-            localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName });
+            $cookies.putObject('authorizationData', { token: response.access_token, userName: loginData.userName });
 
             _authentication.isAuth = true;
             _authentication.userName = loginData.userName;
@@ -40,26 +42,25 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
         });
 
         return deferred.promise;
-
     };
 
     var _logOut = function () {
 
-        localStorageService.remove('authorizationData');
+        $cookies.remove('authorizationData');
 
         _authentication.isAuth = false;
         _authentication.userName = "";
 
+        $location.path('/');
     };
 
     var _fillAuthData = function () {
 
-        var authData = localStorageService.get('authorizationData');
+        var authData = $cookies.getObject('authorizationData');
         if (authData) {
             _authentication.isAuth = true;
             _authentication.userName = authData.userName;
         }
-
     }
 
     authServiceFactory.saveRegistration = _saveRegistration;

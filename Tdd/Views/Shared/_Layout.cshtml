@@ -19,7 +19,7 @@
         appInsights.trackPageView();
     </script>
 </head>
-<body>
+<body ng-controller="HomeController">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -30,8 +30,21 @@
                 </button>
                 <a class="navbar-brand" href="/">Tower Defense</a>
             </div>
-            <div class="navbar-collapse collapse">
-                
+            <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-hide="authentication && !authentication.isAuth" ng-cloak>
+                        <a href="/">Welcome {{authentication.userName}}</a>
+                    </li>
+                    <li ng-hide="!authentication.isAuth">
+                        <a href="" data-ng-click="logOut()">Logout</a>
+                    </li>
+                    <li ng-hide="authentication.isAuth">
+                        <a href="/login">Login</a>
+                    </li>
+                    <li ng-hide="authentication.isAuth">
+                        <a href="/register">Sign Up</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
