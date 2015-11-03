@@ -28,6 +28,8 @@ namespace Tdd
                 "~/Scripts/angular-route.js",
                 "~/Scripts/angular-resource.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/client").IncludeDirectory("~/Client", "*.js", true));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
