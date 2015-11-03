@@ -45,5 +45,11 @@ namespace Tdd.Controllers
 
             return Json("Success");
         }
+
+        [HttpGet]
+        public ActionResult Test()
+        {
+            return Json("Success");
+        }
     }
 }
