@@ -205,6 +205,9 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="global.asax.cs">
+      <DependentUpon>global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201511030340400_Initial.cs" />
     <Compile Include="Migrations\201511030340400_Initial.Designer.cs">
       <DependentUpon>201511030340400_Initial.cs</DependentUpon>
@@ -229,6 +232,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Site.css" />
+    <Content Include="global.asax" />
     <Content Include="Partial\Account\Login.html" />
     <Content Include="Partial\Home.html" />
     <Content Include="Partial\Account\Register.html" />
