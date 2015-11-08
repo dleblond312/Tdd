@@ -27,6 +27,7 @@ namespace Tdd.App_Start
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            app.MapSignalR();
 
             this.ConfigureOAuth(app);
         }

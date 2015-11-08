@@ -46,6 +46,13 @@ namespace Tdd.Controllers
             return Json("Success");
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> Token()
+        {
+            return Json("Success");
+        }
+
         [HttpGet]
         public ActionResult Test()
         {
