@@ -1,17 +1,22 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
+using Microsoft.Practices.Unity;
 using Newtonsoft.Json.Serialization;
 using Owin;
 using System;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Tdd.Controllers;
 using Tdd.Models;
 using Tdd.Providers;
+using Tdd.Services;
 
 [assembly: OwinStartup(typeof(Tdd.App_Start.Startup))]
 namespace Tdd.App_Start
@@ -26,7 +31,12 @@ namespace Tdd.App_Start
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            var container = new UnityContainer();
+            this.RegisterTypes(container);
+
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            GlobalHost.DependencyResolver.Register(typeof(GameHub), () => new GameHub(container.Resolve<GameService>()));
             app.MapSignalR();
 
             this.ConfigureOAuth(app);
@@ -53,6 +63,24 @@ namespace Tdd.App_Start
             var userStore = new UserStore<IdentityUser>(context.Get<AuthContext>());
             var owinManager = new UserManager<IdentityUser>(userStore);
             return owinManager;
+        }
+
+        private void RegisterTypes(IUnityContainer container)
+        {
+            container.RegisterTypes(
+                AllClasses.FromLoadedAssemblies().Where(
+                    t => t.Name.ToLower().Contains("service")),
+                WithMappings.FromAllInterfacesInSameAssembly,
+                WithName.Default,
+                WithLifetime.ContainerControlled);
+
+            container.RegisterType<GameHub>(new InjectionFactory(CreateGameHub));
+        }
+
+        private GameHub CreateGameHub(IUnityContainer container)
+        {
+            var gameHub = new GameHub(container.Resolve<IGameService>());
+            return gameHub;
         }
     }
 }

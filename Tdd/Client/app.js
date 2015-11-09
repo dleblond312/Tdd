@@ -10,6 +10,9 @@ app.config(['$routeProvider', '$locationProvider',
     }).when("/register", {
         controller: "registerController",
         templateUrl: "/Partial/Account/Register.html"
+    }).when('/test', {
+        templateUrl: '/Partial/Test.html',
+        controller: 'HomeController',
     }).when('/', {
         templateUrl: '/Partial/Home.html',
         controller: 'HomeController'
@@ -20,24 +23,6 @@ app.config(['$routeProvider', '$locationProvider',
 app.run(['authService', function (authService) {
     authService.fillAuthData();
 }])
-
-app.run(function () {
-    if (!($ && $.connection && $.connection.hub)) {
-        window.alert("Can't instantiate a socket");
-        return;
-    }
-    $.connection.hub.logging = true;
-
-    var game = $.connection.gameHub;
-    game.client.broadcastMessage = function (name, message) {
-        console.log('message received:', name, message);
-    }
-
-    $.connection.hub.start().done(function () {
-        console.log('Connection started');
-        game.server.send('test-user-' + Math.random() * 100, "test");
-    });
-});
 
 app.config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('httpRequestInterceptor');

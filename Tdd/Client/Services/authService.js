@@ -1,4 +1,4 @@
-﻿app.factory('authService', ['$http', '$q', '$location', '$cookies', function ($http, $q, $location, $cookies) {
+﻿app.service('authService', ['$http', '$q', '$location', '$cookies', function ($http, $q, $location, $cookies) {
 
     var serviceBase = 'https://' + $location.host() + ':' + $location.port() + '/';
     var authServiceFactory = {};
