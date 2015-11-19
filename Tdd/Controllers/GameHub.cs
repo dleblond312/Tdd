@@ -8,6 +8,8 @@ using System.Security.Principal;
 using Tdd.Services;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Tdd.Helpers;
+using System.Diagnostics;
 
 namespace Tdd.Controllers
 {
@@ -23,16 +25,21 @@ namespace Tdd.Controllers
 
         public async Task Send(string name, string message)
         {
+            GameRoom gameRoom;
+
             switch(name)
             {
-                case "start":
-                    var gameRoom = await this.gameService.StartGameAsync(this.Context);
-                    Clients.Client(this.Context.ConnectionId).receiveCommand("gameCreated", JsonConvert.SerializeObject(gameRoom));
+                case "createGame":
+                    gameRoom = await this.gameService.StartGameAsync(this.Context);
+                    break;
+                case "startRound":
+                    gameRoom = await this.gameService.IncrementRoundAsync(this.Context, message);
                     break;
                 default:
-                    Clients.Client(this.Context.ConnectionId).receiveCommand("unknownCommand", name);
+                    Clients.Client(this.Context.ConnectionId).warn("unknownCommand", name);
                     break;
             }
+
         }
     }
 }

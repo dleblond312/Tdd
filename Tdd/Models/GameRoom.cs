@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR.Hubs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
@@ -11,11 +12,26 @@ namespace Tdd.Models
     {
         public int Id { get; set; }
 
-        public IList<IPrincipal> Users { get; set; }
+        public IList<Player> Players { get; set; }
 
+        public int CurrentRound { get; set; }
 
-        public GameRoom()
+        public DateTime CurrentRoundStartTime { get; set; }
+
+        public GameRoom(HubCallerContext context)
         {
+            this.Id = (new Random()).Next(1000); ;
+            this.Players = new List<Player>()
+            {
+                new Player()
+                {
+                    StartingLocation = Constants.StartingLocations[0],
+                    EndingLocation = Constants.EndingLocations[0],
+                    CurrentLife = Constants.StartingLife,
+                    Context = context
+                }
+            };
+            this.CurrentRound = 0;
         }
     }
 }

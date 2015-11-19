@@ -11,5 +11,6 @@ namespace Tdd.Services
     public interface IGameService
     {
         Task<GameRoom> StartGameAsync(HubCallerContext context);
+        Task<GameRoom> IncrementRoundAsync(HubCallerContext context, string roomId);
     }
 }

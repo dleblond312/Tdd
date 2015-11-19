@@ -1,7 +1,10 @@
 ﻿<div ng-controller="TestController">
     <h2> Test functions</h2>
-    <input class="button" type="button" value="start" ng-click="start()"/>
-
+    <input class="button" type="button" value="create game" ng-click="createGame()"/>
+    <input class="button" type="button" value="start round" ng-click="startRound()"/>
     
-    <div ng-bind="log"></div>
+    <div ng-include="'/Partial/Home.html'"></div>
+
+
+    <pre ng-bind="log"></pre>
 </div>

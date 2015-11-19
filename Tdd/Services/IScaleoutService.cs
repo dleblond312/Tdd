@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR.Hubs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,12 @@ namespace Tdd.Services
 {
     public interface IScaleoutService
     {
-        void Store(string name, object o);
+        void Subscribe(Persist type, object id, HubCallerContext connection);
 
-        object Get(string name);
+        void Store(Persist type, object id, object o);
+
+        Task<object> Get(Persist type, object id);
+
+        Task<object> Remove(Persist type, object id);
     }
 }

@@ -5,8 +5,6 @@
     $.connection.hub.logging = true;
 
     var game = $.connection.gameHub;
-    //game.client.broadcastMessage = function (name, message) {
-    //}
 
     $.connection.hub.start().done(function () {
         console.log('Connection opened');
@@ -18,8 +16,18 @@
     }
 
 
-    game.client.receiveCommand = function (name, message) {
-        console.log('Received ', name, message);
-        $rootScope.$broadcast(name, message);
+    game.client.propertyUpdated = function (id, model) {
+        $rootScope.$apply(function () {
+            console.log('Update Property ', id, model);
+            $rootScope.$broadcast('propertyUpdated', {
+                type: id.split('-')[0],
+                id: id.split('-')[1],
+                value: model
+            });
+        })
+    }
+
+    game.client.warn = function (id, model) {
+        console.warn('Received warning', id, model);
     }
 }]);

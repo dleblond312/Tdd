@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$scope', '$rootScope', 'authService', function($scope, $rootScope, authService) {
+app.controller('HomeController', ['$scope', '$rootScope', '$timeout', 'authService', 'gameService', 'mobService', function($scope, $rootScope, $timeout, authService, gameService, mobService) {
     $scope.reset = function() {
         $scope.authentication = authService.authentication;
     }
@@ -9,5 +9,9 @@ app.controller('HomeController', ['$scope', '$rootScope', 'authService', functio
         $location.path('/home');
     }
 
+    $scope.$on('propertyUpdated', function (event, model) {
+        $scope.gameRoom = gameService.getGame();
+        $scope.mobs = mobService.getMobs();
+    });
 
 }]);

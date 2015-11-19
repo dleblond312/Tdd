@@ -5,6 +5,7 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.Practices.Unity;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Owin;
 using System;
@@ -14,6 +15,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Tdd.Controllers;
+using Tdd.Helpers;
 using Tdd.Models;
 using Tdd.Providers;
 using Tdd.Services;
@@ -35,6 +37,11 @@ namespace Tdd.App_Start
             this.RegisterTypes(container);
 
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            var settings = new JsonSerializerSettings();
+            settings.ContractResolver = new SignalRContractResolver();
+            var serializer = JsonSerializer.Create(settings);
+            GlobalHost.DependencyResolver.Register(typeof(JsonSerializer), () => serializer);
 
             GlobalHost.DependencyResolver.Register(typeof(GameHub), () => new GameHub(container.Resolve<GameService>()));
             app.MapSignalR();
