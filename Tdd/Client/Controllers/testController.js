@@ -9,6 +9,11 @@
         gameService.createGame();
     }
 
+    $scope.joinGame = function () {
+        $scope.log += 'Join Clicked\n';
+        gameService.joinGame($scope.joinGameId);
+    }
+
     $scope.startRound = function () {
         $scope.log += 'Round started clicked\n';
         gameService.startRound();

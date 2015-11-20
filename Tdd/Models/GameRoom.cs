@@ -23,13 +23,7 @@ namespace Tdd.Models
             this.Id = (new Random()).Next(1000); ;
             this.Players = new List<Player>()
             {
-                new Player()
-                {
-                    StartingLocation = Constants.StartingLocations[0],
-                    EndingLocation = Constants.EndingLocations[0],
-                    CurrentLife = Constants.StartingLife,
-                    Context = context
-                }
+                new Player(context)
             };
             this.CurrentRound = 0;
         }

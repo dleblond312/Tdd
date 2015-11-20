@@ -32,6 +32,9 @@ namespace Tdd.Controllers
                 case "createGame":
                     gameRoom = await this.gameService.StartGameAsync(this.Context);
                     break;
+                case "joinGame":
+                    gameRoom = await this.gameService.JoinGameAsync(this.Context, message);
+                    break;
                 case "startRound":
                     gameRoom = await this.gameService.IncrementRoundAsync(this.Context, message);
                     break;

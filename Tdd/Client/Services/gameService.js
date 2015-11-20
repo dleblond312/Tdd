@@ -5,6 +5,10 @@
         socketService.send('createGame');
     }
 
+    this.joinGame = function (roomId) {
+        socketService.send('joinGame', roomId)
+    }
+
     this.startRound = function () {
         socketService.send('startRound', gameRoom.id);
     }

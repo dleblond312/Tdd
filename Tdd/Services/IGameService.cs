@@ -12,5 +12,6 @@ namespace Tdd.Services
     {
         Task<GameRoom> StartGameAsync(HubCallerContext context);
         Task<GameRoom> IncrementRoundAsync(HubCallerContext context, string roomId);
+        Task<GameRoom> JoinGameAsync(HubCallerContext context, string roomId);
     }
 }
