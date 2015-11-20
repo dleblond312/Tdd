@@ -6,18 +6,6 @@
 
     var game = $.connection.gameHub;
 
-    $.connection.hub.start().done(function () {
-        console.log('Connection opened');
-    });
-
-    this.send = function (name, message) {
-        $.connection.hub.start().done(function () {
-            console.log('Sending ', name, message);
-            game.server.send(name, message);
-        });
-    }
-
-
     game.client.propertyUpdated = function (id, model) {
         $rootScope.$apply(function () {
             console.log('Update Property ', id, model);
@@ -32,4 +20,18 @@
     game.client.warn = function (id, model) {
         console.warn('Received warning', id, model);
     }
+
+    $.connection.hub.start().done(function () {
+        console.log('Connection opened');
+    });
+
+    this.send = function (name, message) {
+        $.connection.hub.start().done(function () {
+            console.log('Sending ', name, message);
+            game.server.send(name, message);
+        });
+    }
+
+
+
 }]);
