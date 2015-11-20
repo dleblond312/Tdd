@@ -11,8 +11,10 @@
     });
 
     this.send = function (name, message) {
-        console.log('Sending ', name, message);
-        game.server.send(name, message);
+        $.connection.hub.start().done(function () {
+            console.log('Sending ', name, message);
+            game.server.send(name, message);
+        });
     }
 
 

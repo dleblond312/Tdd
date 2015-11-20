@@ -13,9 +13,11 @@ app.config(['$routeProvider', '$locationProvider',
     }).when('/test', {
         templateUrl: '/Partial/Test.html',
         controller: 'HomeController',
+        reloadOnSearch: false
     }).when('/', {
         templateUrl: '/Partial/Home.html',
-        controller: 'HomeController'
+        controller: 'HomeController',
+        reloadOnSearch: false
     });
 
 }]);
