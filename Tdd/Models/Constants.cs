@@ -38,5 +38,7 @@ namespace Tdd.Models
 
         public static readonly int RoundSize = 10;
         public static readonly int RoundPauseMs = 1000;
+        public static readonly int RoundUpdateMs = 10;
+        public static readonly int GameSpeed = 50;
     }
 }

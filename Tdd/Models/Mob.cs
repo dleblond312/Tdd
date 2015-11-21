@@ -12,5 +12,13 @@ namespace Tdd.Models
 
         public int Health { get; set; }
 
+        public Point CurrentLocation { get; set; }
+
+        public Point EndingLocation { get; set; }
+
+        public int CurrentSpeed { get; set; }
+
+        public DateTime LastUpdated { get; set; }
+
     }
 }
