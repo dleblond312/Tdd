@@ -8,7 +8,6 @@
 
     game.client.propertyUpdated = function (id, model) {
         $rootScope.$apply(function () {
-            console.log('Update Property ', id, model);
             $rootScope.$broadcast('propertyUpdated', {
                 type: id.split('-')[0],
                 id: id.split('-')[1],
@@ -27,7 +26,6 @@
 
     this.send = function (name, message) {
         $.connection.hub.start().done(function () {
-            console.log('Sending ', name, message);
             game.server.send(name, message);
         });
     }

@@ -1,5 +1,9 @@
 var app = angular.module('tdd', ['ngRoute', 'ngCookies']);
 
+app.constant('CONSTANTS', {
+    GAME_RATIO: 3
+});
+
 app.config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);

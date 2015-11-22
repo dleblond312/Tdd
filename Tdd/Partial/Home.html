@@ -2,13 +2,12 @@
     <label>Current Round:</label>
     {{gameRoom.currentRound}}
     
-
-    <div>
-        <label>Mobs:</label>
-        {{mobs}}
-    </div>
     <span ng-repeat="player in gameRoom.players track by $index">
         <label>{{player.user.username || "Player " + ($index+1) }}</label>
         <label>Current Life:</label> {{player.currentLife}}
     </span>
+</div>
+
+<div game-area="gameRoom" game-round="gameRound">
+
 </div>

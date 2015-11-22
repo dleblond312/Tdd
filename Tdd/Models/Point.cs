@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Tdd.Models
 {
+    [Serializable]
     public class Point
     {
         public double X { get; set; }

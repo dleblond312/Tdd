@@ -1,1 +1,14 @@
-﻿
+﻿.game-area {
+  background: grey;
+  width: 1000px;
+  height: 1000px;
+  position: relative;
+}
+.game-area .mob {
+  background: green;
+  color: red;
+  z-index: 999;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+}

@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$scope', '$rootScope', '$location', '$routeParams', '$timeout', 'authService', 'gameService', 'mobService', function ($scope, $rootScope, $location, $routeParams, $timeout, authService, gameService, mobService) {
+app.controller('HomeController', ['$scope', '$rootScope', '$location', '$routeParams', '$timeout', 'authService', 'gameService', 'roundService', function ($scope, $rootScope, $location, $routeParams, $timeout, authService, gameService, roundService) {
     $scope.reset = function() {
         $scope.authentication = authService.authentication;
     }
@@ -18,7 +18,8 @@ app.controller('HomeController', ['$scope', '$rootScope', '$location', '$routePa
         if ($scope.gameRoom) {
             $location.search('game', $scope.gameRoom.id);
         }
-        $scope.mobs = mobService.getMobs();
+
+        $scope.round = roundService.getRound();
     });
 
 }]);

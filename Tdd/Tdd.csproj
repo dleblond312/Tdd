@@ -266,19 +266,26 @@
     <Content Include="Client\Controllers\loginController.js" />
     <Content Include="Client\Controllers\registerController.js" />
     <Content Include="Client\Controllers\testController.js" />
+    <Content Include="Client\Directives\gameAreaDirective.js" />
+    <Content Include="Client\Directives\gameAreaMobDirective.js" />
     <Content Include="Client\Interceptors\authInterceptor.js" />
     <Content Include="Client\Interceptors\errorInterceptor.js" />
     <Content Include="Client\Services\authService.js" />
     <Content Include="Client\Services\gameService.js" />
-    <Content Include="Client\Services\mobService.js" />
+    <Content Include="Client\Services\roundService.js" />
     <Content Include="Client\Services\socketService.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.min.css">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Site.css" />
     <Content Include="global.asax" />
     <Content Include="Partial\Account\Login.html" />
+    <Content Include="Partial\Directives\GameArea.html" />
+    <Content Include="Partial\Directives\GameAreaMob.html" />
     <Content Include="Partial\Home.html" />
     <Content Include="Partial\Account\Register.html" />
     <Content Include="Partial\Test.html" />
@@ -1104,6 +1111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Client\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -16,8 +16,6 @@ namespace Tdd.Models
 
         public Point EndingLocation { get; set; }
 
-        public int CurrentSpeed { get; set; }
-
         public DateTime LastUpdated { get; set; }
 
     }
