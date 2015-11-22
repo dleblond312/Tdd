@@ -268,6 +268,7 @@
     <Content Include="Client\Controllers\testController.js" />
     <Content Include="Client\Directives\gameAreaDirective.js" />
     <Content Include="Client\Directives\gameAreaMobDirective.js" />
+    <Content Include="Client\Directives\miniMapDirective.js" />
     <Content Include="Client\Interceptors\authInterceptor.js" />
     <Content Include="Client\Interceptors\errorInterceptor.js" />
     <Content Include="Client\Services\authService.js" />
@@ -284,8 +285,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="global.asax" />
     <Content Include="Partial\Account\Login.html" />
+    <Content Include="Partial\CommandCard.html" />
     <Content Include="Partial\Directives\GameArea.html" />
     <Content Include="Partial\Directives\GameAreaMob.html" />
+    <Content Include="Partial\Directives\MiniMap.html" />
     <Content Include="Partial\Home.html" />
     <Content Include="Partial\Account\Register.html" />
     <Content Include="Partial\Test.html" />

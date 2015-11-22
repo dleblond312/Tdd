@@ -5,10 +5,42 @@
   position: relative;
 }
 .game-area .mob {
-  background: green;
-  color: red;
-  z-index: 999;
+  background: red;
+  color: green;
+  z-index: 100;
   position: absolute;
   width: 30px;
   height: 30px;
+}
+.command-card {
+  height: 250px;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: white;
+  z-index: 900;
+}
+.command-card div {
+  display: inline-block;
+}
+.command-card .mini-map,
+.command-card .command-details,
+.command-card .command-actions {
+  border: thin solid blue;
+  height: 100%;
+  width: 30%;
+  position: absolute;
+  left: 0;
+}
+.command-card .mini-map #mini-map-canvas {
+  width: 100%;
+  height: 100%;
+}
+.command-card .command-details {
+  left: 30%;
+}
+.command-card .command-actions {
+  width: 40%;
+  left: 60%;
 }

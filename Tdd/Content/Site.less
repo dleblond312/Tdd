@@ -10,11 +10,52 @@
     position: relative;
 
     .mob {
-        background: green;
-        color: red;
-        z-index: 999;
+        background: red;
+        color: green;
+        z-index: 100;
         position: absolute;
         width: 30px;
         height: 30px;
+    }
+}
+
+.command-card {
+    @command-card-border-color: blue;
+    @command-card-border: thin solid @command-card-border-color;
+
+    height: 250px;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 900;
+
+    div {
+        display: inline-block;
+    }
+
+    .mini-map, .command-details, .command-actions {
+        border: @command-card-border;
+        height: 100%;
+        width: 30%;
+        position: absolute;
+        left: 0;
+    }
+
+    .mini-map {
+        #mini-map-canvas {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .command-details {
+        left: 30%;
+    }
+
+    .command-actions {
+        width: 40%;
+        left: 60%;
     }
 }
