@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -24,6 +25,29 @@ namespace Tdd.Models
             var dy = p1.Y - p2.Y;
 
             return (dx * dx + dy * dy) < distance * distance;
+        }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            Point p = obj as Point;
+            return p.X == this.X && p.Y == this.Y;
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return  (int) (Math.Pow(this.X, 2) + this.Y);
+        }
+
+        public override string ToString()
+        {
+            return string.Format(CultureInfo.InvariantCulture, "<{0}, {1}>", this.X, this.Y);
         }
     }
 }

@@ -6,7 +6,8 @@
     }
 
     this.joinGame = function (roomId) {
-        socketService.send('joinGame', roomId)
+        gameRoom.id = roomId;
+        socketService.send('joinGame', gameRoom.id);
     }
 
     this.startRound = function () {
@@ -15,6 +16,10 @@
 
     this.getGame = function () {
         return gameRoom;
+    }
+
+    this.buildTower = function (towerId, x, y) {
+        socketService.buildTower(gameRoom.id, towerId + "", x , y);
     }
 
     $rootScope.$on("propertyUpdated", function (event, model) {

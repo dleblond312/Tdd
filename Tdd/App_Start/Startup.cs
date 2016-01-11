@@ -43,7 +43,7 @@ namespace Tdd.App_Start
             var serializer = JsonSerializer.Create(settings);
             GlobalHost.DependencyResolver.Register(typeof(JsonSerializer), () => serializer);
 
-            GlobalHost.DependencyResolver.Register(typeof(GameHub), () => new GameHub(container.Resolve<GameService>()));
+            GlobalHost.DependencyResolver.Register(typeof(GameHub), () => new GameHub(container.Resolve<GameService>(), container.Resolve<ChatService>()));
             app.MapSignalR();
 
             this.ConfigureOAuth(app);
@@ -86,7 +86,7 @@ namespace Tdd.App_Start
 
         private GameHub CreateGameHub(IUnityContainer container)
         {
-            var gameHub = new GameHub(container.Resolve<IGameService>());
+            var gameHub = new GameHub(container.Resolve<IGameService>(), container.Resolve<IChatService>());
             return gameHub;
         }
     }

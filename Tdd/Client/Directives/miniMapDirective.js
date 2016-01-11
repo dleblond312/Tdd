@@ -11,8 +11,10 @@
                     var context = canvas.getContext('2d');
                     context.clearRect(0, 0, canvas.width, canvas.height);
                     context.fillStyle = '#FF0000';
-                    for (var i = 0; i < scope.gameRound.mobs.length; i++) {
-                        context.fillRect(scope.gameRound.mobs[i].currentLocation.x, scope.gameRound.mobs[i].currentLocation.y, 1, 1);
+                    if (scope.gameRound.mobs) {
+                        for (var i = 0; i < scope.gameRound.mobs.length; i++) {
+                            context.fillRect(scope.gameRound.mobs[i].currentLocation.x, scope.gameRound.mobs[i].currentLocation.y, 1, 1);
+                        }
                     }
                 }
             });

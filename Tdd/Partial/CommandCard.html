@@ -1,11 +1,13 @@
-﻿<div class="command-card">
+﻿<div class="command-card" ng-controller="CommandCardController">
     <div class="mini-map" mini-map>
 
     </div>
     <div class="command-details">
-
+        <div ng-repeat="tower in towers track by $index" >
+            <div menu-action action-text="Build {{tower.text}}" action-type="buildTower" action-value="{{tower.id}}"></div>
+        </div>
     </div>
     <div class="command-actions">
-
+        <div chat-area></div>
     </div>
 </div>

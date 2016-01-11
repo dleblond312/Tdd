@@ -5,8 +5,12 @@
 
     var _authentication = {
         isAuth: false,
-        userName: ""
+        userName: "Player-" + Number.parseInt(Math.random() * 1000)
     };
+
+    var _getUser = function () {
+        return _authentication.userName;
+    }
 
     var _saveRegistration = function (registration) {
 
@@ -68,6 +72,7 @@
     authServiceFactory.logOut = _logOut;
     authServiceFactory.fillAuthData = _fillAuthData;
     authServiceFactory.authentication = _authentication;
+    authServiceFactory.getUser = _getUser;
 
     return authServiceFactory;
 }]);

@@ -16,9 +16,12 @@ namespace Tdd.Controllers
     public class GameHub : Hub
     {
         private readonly IGameService gameService;
-        public GameHub(IGameService gameService)
+        private readonly IChatService chatService;
+
+        public GameHub(IGameService gameService, IChatService chatService)
         {
             this.gameService = gameService;
+            this.chatService = chatService;
         }
         //// Call the broadcastMessage method to update clients.
         //Clients.All.broadcastMessage(name, message);
@@ -42,7 +45,22 @@ namespace Tdd.Controllers
                     Clients.Client(this.Context.ConnectionId).warn("unknownCommand", name);
                     break;
             }
+        }
 
+        public async Task ChatMessageSend(string roomId, string message)
+        {
+            if(await this.gameService.IsValidGameRoomUser(this.Context, roomId))
+            {
+                await this.chatService.ChatMessageReceived(this.Context, roomId, message);
+            }
+        }
+
+        public async Task BuildTower(string roomId, string towerId, int x, int y)
+        {
+            if(await this.gameService.IsValidGameRoomUser(this.Context, roomId))
+            {
+                await this.gameService.BuildTower(this.Context, roomId, towerId, x, y);
+            }
         }
     }
 }

@@ -16,6 +16,12 @@
         })
     }
 
+    game.client.chatMessageReceived = function (model) {
+        $rootScope.$apply(function () {
+            $rootScope.$broadcast('chatMessageReceived', JSON.parse(model));
+        });
+    }
+
     game.client.warn = function (id, model) {
         console.warn('Received warning', id, model);
     }
@@ -28,6 +34,14 @@
         $.connection.hub.start().done(function () {
             game.server.send(name, message);
         });
+    }
+
+    this.chatMessageSend = function (id, message) {
+        game.server.chatMessageSend(id, message);
+    }
+
+    this.buildTower = function (gameRoomId, towerId, x, y) {
+        game.server.buildTower(gameRoomId, towerId, x, y);
     }
 
 

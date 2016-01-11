@@ -18,6 +18,8 @@ namespace Tdd.Models
 
         public DateTime CurrentRoundStartTime { get; set; }
 
+        public IList<Tower> Towers { get; set; }
+
         public GameRoom(HubCallerContext context)
         {
             this.Id = (new Random()).Next(1000); ;
@@ -26,6 +28,7 @@ namespace Tdd.Models
                 new Player(context)
             };
             this.CurrentRound = 0;
+            this.Towers = new List<Tower>();
         }
     }
 }

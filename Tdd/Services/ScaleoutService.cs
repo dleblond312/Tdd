@@ -32,15 +32,7 @@ namespace Tdd.Services
         public void Store(Persist type, object id, object o)
         {
             HttpRuntime.Cache.Add(this.GetKey(type, id), o, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(60), System.Web.Caching.CacheItemPriority.Normal, null);
-
-            if(subscriptions.ContainsKey(this.GetKey(type, id)))
-            {
-                var context = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
-                foreach(var clientContext in subscriptions[this.GetKey(type, id)])
-                {
-                    context.Clients.Client(clientContext.ConnectionId).propertyUpdated(this.GetKey(type, id), o);
-                }
-            }
+            this.Notify(type, id, o);
         }
 
         public async Task<object> Get(Persist type, object id)
@@ -56,6 +48,18 @@ namespace Tdd.Services
         private string GetKey(Persist type, object name)
         {
             return type.ToString() + "-" + name.ToString();
+        }
+
+        public void Notify(Persist type, object id, object o)
+        {
+            if (subscriptions.ContainsKey(this.GetKey(type, id)))
+            {
+                var context = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
+                foreach (var clientContext in subscriptions[this.GetKey(type, id)])
+                {
+                    context.Clients.Client(clientContext.ConnectionId).propertyUpdated(this.GetKey(type, id), o);
+                }
+            }
         }
     }
 }

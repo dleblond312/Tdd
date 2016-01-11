@@ -1,5 +1,11 @@
-﻿<div class="game-area">
+﻿<div class="game-area" ng-mousemove="updateMouseMove($event)" ng-click="performAction($event)">
     <div ng-repeat="mob in gameRound.mobs track by $index">
         <div game-area-mob="mob"></div>
+    </div>
+    <div ng-repeat="tower in gameRoom.towers track by $index">
+        <div game-tower="tower"></div>
+    </div>
+    <div class="selected-action" ng-style="{'background-color': selectedStyles.color, 'position': 'absolute', 'top': selectedStyles.y, 'left': selectedStyles.x, 'width': selectedStyles.width, 'height': selectedStyles.height}" ng-cloak>
+
     </div>
 </div>
