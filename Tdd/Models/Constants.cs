@@ -54,14 +54,22 @@ namespace Tdd.Models
                 Id = 1,
                 Text = "Simple Tower",
                 Damage = 10,
-                Speed = 100
+                Speed = 100,
+                Cost = new Cost()
+                {
+                    Primary = 25
+                }
             },
             new TowerType()
             {
                 Id = 2,
                 Text = "Slow Tower",
                 Damage = 20,
-                Speed = 175
+                Speed = 175,
+                Cost = new Cost()
+                {
+                    Primary = 35
+                }
             }
         };
     }

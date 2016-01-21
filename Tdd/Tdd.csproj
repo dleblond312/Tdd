@@ -246,6 +246,7 @@
     <Compile Include="Models\AuthRepository.cs" />
     <Compile Include="Models\BuildTowerCommand.cs" />
     <Compile Include="Models\ChatMessage.cs" />
+    <Compile Include="Models\Cost.cs" />
     <Compile Include="Models\Persist.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\GameRoom.cs" />

@@ -100,15 +100,24 @@ namespace Tdd.Services
                 var existingTower = gameRoom.Towers.Where(t => t.Location == location).Any();
                 if(existingTower)
                 {
-                    throw new HttpException(401, "Existing tower conflicts with build location");
+                    throw new HttpException(400, "Existing tower conflicts with build location");
+                }
+                
+                var currentPlayer = gameRoom.Players.Where(p => p.Context.ConnectionId == context.ConnectionId).First();
+                var towerToBuild = Constants.TowerTypes.Where(t => t.Id == int.Parse(towerId)).First();
+                if(currentPlayer.Resources.CanAfford(towerToBuild.Cost))
+                {
+                    if(currentPlayer.Resources.Subtract(towerToBuild.Cost))
+                    {
+                        gameRoom.Towers.Add(new Tower()
+                        {
+                            Owner = context.ConnectionId,
+                            Location = location,
+                            Id = towerId
+                        });
+                    }
                 }
 
-                gameRoom.Towers.Add(new Tower()
-                {
-                    Owner = context.ConnectionId,
-                    Location = location,
-                    Id = towerId
-                });
                 this.scaleoutService.Notify(Persist.GameRoom, gameRoom.Id, gameRoom);
             }
         }

@@ -15,5 +15,7 @@ namespace Tdd.Models
         public int Damage { get; set; }
 
         public int Speed { get; set; }
+
+        public Cost Cost { get; set; }
     }
 }
