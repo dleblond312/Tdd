@@ -18,7 +18,7 @@ namespace Tdd.Models
             this.StartingLocation = Constants.StartingLocations[0];
             this.EndingLocation = Constants.EndingLocations[0];
             this.CurrentLife = Constants.StartingLife;
-            this.Resources = Constants.StartingResources;
+            this.Resources = JsonConvert.DeserializeObject<Resources>(JsonConvert.SerializeObject(Constants.StartingResources));
         }
 
         [JsonIgnore]

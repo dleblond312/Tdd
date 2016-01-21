@@ -24,6 +24,14 @@ app.controller('HomeController', ['$scope', '$rootScope', '$location', '$routePa
         }
     }
 
+    $scope.startRound = function () {
+        gameService.startRound();
+    }
+
+    $scope.canStartRound = function () {
+        return $scope.gameRoom && $scope.round && !$scope.round.mobs && !$scope.round.remainingMobs;
+    }
+
     $scope.$on('propertyUpdated', function (event, model) {
         $scope.gameRoom = gameService.getGame();
         if ($scope.gameRoom) {

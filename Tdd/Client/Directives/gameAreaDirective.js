@@ -3,6 +3,7 @@
         scope: {},
         templateUrl: '/Partial/Directives/GameArea.html',
         link: function (scope, element, attrs) {
+            scope.gameRoom = gameService.getGame();
             scope.selectedBuild = null;
 
             scope.$on('propertyUpdated', function (event, model) {
