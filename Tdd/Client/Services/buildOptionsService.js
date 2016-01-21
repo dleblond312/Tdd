@@ -1,17 +1,7 @@
-﻿app.service('buildOptionsService', [function () {
-    towers = [
-        {
-            id: 1,
-            text: 'Simple Tower',
-            damage: 10,
-            speed: 100
-        }, {
-            id: 2,
-            text: 'Slow Tower',
-            damage: 20,
-            speed: 175
-        }
-    ]
+﻿app.service('buildOptionsService', ['gameDataService', function (gameDataService) {
+    gameDataService.getTowerTypes().then(function (success) {
+        towers = success.data;
+    });
     this.getAllTowers = function () {
         return towers;
     }

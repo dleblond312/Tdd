@@ -40,5 +40,29 @@ namespace Tdd.Models
         public static readonly int RoundPauseMs = 1000;
         public static readonly int RoundUpdateMs = 10;
         public static readonly int GameSpeed = 50;
+
+        public static readonly Resources StartingResources = new Resources()
+        {
+            Primary = 100,
+            Income = 10
+        };
+
+        public static readonly IList<TowerType> TowerTypes = new List<TowerType>()
+        {
+            new TowerType()
+            {
+                Id = 1,
+                Text = "Simple Tower",
+                Damage = 10,
+                Speed = 100
+            },
+            new TowerType()
+            {
+                Id = 2,
+                Text = "Slow Tower",
+                Damage = 20,
+                Speed = 175
+            }
+        };
     }
 }

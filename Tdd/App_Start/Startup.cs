@@ -42,6 +42,11 @@ namespace Tdd.App_Start
             settings.ContractResolver = new SignalRContractResolver();
             var serializer = JsonSerializer.Create(settings);
             GlobalHost.DependencyResolver.Register(typeof(JsonSerializer), () => serializer);
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
 
             GlobalHost.DependencyResolver.Register(typeof(GameHub), () => new GameHub(container.Resolve<GameService>(), container.Resolve<ChatService>()));
             app.MapSignalR();

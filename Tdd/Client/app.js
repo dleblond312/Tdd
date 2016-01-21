@@ -19,6 +19,8 @@ app.config(['$routeProvider', '$locationProvider',
         templateUrl: '/Partial/Test.html',
         controller: 'HomeController',
         reloadOnSearch: false
+    }).when('/new', {
+        redirectTo: '/'
     }).when('/', {
         templateUrl: '/Partial/Home.html',
         controller: 'HomeController',

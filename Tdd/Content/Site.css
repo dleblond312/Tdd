@@ -1,8 +1,13 @@
-﻿.game-area {
+﻿body {
+  padding-top: 70px;
+  background-color: #333333;
+}
+.game-area {
   background: grey;
   width: 1000px;
   height: 1000px;
   position: relative;
+  margin-bottom: 250px;
 }
 .game-area .mob {
   background: red;
@@ -43,4 +48,14 @@
 .command-card .command-actions {
   width: 40%;
   left: 60%;
+}
+.chat-area .chat-messages {
+  width: 100%;
+  z-index: 90;
+}
+.chat-area .chat-input {
+  width: 100%;
+  z-index: 99;
+  position: absolute;
+  bottom: 0;
 }

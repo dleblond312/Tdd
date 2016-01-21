@@ -1,16 +1,30 @@
-﻿<div>
-    <label>Current Round:</label>
-    {{gameRoom.currentRound}}
-    
-    <span ng-repeat="player in gameRoom.players track by $index">
-        <label>{{player.user.username || "Player " + ($index+1) }}</label>
-        <label>Current Life:</label> {{player.currentLife}}
-    </span>
+﻿<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/new">Tower Defense</a>
+            <ul class="nav navbar-nav">
+                <li><a href ng-click="createGame()" ng-if="!gameRoom">Create New Game</a></li>
+                <li><a href ng-click="joinGame()" ng-if="!gameRoom">Join a game</a></li>
+                <li><a href ng-click="startRound()" ng-if="canStartRound()">Start Round!</a></li>
+            </ul>
+        </div>
+
+        <div ng-if="gameRoom">
+            <p class="navbar-text"><strong>Current Round:</strong> {{gameRoom.currentRound}}</p>
+
+            <p class="navbar-text" ng-repeat="player in gameRoom.players track by $index">
+                <strong>{{player.user.username || "Player " + ($index+1) }}</strong>
+                <label>Current Life:</label> {{player.currentLife}}
+                <label>Resources: {{player.resources.primary}}</label>
+                <label>Income: {{player.resources.income}}</label>
+            </p>
+        </div>
+    </div>
 </div>
+<div ng-if="gameRoom">
+    <div game-area="gameRoom" game-round="gameRound">
 
+    </div>
 
-<div game-area="gameRoom" game-round="gameRound">
-
+    <div ng-include="'/Partial/CommandCard.html'"></div>
 </div>
-
-<div ng-include="'/Partial/CommandCard.html'"></div>

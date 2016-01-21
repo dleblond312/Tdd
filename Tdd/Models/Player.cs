@@ -18,6 +18,7 @@ namespace Tdd.Models
             this.StartingLocation = Constants.StartingLocations[0];
             this.EndingLocation = Constants.EndingLocations[0];
             this.CurrentLife = Constants.StartingLife;
+            this.Resources = Constants.StartingResources;
         }
 
         [JsonIgnore]
@@ -28,5 +29,7 @@ namespace Tdd.Models
         public Point StartingLocation { get; set; }
 
         public Point EndingLocation { get; set; }
+
+        public Resources Resources { get; set; }
     }
 }
