@@ -12,6 +12,8 @@ namespace Tdd.Models
     {
         public int Id { get; set; }
 
+        public int MapSize { get; set; }
+
         public IList<Player> Players { get; set; }
 
         public int CurrentRound { get; set; }
@@ -19,6 +21,8 @@ namespace Tdd.Models
         public DateTime CurrentRoundStartTime { get; set; }
 
         public IList<Tower> Towers { get; set; }
+
+        public IList<Point> Map { get; set; }
 
         public GameRoom(HubCallerContext context)
         {
@@ -29,6 +33,8 @@ namespace Tdd.Models
             };
             this.CurrentRound = 0;
             this.Towers = new List<Tower>();
+            this.Map = Constants.Map;
+            this.MapSize = Constants.MapSize;
         }
     }
 }

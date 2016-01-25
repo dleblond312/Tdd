@@ -3,12 +3,59 @@
         scope: {},
         templateUrl: '/Partial/Directives/GameArea.html',
         link: function (scope, element, attrs) {
-            scope.gameRoom = gameService.getGame();
-            scope.selectedBuild = null;
+            scope.gameRatio = CONSTANTS.GAME_RATIO;
 
-            scope.$on('propertyUpdated', function (event, model) {
+            function updateReceived() {
                 scope.gameRoom = gameService.getGame();
                 scope.gameRound = roundService.getRound();
+
+                rebuildMap();
+            }
+
+            function rebuildMap() {
+                var canvas = element.find('#map-background')[0];
+                $(canvas).attr('width', scope.gameRoom.mapSize * scope.gameRatio);
+                $(canvas).attr('height', scope.gameRoom.mapSize * scope.gameRatio);
+
+                if (canvas) {
+                    var context = canvas.getContext('2d');
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    context.fillStyle = '#00FF00';
+                    context.beginPath();
+                    context.moveTo(scope.gameRoom.map[0].x * scope.gameRatio, scope.gameRoom.map[0].y * scope.gameRatio);
+                    for (var i = 1; i < scope.gameRoom.map.length; i++) {
+                        context.lineTo(scope.gameRoom.map[i].x * scope.gameRatio, scope.gameRoom.map[i].y * scope.gameRatio);
+                    }
+                    context.closePath();
+                    context.fill();
+                }
+            }
+
+            updateReceived();
+
+            scope.updateMouseMove = function (event) {
+                if (scope.selectedBuild && event.target === event.currentTarget && event.offsetX && event.offsetY) {
+                    scope.selectedStyles.x = (parseInt(event.offsetX / scope.gameRatio) * scope.gameRatio) + 'px';
+                    scope.selectedStyles.y = (parseInt(event.offsetY / scope.gameRatio) * scope.gameRatio) + 'px';
+                }
+            }
+
+            scope.performAction = function (event) {
+                if (scope.selectedBuild && scope.selectedStyles) {
+                    gameService.buildTower(scope.selectedBuild.id, parseInt(scope.selectedStyles.x) / scope.gameRatio, parseInt(scope.selectedStyles.y) / scope.gameRatio);
+                    
+                    // Shift lets you place more towers
+                    if (!event.shiftKey) {
+                        scope.selectedBuild = null;
+                        scope.selectedStyles = {
+                            display: 'none'
+                        }
+                    }
+                }
+            }
+
+            scope.$on('propertyUpdated', function (event, model) {
+                updateReceived();
             });
 
             scope.$on('menuAction', function (event, model) {
@@ -22,8 +69,8 @@
                     } else {
                         scope.selectedBuild = tower;
                         scope.selectedStyles = {
-                            width: CONSTANTS.GAME_GRID,
-                            height: CONSTANTS.GAME_GRID,
+                            width: scope.gameRatio,
+                            height: scope.gameRatio,
                             color: 'RED',
                             display: 'block'
                         }
@@ -31,26 +78,6 @@
                 }
             });
 
-            scope.updateMouseMove = function (event) {
-                if (scope.selectedBuild && event.target === event.currentTarget && event.offsetX && event.offsetY) {
-                    scope.selectedStyles.x = (parseInt(event.offsetX / CONSTANTS.GAME_GRID) * CONSTANTS.GAME_GRID) + 'px';
-                    scope.selectedStyles.y = (parseInt(event.offsetY / CONSTANTS.GAME_GRID) * CONSTANTS.GAME_GRID) + 'px';
-                }
-            }
-
-            scope.performAction = function (event) {
-                if (scope.selectedBuild && scope.selectedStyles) {
-                    gameService.buildTower(scope.selectedBuild.id, parseInt(scope.selectedStyles.x), parseInt(scope.selectedStyles.y));
-                    
-                    // Shift lets you place more towers
-                    if (!event.shiftKey) {
-                        scope.selectedBuild = null;
-                        scope.selectedStyles = {
-                            display: 'none'
-                        }
-                    }
-                }
-            }
         }
     }
 }]);

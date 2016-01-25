@@ -9,7 +9,9 @@ app.directive('gameAreaMob', ['CONSTANTS', 'gameService', 'roundService', functi
             scope.$on('propertyUpdated', function (event, model) {
                 scope.style = {
                     xValue: CONSTANTS.GAME_RATIO * scope.gameAreaMob.currentLocation.x + 'px',
-                    yValue: CONSTANTS.GAME_RATIO * scope.gameAreaMob.currentLocation.y + 'px'
+                    yValue: CONSTANTS.GAME_RATIO * scope.gameAreaMob.currentLocation.y + 'px',
+                    width: CONSTANTS.GAME_RATIO,
+                    height: CONSTANTS.GAME_RATIO
                 }
             });
         }

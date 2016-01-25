@@ -1,8 +1,7 @@
 var app = angular.module('tdd', ['ngRoute', 'ngCookies']);
 
 app.constant('CONSTANTS', {
-    GAME_RATIO: 3,
-    GAME_GRID: 45
+    GAME_RATIO: 10
 });
 
 app.config(['$routeProvider', '$locationProvider',

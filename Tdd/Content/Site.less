@@ -5,11 +5,16 @@
 
 
 .game-area {
-    background: grey;
-    width: 1000px;
-    height: 1000px;
-    position: relative;
     margin-bottom: 250px;
+    position: relative;
+    height: 1000px;
+
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
 
     .mob {
         background: red;
@@ -18,7 +23,13 @@
         position: absolute;
         width: 30px;
         height: 30px;
+        z-index: 2;
     }
+
+    .tower {
+        z-index: 1;
+    }
+
 }
 
 .command-card {

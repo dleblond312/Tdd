@@ -8,7 +8,8 @@ namespace Tdd.Models
 {
     public class Constants
     {
-        public static readonly int MapSize = 500;
+        public static readonly int MapSize = 75;
+        public static readonly int MapThird = MapSize / 3;
         public static readonly int StartingLife = 30;
 
         public static readonly List<Point> StartingLocations = new List<Point>()
@@ -25,6 +26,23 @@ namespace Tdd.Models
             new Point(0, Constants.MapSize/2),
             new Point(Constants.MapSize/2,0),
             new Point(Constants.MapSize, Constants.MapSize/2),
+        };
+
+        public static IList<Point> Map = new List<Point>()
+        {
+            new Point(0, MapThird),
+            new Point(MapThird, MapThird),
+            new Point(MapThird, 0),
+            new Point(MapThird * 2, 0),
+            new Point(MapThird * 2, MapThird),
+            new Point(MapSize, MapThird),
+            new Point(MapSize, MapThird * 2),
+            new Point(MapThird * 2, MapThird * 2),
+            new Point(MapThird * 2, MapSize),
+            new Point(MapThird, MapSize),
+            new Point(MapThird, MapThird * 2),
+            new Point(0, MapThird * 2),
+            new Point(0, MapThird)
         };
 
         public static readonly List<MobType> MobTypes = new List<MobType>()
