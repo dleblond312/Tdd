@@ -54,14 +54,14 @@ namespace Tdd.Models
             }
         };
 
-        public static readonly int RoundSize = 10;
+        public static readonly int RoundSize = 1;
         public static readonly int RoundPauseMs = 1000;
         public static readonly int RoundUpdateMs = 10;
-        public static readonly int GameSpeed = 50;
+        public static readonly int GameSpeed = 200;
 
         public static readonly Resources StartingResources = new Resources()
         {
-            Primary = 100,
+            Primary = 10000,
             Income = 10
         };
 

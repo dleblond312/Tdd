@@ -22,6 +22,7 @@ namespace Tdd.Controllers
         {
             this.gameService = gameService;
             this.chatService = chatService;
+            
         }
         //// Call the broadcastMessage method to update clients.
         //Clients.All.broadcastMessage(name, message);

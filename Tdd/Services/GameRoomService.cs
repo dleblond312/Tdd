@@ -12,10 +12,12 @@ namespace Tdd.Services
     public class GameRoundService : IGameRoundService
     {
         private readonly IScaleoutService scaleoutService;
+        private readonly IPathingService pathingService;
 
-        public GameRoundService(IScaleoutService scaleoutService)
+        public GameRoundService(IScaleoutService scaleoutService, IPathingService pathingService)
         {
             this.scaleoutService = scaleoutService;
+            this.pathingService = pathingService;
         }
 
         public async Task<bool> ProcessRoundAsync(string roomId)
@@ -77,39 +79,66 @@ namespace Tdd.Services
 
                                     if (span.Milliseconds > 0)
                                     {
-                                        if (mob.CurrentLocation.X == mob.EndingLocation.X)
+                                        var path = this.pathingService.FindPath<GamePoint>(new GamePoint(room, mob.CurrentLocation), new GamePoint(room, mob.EndingLocation), (p1, p2) =>
                                         {
-                                            x = mob.CurrentLocation.X;
-                                        }
-                                        else if (mob.CurrentLocation.X < mob.EndingLocation.X)
+                                            // Euclidian Squared heuristic
+                                            var dx = p1.X - p2.X;
+                                            var dy = p1.Y - p2.Y;
+                                            return dx * dx + dy * dy;
+                                        }, (p) =>
                                         {
-                                            x = (int)Math.Min(mob.CurrentLocation.X + (span.TotalMilliseconds / Constants.GameSpeed), mob.EndingLocation.X);
-                                        }
-                                        else
+                                            // Euclidian squared heuristic estimate
+                                            var dx = p.X - mob.EndingLocation.X;
+                                            var dy = p.Y - mob.EndingLocation.Y;
+                                            return dx * dx + dy * dy;
+                                        });
+
+                                        var next = path.Reverse().Skip(2).FirstOrDefault();
+
+                                        if(next != null)
                                         {
-                                            x = (int)Math.Max(mob.CurrentLocation.X - (span.TotalMilliseconds / Constants.GameSpeed), mob.EndingLocation.X);
+
+                                            //var vector = new Point(next.X - mob.CurrentLocation.X, next.Y - mob.CurrentLocation.Y);
+                                            //mob.CurrentLocation = new Point(
+                                            //    mob.CurrentLocation.X + (vector.X * (span.TotalMilliseconds / Constants.GameSpeed)),
+                                            //    mob.CurrentLocation.Y + (vector.Y * (span.TotalMilliseconds / Constants.GameSpeed))
+                                            //);
+
+                                            if (mob.CurrentLocation.X == next.X)
+                                            {
+                                                x = mob.CurrentLocation.X;
+                                            }
+                                            else if (mob.CurrentLocation.X < next.X)
+                                            {
+                                                x = Math.Min(mob.CurrentLocation.X + (span.TotalMilliseconds / Constants.GameSpeed), next.X);
+                                            }
+                                            else
+                                            {
+                                                x = Math.Max(mob.CurrentLocation.X - (span.TotalMilliseconds / Constants.GameSpeed), next.X);
+                                            }
+
+                                            if (mob.CurrentLocation.Y == next.Y)
+                                            {
+                                                y = mob.CurrentLocation.Y;
+                                            }
+                                            else if (mob.CurrentLocation.Y < next.Y)
+                                            {
+                                                y = Math.Min(mob.CurrentLocation.Y + (span.TotalMilliseconds / Constants.GameSpeed), next.Y);
+                                            }
+                                            else
+                                            {
+                                                y = Math.Max(mob.CurrentLocation.Y - (span.TotalMilliseconds / Constants.GameSpeed), next.Y);
+                                            }
+
+                                            mob.CurrentLocation = new Point(x, y);
                                         }
 
-                                        if (mob.CurrentLocation.Y == mob.EndingLocation.Y)
-                                        {
-                                            y = mob.CurrentLocation.Y;
-                                        }
-                                        else if (mob.CurrentLocation.Y < mob.EndingLocation.Y)
-                                        {
-                                            y = Math.Min(mob.CurrentLocation.Y + (span.TotalMilliseconds / Constants.GameSpeed), mob.EndingLocation.Y);
-                                        }
-                                        else
-                                        {
-                                            y = Math.Max(mob.CurrentLocation.Y - (span.TotalMilliseconds / Constants.GameSpeed), mob.EndingLocation.Y);
-                                        }
-
-                                        mob.CurrentLocation = new Point(x, y);
                                         mob.LastUpdated = DateTime.UtcNow;
                                     }
                                 }
                                 this.scaleoutService.Store(Persist.GameRound, roomId, round);
                             }
-                            Thread.Sleep(10);
+                            Thread.Sleep(25);
                         }
 
                         await this.scaleoutService.Remove(Persist.GameRound, roomId);

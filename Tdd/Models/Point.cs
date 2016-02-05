@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using Tdd.Models.Pathing;
+using Tdd.Services;
 
 namespace Tdd.Models
 {
@@ -12,6 +16,7 @@ namespace Tdd.Models
         public double X { get; set; }
 
         public double Y { get; set; }
+
 
         public Point(double x, double y)
         {

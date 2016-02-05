@@ -49,7 +49,10 @@ namespace Tdd.App_Start
             };
 
             GlobalHost.DependencyResolver.Register(typeof(GameHub), () => new GameHub(container.Resolve<GameService>(), container.Resolve<ChatService>()));
-            app.MapSignalR();
+            app.MapSignalR(new HubConfiguration
+            {
+                EnableDetailedErrors = true
+            });
 
             this.ConfigureOAuth(app);
         }
