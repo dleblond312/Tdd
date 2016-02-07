@@ -98,12 +98,6 @@ namespace Tdd.Services
                                         if(next != null)
                                         {
 
-                                            //var vector = new Point(next.X - mob.CurrentLocation.X, next.Y - mob.CurrentLocation.Y);
-                                            //mob.CurrentLocation = new Point(
-                                            //    mob.CurrentLocation.X + (vector.X * (span.TotalMilliseconds / Constants.GameSpeed)),
-                                            //    mob.CurrentLocation.Y + (vector.Y * (span.TotalMilliseconds / Constants.GameSpeed))
-                                            //);
-
                                             if (mob.CurrentLocation.X == next.X)
                                             {
                                                 x = mob.CurrentLocation.X;
@@ -136,6 +130,10 @@ namespace Tdd.Services
                                             }
 
                                             mob.CurrentLocation = new Point(x, y);
+                                        }
+                                        else
+                                        {
+                                            mob.CurrentLocation = new Point(mob.EndingLocation.X, mob.EndingLocation.Y);
                                         }
 
                                         mob.LastUpdated = DateTime.UtcNow;

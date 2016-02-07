@@ -29,7 +29,7 @@ app.controller('HomeController', ['$scope', '$rootScope', '$location', '$routePa
     }
 
     $scope.canStartRound = function () {
-        return $scope.gameRoom && $scope.round && !$scope.round.mobs && !$scope.round.remainingMobs;
+        return $scope.gameRoom && $scope.round && (!$scope.round.mobs || !$scope.round.mobs.length) && !$scope.round.remainingMobs;
     }
 
     $scope.$on('propertyUpdated', function (event, model) {

@@ -24,8 +24,6 @@ namespace Tdd.Controllers
             this.chatService = chatService;
             
         }
-        //// Call the broadcastMessage method to update clients.
-        //Clients.All.broadcastMessage(name, message);
 
         public async Task Send(string name, string message)
         {
