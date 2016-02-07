@@ -259,6 +259,7 @@
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Point.cs" />
     <Compile Include="Models\Pathing\PriorityQueue.cs" />
+    <Compile Include="Models\Projectile.cs" />
     <Compile Include="Models\Resources.cs" />
     <Compile Include="Models\TestingConstants.cs" />
     <Compile Include="Models\Tower.cs" />
@@ -272,10 +273,14 @@
     <Compile Include="Services\IGameRoundService.cs" />
     <Compile Include="Services\GameService.cs" />
     <Compile Include="Services\IGameService.cs" />
+    <Compile Include="Services\IMobMovementService.cs" />
     <Compile Include="Services\IPathingService.cs" />
     <Compile Include="Services\IScaleoutService.cs" />
+    <Compile Include="Services\ITowerProjectService.cs" />
+    <Compile Include="Services\MobMovementService.cs" />
     <Compile Include="Services\PathingService.cs" />
     <Compile Include="Services\ScaleoutService.cs" />
+    <Compile Include="Services\TowerProjectileService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Client\app.js" />

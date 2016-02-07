@@ -73,6 +73,8 @@ namespace Tdd.Models
                 Text = "Simple Tower",
                 Damage = 10,
                 Speed = 100,
+                ProjectileSpeed = 100,
+                Range = 12,
                 Cost = new Cost()
                 {
                     Primary = 25
@@ -84,6 +86,8 @@ namespace Tdd.Models
                 Text = "Slow Tower",
                 Damage = 20,
                 Speed = 175,
+                ProjectileSpeed = 100,
+                Range = 15,
                 Cost = new Cost()
                 {
                     Primary = 35

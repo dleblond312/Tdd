@@ -24,6 +24,12 @@ namespace Tdd.Models
             this.Y = y;
         }
 
+        public Point(Point p)
+        {
+            this.X = p.X;
+            this.Y = p.Y;
+        }
+
         public static bool isNear(Point p1, Point p2, double distance)
         {
             var dx = p1.X - p2.X;

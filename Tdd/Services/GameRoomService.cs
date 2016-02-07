@@ -13,11 +13,15 @@ namespace Tdd.Services
     {
         private readonly IScaleoutService scaleoutService;
         private readonly IPathingService pathingService;
+        private readonly IMobMovementService mobMovementService;
+        private readonly ITowerProjectileService towerProjectileService;
 
-        public GameRoundService(IScaleoutService scaleoutService, IPathingService pathingService)
+        public GameRoundService(IScaleoutService scaleoutService, IPathingService pathingService, IMobMovementService mobMovementService, ITowerProjectileService towerProjectileService)
         {
             this.scaleoutService = scaleoutService;
             this.pathingService = pathingService;
+            this.mobMovementService = mobMovementService;
+            this.towerProjectileService = towerProjectileService;
         }
 
         public async Task<bool> ProcessRoundAsync(string roomId)
@@ -50,7 +54,7 @@ namespace Tdd.Services
                         {
                             if (DateTime.UtcNow > endTime)
                             {
-                                return;
+                                return; // Prevents runaway threads
                             }
                             
                             round = await this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
@@ -59,85 +63,8 @@ namespace Tdd.Services
                             {
                                 foreach (var mob in round.Mobs.Reverse())
                                 {
-                                    double x;
-                                    double y;
-                                    var span = DateTime.UtcNow.Subtract(mob.LastUpdated);
-
-                                    if(Point.isNear(mob.CurrentLocation, mob.EndingLocation, 0.5))
-                                    {
-                                        foreach(var player in room.Players)
-                                        {
-                                            if(mob.EndingLocation.X == player.EndingLocation.X && mob.EndingLocation.Y == player.EndingLocation.Y)
-                                            {
-                                                player.CurrentLife -= 1;
-                                                round.Mobs.Remove(mob);
-                                                this.scaleoutService.Store(Persist.GameRoom, roomId, room);
-                                                break;
-                                            }
-                                        }
-                                    }
-
-                                    if (span.Milliseconds > 0)
-                                    {
-                                        var path = this.pathingService.FindPath<GamePoint>(new GamePoint(room, mob.CurrentLocation), new GamePoint(room, mob.EndingLocation), (p1, p2) =>
-                                        {
-                                            // Euclidian Squared heuristic
-                                            var dx = p1.X - p2.X;
-                                            var dy = p1.Y - p2.Y;
-                                            return dx * dx + dy * dy;
-                                        }, (p) =>
-                                        {
-                                            // Euclidian squared heuristic estimate
-                                            var dx = p.X - mob.EndingLocation.X;
-                                            var dy = p.Y - mob.EndingLocation.Y;
-                                            return dx * dx + dy * dy;
-                                        });
-
-                                        var next = path.Reverse().Skip(1).FirstOrDefault();
-
-                                        if(next != null)
-                                        {
-
-                                            if (mob.CurrentLocation.X == next.X)
-                                            {
-                                                x = mob.CurrentLocation.X;
-                                            }
-                                            else if (mob.CurrentLocation.X < next.X)
-                                            {
-                                                x = Math.Min(mob.CurrentLocation.X + (span.TotalMilliseconds / Constants.GameSpeed), next.X);
-                                            }
-                                            else
-                                            {
-                                                x = Math.Max(mob.CurrentLocation.X - (span.TotalMilliseconds / Constants.GameSpeed), next.X);
-                                            }
-
-                                            if(mob.CurrentLocation.Y >= 11 || next.Y >= 11)
-                                            {
-                                                Console.WriteLine("Too high");
-                                            }
-
-                                            if (mob.CurrentLocation.Y == next.Y)
-                                            {
-                                                y = mob.CurrentLocation.Y;
-                                            }
-                                            else if (mob.CurrentLocation.Y < next.Y)
-                                            {
-                                                y = Math.Min(mob.CurrentLocation.Y + (span.TotalMilliseconds / Constants.GameSpeed), next.Y);
-                                            }
-                                            else
-                                            {
-                                                y = Math.Max(mob.CurrentLocation.Y - (span.TotalMilliseconds / Constants.GameSpeed), next.Y);
-                                            }
-
-                                            mob.CurrentLocation = new Point(x, y);
-                                        }
-                                        else
-                                        {
-                                            mob.CurrentLocation = new Point(mob.EndingLocation.X, mob.EndingLocation.Y);
-                                        }
-
-                                        mob.LastUpdated = DateTime.UtcNow;
-                                    }
+                                    this.mobMovementService.RemoveMobsAtEnding(mob, room, round);
+                                    this.mobMovementService.UpdateMobLocation(mob, room, round);
                                 }
                                 this.scaleoutService.Store(Persist.GameRound, roomId, round);
                             }
@@ -176,6 +103,36 @@ namespace Tdd.Services
                         }
 
                         Thread.Sleep(Constants.RoundPauseMs);
+                    }
+                }).Start();
+
+                // Fire projectiles
+                new Thread(async () =>
+                {
+                    var startTime = DateTime.UtcNow;
+                    var endTime = startTime.AddMinutes(60);
+
+                    var round = await this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
+                    if (round != null)
+                    {
+
+                        while (round.Mobs.Count > 0 || round.RemainingMobs > 0)
+                        {
+                            if (DateTime.UtcNow > endTime)
+                            {
+                                return; // Prevents runaway threads
+                            }
+                            round = await this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
+                            GameRoom room = await this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
+
+                            this.towerProjectileService.UpdateProjectiles(room, round);
+
+                            lock(syncObj)
+                            {
+                                this.towerProjectileService.RemoveDeadMobs(room, round);
+                            }
+                            Thread.Sleep(25);
+                        }
                     }
                 }).Start();
 

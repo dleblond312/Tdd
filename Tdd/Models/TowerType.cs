@@ -16,6 +16,10 @@ namespace Tdd.Models
 
         public int Speed { get; set; }
 
+        public int ProjectileSpeed { get; set; }
+
+        public double Range { get; set; }
+
         public Cost Cost { get; set; }
     }
 }

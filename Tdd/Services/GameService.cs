@@ -110,12 +110,7 @@ namespace Tdd.Services
                 {
                     if(currentPlayer.Resources.Subtract(towerToBuild.Cost))
                     {
-                        gameRoom.Towers.Add(new Tower()
-                        {
-                            Owner = context.ConnectionId,
-                            Location = location,
-                            Id = towerId
-                        });
+                        gameRoom.Towers.Add(new Tower(towerToBuild, context.ConnectionId, location, towerId));
                     }
                 }
 

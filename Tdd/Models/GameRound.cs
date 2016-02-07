@@ -10,6 +10,8 @@ namespace Tdd.Models
     {
         public IList<Mob> Mobs {get; set;}
 
+        public IList<Projectile> Projectiles { get; set; }
+
         public int RemainingMobs { get; set; }
     }
 }

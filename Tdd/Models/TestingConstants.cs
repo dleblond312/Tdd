@@ -63,12 +63,9 @@ namespace Tdd.Models
     public class TestingTower : Tower
     {
         private static int TowerId = 0;
-        public TestingTower(int x, int y) : base()
+
+        public TestingTower(int x, int y) : base(Constants.TowerTypes[0], "Testing Tower", new Point(x, y), TowerId++.ToString())
         {
-            this.Location = new Point(x, y);
-            this.Id = TowerId++.ToString();
-            this.Owner = "Testing Tower";
-            this.Speed = 50;
         }
     }
 }

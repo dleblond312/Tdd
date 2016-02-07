@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -9,15 +10,32 @@ namespace Tdd.Models
     [Serializable]
     public class Tower
     {
-        public string Owner { get; set; }
+        public Tower(TowerType towerType, string owner, Point location, string id)
+        {
+            this.Speed = towerType.Speed;
+            this.ProjectileSpeed = towerType.ProjectileSpeed;
+            this.Range = towerType.Range;
+            this.Owner = owner;
+            this.Location = location;
+            this.Id = id;
+        }
 
-        public Point Location { get; set; }
+        public string Owner { get; private set; }
 
-        public string Id { get; set; }
+        public Point Location { get; private set; }
 
-        public int Speed { get; set; }
+        public string Id { get; private set; }
 
-        public int Damage { get; set; }
+        public int Speed { get; private set; }
+
+        public int Damage { get; private set; }
+
+        public double Range { get; private set; }
+
+        public int ProjectileSpeed { get; private set; }
+
+        [JsonIgnore]
+        public DateTime ReadyAt { get; set; }
 
         public override string ToString()
         {
