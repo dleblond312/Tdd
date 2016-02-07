@@ -29,29 +29,34 @@ namespace Tdd.Models
             {
                 var list = new List<GamePoint>();
 
-                var upPoint = new GamePoint(this.GameRoom, (int)X, (int)Y - 1);
-                var up = this.GameRoom.Towers.Where(x => x.Location == upPoint).Any();
+                if((int) X == 37 && (int) Y == 10)
+                {
+                    Console.WriteLine("No down neighbor");
+                }
+
+                var upPoint = new GamePoint(this.GameRoom, X, Y - 1);
+                var up = this.GameRoom.Towers.Where(t => Point.isNear(upPoint, t.Location, 0.5)).Any();
                 if(!up)
                 {
                     list.Add(new GamePoint(this.GameRoom, upPoint));
                 }
 
-                var leftPoint = new GamePoint(this.GameRoom, (int)X - 1, (int)Y);
-                var left = this.GameRoom.Towers.Where(x => x.Location == leftPoint).Any();
+                var leftPoint = new GamePoint(this.GameRoom, X - 1, Y);
+                var left = this.GameRoom.Towers.Where(t => Point.isNear(leftPoint, t.Location, 0.5)).Any();
                 if(!left)
                 {
                     list.Add(new GamePoint(this.GameRoom, leftPoint));
                 }
 
-                var rightPoint = new GamePoint(this.GameRoom, (int)X + 1, (int)Y);
-                var right = this.GameRoom.Towers.Where(x => x.Location == rightPoint).Any();
+                var rightPoint = new GamePoint(this.GameRoom, X + 1, Y);
+                var right = this.GameRoom.Towers.Where(t => Point.isNear(rightPoint, t.Location, 0.5)).Any();
                 if(!right)
                 {
                     list.Add(new GamePoint(this.GameRoom, rightPoint));
                 }
 
-                var downPoint = new GamePoint(this.GameRoom, (int)X, (int)Y+1);
-                var down = this.GameRoom.Towers.Where(x => Point.isNear(this, x.Location, 0.5)).Any();
+                var downPoint = new GamePoint(this.GameRoom, X, Y+1);
+                var down = this.GameRoom.Towers.Where(t => Point.isNear(downPoint, t.Location, 0.5)).Any();
                 if(!down)
                 {
                     list.Add(new GamePoint(this.GameRoom, downPoint));

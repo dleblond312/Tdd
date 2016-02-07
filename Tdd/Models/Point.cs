@@ -29,7 +29,7 @@ namespace Tdd.Models
             var dx = p1.X - p2.X;
             var dy = p1.Y - p2.Y;
 
-            return (dx * dx + dy * dy) < distance * distance;
+            return (dx * dx + dy * dy) <= distance * distance;
         }
 
         // override object.Equals

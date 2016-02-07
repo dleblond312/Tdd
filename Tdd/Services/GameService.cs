@@ -24,6 +24,7 @@ namespace Tdd.Services
         public async Task<GameRoom> StartGameAsync(HubCallerContext context)
         {
             var gameRoom = new GameRoom(context);
+            gameRoom.Towers = gameRoom.Towers.Union(TestingConstants.Maze).ToList(); // TODO remove test code
             this.scaleoutService.Subscribe(Persist.GameRoom, gameRoom.Id, context);
             this.scaleoutService.Store(Persist.GameRoom, gameRoom.Id, gameRoom);
             return gameRoom;

@@ -260,6 +260,7 @@
     <Compile Include="Models\Point.cs" />
     <Compile Include="Models\Pathing\PriorityQueue.cs" />
     <Compile Include="Models\Resources.cs" />
+    <Compile Include="Models\TestingConstants.cs" />
     <Compile Include="Models\Tower.cs" />
     <Compile Include="Models\TowerType.cs" />
     <Compile Include="Models\UserModel.cs" />

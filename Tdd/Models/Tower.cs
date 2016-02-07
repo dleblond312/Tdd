@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -17,5 +18,10 @@ namespace Tdd.Models
         public int Speed { get; set; }
 
         public int Damage { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format(CultureInfo.InvariantCulture, "{0}: {1}", this.Owner, this.Location.ToString());
+        }
     }
 }

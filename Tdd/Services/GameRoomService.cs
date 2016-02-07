@@ -93,7 +93,7 @@ namespace Tdd.Services
                                             return dx * dx + dy * dy;
                                         });
 
-                                        var next = path.Reverse().Skip(2).FirstOrDefault();
+                                        var next = path.Reverse().Skip(1).FirstOrDefault();
 
                                         if(next != null)
                                         {
@@ -115,6 +115,11 @@ namespace Tdd.Services
                                             else
                                             {
                                                 x = Math.Max(mob.CurrentLocation.X - (span.TotalMilliseconds / Constants.GameSpeed), next.X);
+                                            }
+
+                                            if(mob.CurrentLocation.Y >= 11 || next.Y >= 11)
+                                            {
+                                                Console.WriteLine("Too high");
                                             }
 
                                             if (mob.CurrentLocation.Y == next.Y)
