@@ -33,6 +33,7 @@ namespace Tdd.Services
                 currentRound = new GameRound()
                 {
                     Mobs = new List<Mob>(),
+                    Projectiles = new List<Projectile>(),
                     RemainingMobs = Constants.RoundSize
                 };
 
@@ -127,10 +128,10 @@ namespace Tdd.Services
 
                             this.towerProjectileService.UpdateProjectiles(room, round);
 
-                            lock(syncObj)
-                            {
-                                this.towerProjectileService.RemoveDeadMobs(room, round);
-                            }
+                            //lock(syncObj)
+                            //{
+                            //    this.towerProjectileService.RemoveDeadMobs(room, round);
+                            //}
                             Thread.Sleep(25);
                         }
                     }

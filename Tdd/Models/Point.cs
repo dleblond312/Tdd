@@ -30,12 +30,51 @@ namespace Tdd.Models
             this.Y = p.Y;
         }
 
-        public static bool isNear(Point p1, Point p2, double distance)
+        public static bool IsNear(Point p1, Point p2, double distance)
         {
             var dx = p1.X - p2.X;
             var dy = p1.Y - p2.Y;
 
             return (dx * dx + dy * dy) <= distance * distance;
+        }
+
+        /// <summary>
+        /// Updates a point value based on a straight line destination and a velocity.
+        /// </summary>
+        /// <param name="p1">The initial point to perform the operation on</param>
+        /// <param name="p2">The destionation</param>
+        /// <param name="velocity">The velocity to be applied</param>
+        public static Point TrackTo(Point p1, Point p2, double velocity)
+        {
+            double x, y;
+
+            if (p1.X == p2.X)
+            {
+                x = p1.X;
+            }
+            else if (p1.X < p2.X)
+            {
+                x = Math.Min(p1.X + velocity, p2.X);
+            }
+            else
+            {
+                x = Math.Max(p1.X - velocity, p2.X);
+            }
+
+            if (p1.Y == p2.Y)
+            {
+                y = p1.Y;
+            }
+            else if (p1.Y < p2.Y)
+            {
+                y = Math.Min(p1.Y + velocity, p2.Y);
+            }
+            else
+            {
+                y = Math.Max(p1.Y - velocity, p2.Y);
+            }
+
+            return new Point(x, y);
         }
 
         // override object.Equals

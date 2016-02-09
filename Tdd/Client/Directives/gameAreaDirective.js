@@ -28,6 +28,16 @@
                     }
                     context.closePath();
                     context.fill();
+
+                    context.strokeStyle= "blue";
+                    for (var i = 0; i < scope.gameRound.projectiles; i++) {
+                        try {
+                            context.rect(scope.gameRound.projectiles[i].x, scope.gameRound.projectiles[i].y, scope.gameRatio, scope.gameRatio);
+                            context.stroke();
+                        } catch(e) {
+                            console.warn('Invalid projectile draw');
+                        }
+                    }
                 }
             }
 

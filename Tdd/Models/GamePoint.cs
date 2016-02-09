@@ -31,28 +31,28 @@ namespace Tdd.Models
                 var list = new List<GamePoint>();
 
                 var upPoint = new GamePoint(this.GameRoom, X, Y - 1);
-                var up = this.GameRoom.Towers.Where(t => Point.isNear(upPoint, t.Location, MaxDistance)).Any();
+                var up = this.GameRoom.Towers.Where(t => Point.IsNear(upPoint, t.Location, MaxDistance)).Any();
                 if(!up)
                 {
                     list.Add(new GamePoint(this.GameRoom, upPoint));
                 }
 
                 var leftPoint = new GamePoint(this.GameRoom, X - 1, Y);
-                var left = this.GameRoom.Towers.Where(t => Point.isNear(leftPoint, t.Location, MaxDistance)).Any();
+                var left = this.GameRoom.Towers.Where(t => Point.IsNear(leftPoint, t.Location, MaxDistance)).Any();
                 if(!left)
                 {
                     list.Add(new GamePoint(this.GameRoom, leftPoint));
                 }
 
                 var rightPoint = new GamePoint(this.GameRoom, X + 1, Y);
-                var right = this.GameRoom.Towers.Where(t => Point.isNear(rightPoint, t.Location, MaxDistance)).Any();
+                var right = this.GameRoom.Towers.Where(t => Point.IsNear(rightPoint, t.Location, MaxDistance)).Any();
                 if(!right)
                 {
                     list.Add(new GamePoint(this.GameRoom, rightPoint));
                 }
 
                 var downPoint = new GamePoint(this.GameRoom, X, Y+1);
-                var down = this.GameRoom.Towers.Where(t => Point.isNear(downPoint, t.Location, MaxDistance)).Any();
+                var down = this.GameRoom.Towers.Where(t => Point.IsNear(downPoint, t.Location, MaxDistance)).Any();
                 if(!down)
                 {
                     list.Add(new GamePoint(this.GameRoom, downPoint));

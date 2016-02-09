@@ -19,7 +19,7 @@ namespace Tdd.Services
 
         public void RemoveMobsAtEnding(Mob mob, GameRoom room, GameRound round)
         {
-            if (Point.isNear(mob.CurrentLocation, mob.EndingLocation, 0.5))
+            if (Point.IsNear(mob.CurrentLocation, mob.EndingLocation, 0.5))
             {
                 foreach (var player in room.Players)
                 {
@@ -56,41 +56,15 @@ namespace Tdd.Services
                     return dx * dx + dy * dy;
                 });
 
-                var next = path.Reverse().Skip(1).FirstOrDefault();
+                var next = path?.Reverse().Skip(1)?.FirstOrDefault();
 
                 if (next != null)
                 {
-
-                    if (mob.CurrentLocation.X == next.X)
-                    {
-                        x = mob.CurrentLocation.X;
-                    }
-                    else if (mob.CurrentLocation.X < next.X)
-                    {
-                        x = Math.Min(mob.CurrentLocation.X + (span.TotalMilliseconds / Constants.GameSpeed), next.X);
-                    }
-                    else
-                    {
-                        x = Math.Max(mob.CurrentLocation.X - (span.TotalMilliseconds / Constants.GameSpeed), next.X);
-                    }
-
-                    if (mob.CurrentLocation.Y == next.Y)
-                    {
-                        y = mob.CurrentLocation.Y;
-                    }
-                    else if (mob.CurrentLocation.Y < next.Y)
-                    {
-                        y = Math.Min(mob.CurrentLocation.Y + (span.TotalMilliseconds / Constants.GameSpeed), next.Y);
-                    }
-                    else
-                    {
-                        y = Math.Max(mob.CurrentLocation.Y - (span.TotalMilliseconds / Constants.GameSpeed), next.Y);
-                    }
-
-                    mob.CurrentLocation = new Point(x, y);
+                    mob.CurrentLocation = Point.TrackTo(mob.CurrentLocation, next, (span.TotalMilliseconds * mob.Type.MoveSpeed / Constants.GameSpeed));
                 }
                 else
                 {
+                    Console.WriteLine("No valid path found for mob");
                     mob.CurrentLocation = new Point(mob.EndingLocation.X, mob.EndingLocation.Y);
                 }
 

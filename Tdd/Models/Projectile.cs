@@ -11,7 +11,7 @@ namespace Tdd.Models
         public Projectile(Tower tower, Mob mob)
         {
             this.Location = tower.Location;
-            this.LastUpdated = default(DateTime);
+            this.LastUpdated = DateTime.UtcNow;
             this.Owner = tower.Owner;
             this.Target = mob;
             this.Speed = tower.ProjectileSpeed;
