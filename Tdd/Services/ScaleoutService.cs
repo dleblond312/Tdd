@@ -35,7 +35,7 @@ namespace Tdd.Services
             this.Notify(type, id, o);
         }
 
-        public async Task<object> Get(Persist type, object id)
+        public object Get(Persist type, object id)
         {
             return HttpRuntime.Cache.Get(this.GetKey(type, id));
         }

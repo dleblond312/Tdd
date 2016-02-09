@@ -50,11 +50,11 @@ namespace Tdd.Models
             new MobType()
             {
                 MoveSpeed = 500,
-                StartingHealth = 100
+                StartingHealth = 500
             }
         };
 
-        public static readonly int RoundSize = 1;
+        public static readonly int RoundSize = 10;
         public static readonly int RoundPauseMs = 1000;
         public static readonly int RoundUpdateMs = 10;
         public static readonly int GameSpeed = 100000;
@@ -72,8 +72,8 @@ namespace Tdd.Models
                 Id = 1,
                 Text = "Simple Tower",
                 Damage = 10,
-                Speed = 100,
-                ProjectileSpeed = 500,
+                Speed = 750,
+                ProjectileSpeed = 2000,
                 Range = 4,
                 Cost = new Cost()
                 {
@@ -85,8 +85,8 @@ namespace Tdd.Models
                 Id = 2,
                 Text = "Slow Tower",
                 Damage = 20,
-                Speed = 175,
-                ProjectileSpeed = 500,
+                Speed = 1000,
+                ProjectileSpeed = 2000,
                 Range = 3,
                 Cost = new Cost()
                 {

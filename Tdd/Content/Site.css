@@ -16,7 +16,6 @@
 .game-area .mob {
   background: red;
   color: green;
-  z-index: 100;
   position: absolute;
   width: 30px;
   height: 30px;
@@ -27,6 +26,13 @@
   top: -15px;
   float: left;
   width: 150px;
+}
+.game-area .projectile {
+  background: blue;
+  z-index: 3;
+  position: absolute;
+  width: 15px;
+  height: 15px;
 }
 .game-area .tower {
   z-index: 1;

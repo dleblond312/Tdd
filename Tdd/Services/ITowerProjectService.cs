@@ -10,7 +10,5 @@ namespace Tdd.Services
     public interface ITowerProjectileService
     {
         void UpdateProjectiles(GameRoom room, GameRound round);
-
-        void RemoveDeadMobs(GameRoom room, GameRound round);
     }
 }

@@ -292,6 +292,7 @@
     <Content Include="Client\Directives\chatAreaDirective.js" />
     <Content Include="Client\Directives\gameAreaDirective.js" />
     <Content Include="Client\Directives\gameAreaMobDirective.js" />
+    <Content Include="Client\Directives\gameAreaProjectileDirective.js" />
     <Content Include="Client\Directives\gameTowerDirective.js" />
     <Content Include="Client\Directives\menuAction.js" />
     <Content Include="Client\Directives\miniMapDirective.js" />
@@ -318,6 +319,7 @@
     <Content Include="Partial\Directives\ChatArea.html" />
     <Content Include="Partial\Directives\GameArea.html" />
     <Content Include="Partial\Directives\GameAreaMob.html" />
+    <Content Include="Partial\Directives\GameAreaProjectile.html" />
     <Content Include="Partial\Directives\GameTower.html" />
     <Content Include="Partial\Directives\MenuAction.html" />
     <Content Include="Partial\Directives\MiniMap.html" />

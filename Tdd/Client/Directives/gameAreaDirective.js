@@ -18,6 +18,7 @@
                 $(canvas).attr('height', scope.gameRoom.mapSize * scope.gameRatio);
 
                 if (canvas) {
+                    
                     var context = canvas.getContext('2d');
                     context.clearRect(0, 0, canvas.width, canvas.height);
                     context.fillStyle = '#00FF00';
@@ -28,16 +29,6 @@
                     }
                     context.closePath();
                     context.fill();
-
-                    context.strokeStyle= "blue";
-                    for (var i = 0; i < scope.gameRound.projectiles; i++) {
-                        try {
-                            context.rect(scope.gameRound.projectiles[i].x, scope.gameRound.projectiles[i].y, scope.gameRatio, scope.gameRatio);
-                            context.stroke();
-                        } catch(e) {
-                            console.warn('Invalid projectile draw');
-                        }
-                    }
                 }
             }
 

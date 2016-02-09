@@ -40,7 +40,7 @@ namespace Tdd.Services
         /// <returns>True only if the context can be found in the gameRoom</returns>
         public async Task<bool> IsValidGameRoomUser(HubCallerContext context, string roomId)
         {
-            var gameRoom = await this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
+            var gameRoom = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
 
             if(gameRoom != null && !string.IsNullOrWhiteSpace(roomId))
             {
@@ -58,7 +58,7 @@ namespace Tdd.Services
 
         public async Task<GameRoom> JoinGameAsync(HubCallerContext context, string roomId)
         {
-            var gameRoom = await this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
+            var gameRoom = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
 
             if(gameRoom != null)
             {
@@ -73,7 +73,7 @@ namespace Tdd.Services
         public async Task<GameRoom> IncrementRoundAsync(HubCallerContext context, string roomId)
         {
 
-            var gameRoom = await this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
+            var gameRoom = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
             foreach(var player in gameRoom.Players)
             {
                 this.scaleoutService.Subscribe(Persist.GameRound, roomId, player.Context);
@@ -93,7 +93,7 @@ namespace Tdd.Services
 
         public async Task BuildTower(HubCallerContext context, string roomId, string towerId, int x, int y)
         {
-            var gameRoom = await this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
+            var gameRoom = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
             
             if(!string.IsNullOrWhiteSpace(towerId))
             {

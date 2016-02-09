@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -10,7 +11,7 @@ namespace Tdd.Models
     {
         public Projectile(Tower tower, Mob mob)
         {
-            this.Location = tower.Location;
+            this.Location = new Point(tower.Location);
             this.LastUpdated = DateTime.UtcNow;
             this.Owner = tower.Owner;
             this.Target = mob;
@@ -26,10 +27,14 @@ namespace Tdd.Models
 
         public Mob Target { get; private set; }
 
-        public int Speed { get; private set; }
+        public double Speed { get; private set; }
 
         public int Damage { get; private set; }
 
+        public override string ToString()
+        {
+            return string.Format(CultureInfo.InvariantCulture, "{0} -> {1}", this.Location, this.Target.CurrentLocation);
+        }
 
     }
 }

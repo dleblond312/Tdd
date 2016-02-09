@@ -14,7 +14,7 @@ namespace Tdd.Services
 
         void Store(Persist type, object id, object o);
 
-        Task<object> Get(Persist type, object id);
+        object Get(Persist type, object id);
 
         Task<object> Remove(Persist type, object id);
         void Notify(Persist type, object id, object o);

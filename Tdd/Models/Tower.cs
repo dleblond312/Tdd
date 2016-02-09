@@ -16,6 +16,7 @@ namespace Tdd.Models
             this.ProjectileSpeed = towerType.ProjectileSpeed;
             this.Range = towerType.Range;
             this.Owner = owner;
+            this.Damage = towerType.Damage;
             this.Location = location;
             this.Id = id;
         }

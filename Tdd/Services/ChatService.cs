@@ -24,7 +24,7 @@ namespace Tdd.Services
 
         public async Task ChatMessageReceived(HubCallerContext context, string roomId, string message)
         {
-            var gameRoom = await this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
+            var gameRoom = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
             var players = gameRoom.Players;
 
             var gameHubContext = GlobalHost.ConnectionManager.GetHubContext<GameHub>();

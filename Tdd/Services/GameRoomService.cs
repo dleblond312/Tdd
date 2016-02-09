@@ -26,7 +26,7 @@ namespace Tdd.Services
 
         public async Task<bool> ProcessRoundAsync(string roomId)
         {
-            var currentRound = await this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
+            var currentRound = this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
 
             if(currentRound == null)
             {
@@ -47,7 +47,7 @@ namespace Tdd.Services
                     var startTime = DateTime.UtcNow;
                     var endTime = startTime.AddMinutes(60);
 
-                    var round = await this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
+                    var round = this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
                     if (round != null)
                     {
 
@@ -58,20 +58,26 @@ namespace Tdd.Services
                                 return; // Prevents runaway threads
                             }
                             
-                            round = await this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
-                            GameRoom room = await this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
                             lock (syncObj)
                             {
+                                round = this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
+                                GameRoom room = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
                                 foreach (var mob in round.Mobs.Reverse())
                                 {
                                     this.mobMovementService.RemoveMobsAtEnding(mob, room, round);
                                     this.mobMovementService.UpdateMobLocation(mob, room, round);
+                                    this.towerProjectileService.UpdateProjectiles(room, round);
+                                    this.scaleoutService.Store(Persist.GameRound, roomId, round);
                                 }
-                                this.scaleoutService.Store(Persist.GameRound, roomId, round);
                             }
-                            Thread.Sleep(25);
+                            Thread.Sleep(30); // Makes ~30 FPS
                         }
-
+                        
+                        lock(syncObj)
+                        {
+                            round.Projectiles.Clear();
+                            this.scaleoutService.Store(Persist.GameRound, roomId, round);
+                        }
                         await this.scaleoutService.Remove(Persist.GameRound, roomId);
                     }
                     else
@@ -82,13 +88,13 @@ namespace Tdd.Services
                 }).Start();
 
                 // Spawn mobs
-                new Thread(async () =>
+                new Thread(() =>
                 {
                    var totalMobs = currentRound.RemainingMobs; // snapshot of total count
 
                    for(int i = 0; i < totalMobs; i++)
                     {
-                        var round = await this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
+                        var round = this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
                         lock(syncObj)
                         {
                             round.Mobs.Add(new Mob()
@@ -104,36 +110,6 @@ namespace Tdd.Services
                         }
 
                         Thread.Sleep(Constants.RoundPauseMs);
-                    }
-                }).Start();
-
-                // Fire projectiles
-                new Thread(async () =>
-                {
-                    var startTime = DateTime.UtcNow;
-                    var endTime = startTime.AddMinutes(60);
-
-                    var round = await this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
-                    if (round != null)
-                    {
-
-                        while (round.Mobs.Count > 0 || round.RemainingMobs > 0)
-                        {
-                            if (DateTime.UtcNow > endTime)
-                            {
-                                return; // Prevents runaway threads
-                            }
-                            round = await this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
-                            GameRoom room = await this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
-
-                            this.towerProjectileService.UpdateProjectiles(room, round);
-
-                            //lock(syncObj)
-                            //{
-                            //    this.towerProjectileService.RemoveDeadMobs(room, round);
-                            //}
-                            Thread.Sleep(25);
-                        }
                     }
                 }).Start();
 
