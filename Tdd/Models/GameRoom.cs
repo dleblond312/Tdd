@@ -29,7 +29,7 @@ namespace Tdd.Models
             this.Id = (new Random()).Next(1000); ;
             this.Players = new List<Player>()
             {
-                new Player(context)
+                new Player(context, 0)
             };
             this.CurrentRound = 0;
             this.Towers = new List<Tower>();

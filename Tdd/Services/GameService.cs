@@ -62,7 +62,7 @@ namespace Tdd.Services
 
             if(gameRoom != null)
             {
-                gameRoom.Players.Add(new Player(context));
+                gameRoom.Players.Add(new Player(context, gameRoom.Players.Count));
                 this.scaleoutService.Subscribe(Persist.GameRoom, gameRoom.Id, context);
                 this.scaleoutService.Store(Persist.GameRoom, gameRoom.Id, gameRoom);
             }

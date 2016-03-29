@@ -12,11 +12,11 @@ namespace Tdd.Models
     [Serializable]
     public class Player
     {
-        public Player(HubCallerContext context)
+        public Player(HubCallerContext context, int position)
         {
             this.Context = context;
-            this.StartingLocation = Constants.StartingLocations[0];
-            this.EndingLocation = Constants.EndingLocations[0];
+            this.StartingLocation = Constants.StartingLocations[position];
+            this.EndingLocation = Constants.EndingLocations[position];
             this.CurrentLife = Constants.StartingLife;
             this.Resources = JsonConvert.DeserializeObject<Resources>(JsonConvert.SerializeObject(Constants.StartingResources));
         }

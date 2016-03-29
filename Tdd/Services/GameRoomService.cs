@@ -95,17 +95,21 @@ namespace Tdd.Services
                    for(int i = 0; i < totalMobs; i++)
                     {
                         var round = this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
+                        var room = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
                         lock(syncObj)
                         {
-                            round.Mobs.Add(new Mob()
+                            for(var j = 0; j < room.Players.Count; j++)
                             {
-                                Health = Constants.MobTypes[0].StartingHealth,
-                                Type = Constants.MobTypes[0],
-                                CurrentLocation = Constants.StartingLocations[0],
-                                EndingLocation = Constants.EndingLocations[0],
-                                LastUpdated = DateTime.UtcNow
+                                round.Mobs.Add(new Mob()
+                                {
+                                    Health = Constants.MobTypes[0].StartingHealth,
+                                    Type = Constants.MobTypes[0],
+                                    CurrentLocation = room.Players[j].StartingLocation,
+                                    EndingLocation = room.Players[j].EndingLocation,
+                                    LastUpdated = DateTime.UtcNow
 
-                            });
+                                });
+                            }
                             round.RemainingMobs--;
                         }
 
