@@ -30,7 +30,7 @@ namespace Tdd.Services
                 {
                     double d = distance(path.LastStep, n);
                     var newPath = path.AddStep(n, d);
-                    queue.Enqueue(newPath.TotalCost + estimate(n), newPath);
+                    queue.Enqueue(newPath.TotalCost + estimate(n) + d, newPath);
                 }
             }
 

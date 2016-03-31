@@ -47,6 +47,15 @@ namespace Tdd.Services
                     // Euclidian Squared heuristic
                     var dx = p1.X - p2.X;
                     var dy = p1.Y - p2.Y;
+                    if(dx > 0)
+                    {
+                        dx += 1;
+                    }
+
+                    if(dy > 0)
+                    {
+                        dy += 1;
+                    }
                     return dx * dx + dy * dy;
                 }, (p) =>
                 {

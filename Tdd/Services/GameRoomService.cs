@@ -39,11 +39,10 @@ namespace Tdd.Services
 
                 this.scaleoutService.Store(Persist.GameRound, roomId, currentRound);
 
-                object syncObj = new Object();
-
                 // Move
                 new Thread(async () =>
                 {
+                    GameRoom room = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
                     var startTime = DateTime.UtcNow;
                     var endTime = startTime.AddMinutes(60);
 
@@ -58,10 +57,9 @@ namespace Tdd.Services
                                 return; // Prevents runaway threads
                             }
                             
-                            lock (syncObj)
+                            lock (room)
                             {
                                 round = this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
-                                GameRoom room = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
                                 foreach (var mob in round.Mobs.Reverse())
                                 {
                                     this.mobMovementService.RemoveMobsAtEnding(mob, room, round);
@@ -72,8 +70,8 @@ namespace Tdd.Services
                             }
                             Thread.Sleep(30); // Makes ~30 FPS
                         }
-                        
-                        lock(syncObj)
+
+                        lock (room)
                         {
                             round.Projectiles.Clear();
                             this.scaleoutService.Store(Persist.GameRound, roomId, round);
@@ -94,9 +92,10 @@ namespace Tdd.Services
 
                    for(int i = 0; i < totalMobs; i++)
                     {
-                        var round = this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
-                        lock(syncObj)
+                        GameRoom room = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
+                        lock(room)
                         {
+                            var round = this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
                             round.Mobs.Add(new Mob()
                             {
                                 Health = Constants.MobTypes[0].StartingHealth,

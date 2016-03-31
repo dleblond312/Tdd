@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using Tdd.Models.Pathing;
@@ -59,6 +60,11 @@ namespace Tdd.Models
                 }
 
                 return list;
+
+                // Game boundary limits
+                //return list.Where(p => 
+                //    (p.X >= Constants.MapThird && p.X <= Constants.MapThird*2 && p.Y >= 0 && p.Y <= Constants.MapSize) ||
+                //    (p.Y >= Constants.MapThird && p.Y <= Constants.MapThird*2 && p.X >= 0&& p.X <= Constants.MapSize));
             }
         }
 
