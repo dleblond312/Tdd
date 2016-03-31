@@ -74,6 +74,7 @@ namespace Tdd.Services
         {
 
             var gameRoom = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
+
             foreach(var player in gameRoom.Players)
             {
                 this.scaleoutService.Subscribe(Persist.GameRound, roomId, player.Context);
@@ -82,10 +83,13 @@ namespace Tdd.Services
             var success = await this.gameRoundService.ProcessRoundAsync(roomId);
             if(success)
             {
-                gameRoom.CurrentRound += 1;
-                gameRoom.CurrentRoundStartTime = DateTime.UtcNow;
-                this.scaleoutService.Notify(Persist.GameRoom, gameRoom.Id, gameRoom);
-                return gameRoom;
+                lock(gameRoom)
+                {
+                    gameRoom.CurrentRound += 1;
+                    gameRoom.CurrentRoundStartTime = DateTime.UtcNow;
+                    this.scaleoutService.Notify(Persist.GameRoom, gameRoom.Id, gameRoom);
+                    return gameRoom;
+                }
             }
 
             return null;
@@ -95,26 +99,29 @@ namespace Tdd.Services
         {
             var gameRoom = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
             
-            if(!string.IsNullOrWhiteSpace(towerId))
+            lock(gameRoom)
             {
-                var location = new Point(x, y);
-                var existingTower = gameRoom.Towers.Where(t => t.Location == location).Any();
-                if(existingTower)
+                if (!string.IsNullOrWhiteSpace(towerId))
                 {
-                    throw new HttpException(400, "Existing tower conflicts with build location");
-                }
-                
-                var currentPlayer = gameRoom.Players.Where(p => p.Context.ConnectionId == context.ConnectionId).First();
-                var towerToBuild = Constants.TowerTypes.Where(t => t.Id == int.Parse(towerId)).First();
-                if(currentPlayer.Resources.CanAfford(towerToBuild.Cost))
-                {
-                    if(currentPlayer.Resources.Subtract(towerToBuild.Cost))
+                    var location = new Point(x, y);
+                    var existingTower = gameRoom.Towers.Where(t => t.Location == location).Any();
+                    if (existingTower)
                     {
-                        gameRoom.Towers.Add(new Tower(towerToBuild, context.ConnectionId, location, towerId));
+                        throw new HttpException(400, "Existing tower conflicts with build location");
                     }
-                }
 
-                this.scaleoutService.Notify(Persist.GameRoom, gameRoom.Id, gameRoom);
+                    var currentPlayer = gameRoom.Players.Where(p => p.Context.ConnectionId == context.ConnectionId).First();
+                    var towerToBuild = Constants.TowerTypes.Where(t => t.Id == int.Parse(towerId)).First();
+                    if (currentPlayer.Resources.CanAfford(towerToBuild.Cost))
+                    {
+                        if (currentPlayer.Resources.Subtract(towerToBuild.Cost))
+                        {
+                            gameRoom.Towers.Add(new Tower(towerToBuild, context.ConnectionId, location, towerId));
+                        }
+                    }
+
+                    this.scaleoutService.Notify(Persist.GameRoom, gameRoom.Id, gameRoom);
+                }
             }
         }
     }
