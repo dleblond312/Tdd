@@ -70,7 +70,7 @@ namespace Tdd.Services
                             }
                             Thread.Sleep(30); // Makes ~30 FPS
                         }
-
+                        
                         lock (room)
                         {
                             round.Projectiles.Clear();
@@ -96,15 +96,18 @@ namespace Tdd.Services
                         lock(room)
                         {
                             var round = this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
+                            for(var j = 0; j < room.Players.Count; j++)
+                            {
                             round.Mobs.Add(new Mob()
                             {
                                 Health = Constants.MobTypes[0].StartingHealth,
                                 Type = Constants.MobTypes[0],
-                                CurrentLocation = Constants.StartingLocations[0],
-                                EndingLocation = Constants.EndingLocations[0],
+                                    CurrentLocation = room.Players[j].StartingLocation,
+                                    EndingLocation = room.Players[j].EndingLocation,
                                 LastUpdated = DateTime.UtcNow
 
                             });
+                            }
                             round.RemainingMobs--;
                         }
 
