@@ -5,9 +5,9 @@
 
 
 .game-area {
-    margin-bottom: 250px;
+    margin-bottom: 175px;
     position: relative;
-    height: 1000px;
+    height: 1125px;
 
     canvas {
         position: absolute;
@@ -49,7 +49,7 @@
     @command-card-border-color: blue;
     @command-card-border: thin solid @command-card-border-color;
 
-    height: 250px;
+    height: 150px;
     width: 100%;
     position: fixed;
     left: 0;
@@ -78,6 +78,10 @@
 
     .command-details {
         left: 30%;
+
+        .menu-action {
+            margin: 12px 6px;
+        }
     }
 
     .command-actions {
@@ -90,6 +94,10 @@
     .chat-messages {
         width: 100%;
         z-index: 90;
+
+        .message {
+            display: block;
+        }
 
     }
     .chat-input {

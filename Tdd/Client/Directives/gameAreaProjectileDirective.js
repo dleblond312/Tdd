@@ -10,8 +10,6 @@ app.directive('gameAreaProjectile', ['CONSTANTS', 'gameService', 'roundService',
                 scope.style = {
                     xValue: CONSTANTS.GAME_RATIO * scope.gameAreaProjectile.location.x + 'px',
                     yValue: CONSTANTS.GAME_RATIO * scope.gameAreaProjectile.location.y + 'px',
-                    width: CONSTANTS.GAME_RATIO,
-                    height: CONSTANTS.GAME_RATIO
                 }
             });
         }

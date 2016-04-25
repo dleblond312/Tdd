@@ -8,7 +8,7 @@ namespace Tdd.Models
 {
     public class Constants
     {
-        public static readonly int MapSize = 75;
+        public static readonly int MapSize = 45;
         public static readonly int MapThird = MapSize / 3;
         public static readonly int StartingLife = 30;
 
@@ -54,7 +54,7 @@ namespace Tdd.Models
             }
         };
 
-        public static readonly int RoundSize = 10;
+        public static readonly int RoundSize = 1;
         public static readonly int RoundPauseMs = 1000;
         public static readonly int RoundUpdateMs = 10;
         public static readonly int GameSpeed = 100000;

@@ -29,6 +29,8 @@
                     }
                     context.closePath();
                     context.fill();
+
+                    // context.fillText("(" + scope.event.offsetX + "," + scope.event.offsetY + ")", 0, canvas.height - 20);
                 }
             }
 
@@ -39,6 +41,8 @@
                     scope.selectedStyles.x = (parseInt(event.offsetX / scope.gameRatio) * scope.gameRatio) + 'px';
                     scope.selectedStyles.y = (parseInt(event.offsetY / scope.gameRatio) * scope.gameRatio) + 'px';
                 }
+
+                updateReceived();
             }
 
             scope.performAction = function (event) {
