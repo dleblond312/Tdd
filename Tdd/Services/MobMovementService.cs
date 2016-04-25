@@ -42,34 +42,35 @@ namespace Tdd.Services
 
             if (span.Milliseconds > 0)
             {
-                var path = this.pathingService.FindPath<GamePoint>(new GamePoint(room, mob.CurrentLocation), new GamePoint(room, mob.EndingLocation), (p1, p2) =>
-                {
-                    // Euclidian Squared heuristic
-                    var dx = p1.X - p2.X;
-                    var dy = p1.Y - p2.Y;
-                    if(dx > 0)
+                    var path = this.pathingService.FindPath<GamePoint>(new GamePoint(room, mob.CurrentLocation), new GamePoint(room, mob.EndingLocation), (p1, p2) =>
                     {
-                        dx += 1;
-                    }
+                        // Euclidian Squared heuristic
+                        var dx = p1.X - p2.X;
+                        var dy = p1.Y - p2.Y;
+                        if(dx > 0)
+                        {
+                            dx += 1;
+                        }
 
-                    if(dy > 0)
+                        if(dy > 0)
+                        {
+                            dy += 1;
+                        }
+                        return dx * dx + dy * dy;
+                    }, (p) =>
                     {
-                        dy += 1;
-                    }
-                    return dx * dx + dy * dy;
-                }, (p) =>
-                {
-                    // Euclidian squared heuristic estimate
-                    var dx = p.X - mob.EndingLocation.X;
-                    var dy = p.Y - mob.EndingLocation.Y;
-                    return dx * dx + dy * dy;
-                });
+                        // Euclidian squared heuristic estimate
+                        var dx = p.X - mob.EndingLocation.X;
+                        var dy = p.Y - mob.EndingLocation.Y;
+                        return dx * dx + dy * dy;
+                    });
 
                 var next = path?.Reverse().Skip(1)?.FirstOrDefault();
 
                 if (next != null)
                 {
                     mob.CurrentLocation = Point.TrackTo(mob.CurrentLocation, next, (span.TotalMilliseconds * mob.Type.MoveSpeed / Constants.GameSpeed));
+                    mob.Path = path?.ToList();
                 }
                 else
                 {
