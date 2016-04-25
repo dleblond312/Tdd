@@ -10,7 +10,7 @@ namespace Tdd.Models
 {
     public class GamePoint : Point, IHasNeighbours<GamePoint>
     {
-        private const double MaxDistance = 1;
+        private const double MaxDistance = 0.5;
         private readonly GameRoom GameRoom;
 
         public GamePoint(GameRoom gameRoom, double x, double y) : base(Math.Max(Math.Min(x, Constants.MapSize), 0), Math.Max(Math.Min(y, Constants.MapSize), 0))
@@ -18,7 +18,7 @@ namespace Tdd.Models
             this.GameRoom = gameRoom;
         }
 
-        public GamePoint(GameRoom gameRoom, Point p) : this(gameRoom, p.X, p.Y)  { }
+        public GamePoint(GameRoom gameRoom, Point p) : this(gameRoom, (int)p.X, (int)p.Y)  { }
 
         [JsonIgnore]
         public IEnumerable<GamePoint> Neighbours
@@ -61,8 +61,8 @@ namespace Tdd.Models
                 // Game boundary limits
                 return list.Where(p => 
                     (p.X >= 0 && p.X <= Constants.MapSize && p.Y >= 0 && p.Y <= Constants.MapSize) && (
-                        (p.X > Constants.MapThird && p.X <= Constants.MapThird * 2) || 
-                        (p.Y > Constants.MapThird && p.Y <= Constants.MapThird * 2)
+                        (p.X >= Constants.MapThird && p.X < Constants.MapThird * 2) || 
+                        (p.Y >= Constants.MapThird && p.Y < Constants.MapThird * 2)
                     ));
 
                 //return list.Where(p => 

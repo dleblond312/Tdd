@@ -56,7 +56,7 @@ namespace Tdd.Services
                         {
                             dy += 1;
                         }
-                        return dx * dx + dy * dy;
+                        return Math.Sqrt(dx * dx + dy * dy);
                     }, (p) =>
                     {
                         // Euclidian squared heuristic estimate
