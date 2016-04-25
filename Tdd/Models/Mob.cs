@@ -18,5 +18,7 @@ namespace Tdd.Models
 
         public DateTime LastUpdated { get; set; }
 
+        public List<GamePoint> Path { get; set; }
+
     }
 }
