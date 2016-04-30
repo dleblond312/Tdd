@@ -12,5 +12,8 @@ namespace Tdd.Models
         
         public int MoveSpeed { get; set; }
 
+        public double Armor { get; set; }
+
+        public double Evasion { get; set; }
     }
 }

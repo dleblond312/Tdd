@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -50,7 +51,7 @@ namespace Tdd.Models
             new MobType()
             {
                 MoveSpeed = 500,
-                StartingHealth = 500
+                StartingHealth = 200
             }
         };
 
@@ -65,32 +66,91 @@ namespace Tdd.Models
             Income = 10
         };
 
+        public enum TowerList {
+            Rock,
+            Basic,
+            Slowing,
+            LongRange,
+            Dot,
+            Melee,
+        }
+
         public static readonly IList<TowerType> TowerTypes = new List<TowerType>()
         {
             new TowerType()
             {
-                Id = 1,
-                Text = "Simple Tower",
-                Damage = 10,
-                Speed = 750,
-                ProjectileSpeed = 2000,
-                Range = 4,
+                Id = TowerList.Rock,
+                Text = "Rock",
                 Cost = new Cost()
                 {
-                    Primary = 25
+                    Primary = 2
                 }
             },
             new TowerType()
             {
-                Id = 2,
-                Text = "Slow Tower",
-                Damage = 20,
+                Id = TowerList.Basic,
+                Text = "Basic Tower",
+                Damage = 10,
+                Range = 3,
                 Speed = 1000,
                 ProjectileSpeed = 2000,
-                Range = 3,
                 Cost = new Cost()
                 {
-                    Primary = 35
+                    Primary = 10
+                }
+            },
+            new TowerType()
+            {
+                Id = TowerList.Slowing,
+                Text = "Slowing Tower",
+                Damage = 6,
+                Range = 4,
+                Speed = 1000,
+                ProjectileSpeed = 2000,
+                Effects = JsonConvert.DeserializeObject("{'slow': { speed: 0.7, duration: 3000 }}"),
+                Cost = new Cost()
+                {
+                    Primary = 20
+                }
+            },
+            new TowerType()
+            {
+                Id = TowerList.LongRange,
+                Text = "Long Range Tower",
+                Damage = 15,
+                Range = 5,
+                Speed = 800,
+                ProjectileSpeed = 2000,
+                Cost = new Cost()
+                {
+                    Primary = 20
+                }
+            },
+            new TowerType()
+            {
+                Id = TowerList.Dot,
+                Text = "Damage Over Time Tower",
+                Damage = 2,
+                Range = 4,
+                Speed = 1750,
+                ProjectileSpeed = 2000,
+                Effects = JsonConvert.DeserializeObject("{'dot': { damage: 2, duration: 20000}}"),
+                Cost = new Cost()
+                {
+                    Primary = 24
+                }
+            }, 
+            new TowerType()
+            {
+                Id = TowerList.Melee,
+                Text = "Melee Tower",
+                Damage = 20,
+                Range = 1,
+                Speed = 2000,
+                ProjectileSpeed = 2000,
+                Cost = new Cost()
+                {
+                    Primary = 26
                 }
             }
         };

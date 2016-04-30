@@ -12,6 +12,7 @@ namespace Tdd.Models
     {
         public Tower(TowerType towerType, string owner, Point location, string id)
         {
+            this.Type = towerType.Id;
             this.Speed = towerType.Speed;
             this.ProjectileSpeed = towerType.ProjectileSpeed;
             this.Range = towerType.Range;
@@ -19,7 +20,10 @@ namespace Tdd.Models
             this.Damage = towerType.Damage;
             this.Location = location;
             this.Id = id;
+            this.Effects = towerType.Effects;
         }
+
+        public Constants.TowerList Type { get; private set; }
 
         public string Owner { get; private set; }
 
@@ -34,6 +38,8 @@ namespace Tdd.Models
         public double Range { get; private set; }
 
         public int ProjectileSpeed { get; private set; }
+
+        public dynamic Effects { get; private set; }
 
         [JsonIgnore]
         public DateTime ReadyAt { get; set; }

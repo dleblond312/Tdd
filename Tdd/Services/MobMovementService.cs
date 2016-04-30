@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.CSharp.RuntimeBinder;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -36,8 +37,6 @@ namespace Tdd.Services
 
         public void UpdateMobLocation(Mob mob, GameRoom room, GameRound round)
         {
-            double x;
-            double y;
             var span = DateTime.UtcNow.Subtract(mob.LastUpdated);
 
             if (span.Milliseconds > 0)
@@ -69,8 +68,23 @@ namespace Tdd.Services
 
                 if (next != null)
                 {
-                    mob.CurrentLocation = Point.TrackTo(mob.CurrentLocation, next, (span.TotalMilliseconds * mob.Type.MoveSpeed / Constants.GameSpeed));
-                    mob.Path = path?.ToList();
+                    var moveSpeed = mob.Type.MoveSpeed;
+
+                    // Adjust mob speed for slow effects
+                    if((mob.Status as IDictionary<string, object>)?.ContainsKey("slow") ?? false)
+                    {
+                        moveSpeed = (int) (moveSpeed * (double)mob.Status.slow.speed);
+
+                        if (DateTime.UtcNow > (DateTime)mob.Status.slow.remaining)
+                        {
+                            var status = (IDictionary<string, object>)mob.Status;
+                            status.Remove("slow");
+                        }
+
+                    }
+
+                    mob.CurrentLocation = Point.TrackTo(mob.CurrentLocation, next, (span.TotalMilliseconds * moveSpeed / Constants.GameSpeed));
+                    // mob.Path = path?.ToList(); // Debugging
                 }
                 else
                 {
