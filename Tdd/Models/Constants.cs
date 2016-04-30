@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -50,7 +51,7 @@ namespace Tdd.Models
             new MobType()
             {
                 MoveSpeed = 500,
-                StartingHealth = 500
+                StartingHealth = 200
             }
         };
 
@@ -106,7 +107,7 @@ namespace Tdd.Models
                 Range = 4,
                 Speed = 1000,
                 ProjectileSpeed = 2000,
-                Effects = @"{'slow': { speed: 0.7, duration: 3000 }}",
+                Effects = JsonConvert.DeserializeObject("{'slow': { speed: 0.7, duration: 3000 }}"),
                 Cost = new Cost()
                 {
                     Primary = 20
@@ -119,6 +120,7 @@ namespace Tdd.Models
                 Damage = 15,
                 Range = 5,
                 Speed = 800,
+                ProjectileSpeed = 2000,
                 Cost = new Cost()
                 {
                     Primary = 20
@@ -131,7 +133,8 @@ namespace Tdd.Models
                 Damage = 2,
                 Range = 4,
                 Speed = 1750,
-                Effects = @"{'dot': { damage: 1, duration: 20000}}",
+                ProjectileSpeed = 2000,
+                Effects = JsonConvert.DeserializeObject("{'dot': { damage: 2, duration: 20000}}"),
                 Cost = new Cost()
                 {
                     Primary = 24
@@ -144,6 +147,7 @@ namespace Tdd.Models
                 Damage = 20,
                 Range = 1,
                 Speed = 2000,
+                ProjectileSpeed = 2000,
                 Cost = new Cost()
                 {
                     Primary = 26

@@ -10,17 +10,19 @@ namespace Tdd.Models
 
         public static List<Tower> Maze = new List<Tower>
         {
-            new TestingTower(15, 11),
-            new TestingTower(16, 11),
-            new TestingTower(17, 11),
-            new TestingTower(18, 11),
-            new TestingTower(19, 11),
-            new TestingTower(20, 11),
-            new TestingTower(21, 11),
-            new TestingTower(22, 11),
-            new TestingTower(23, 11),
-            new TestingTower(24, 11),
-            new TestingTower(25, 11),
+            //new TestingTower(15, 11),
+            //new TestingTower(16, 11),
+            //new TestingTower(17, 11),
+            //new TestingTower(18, 11),
+            //new TestingTower(19, 11),
+            //new TestingTower(20, 11),
+            //new TestingTower(21, 11),
+            //new TestingTower(22, 11),
+            //new TestingTower(23, 11),
+            //new TestingTower(24, 11),
+            //new TestingTower(25, 11),
+
+
             //new TestingTower(26, 11),
             //new TestingTower(27, 11),
             //new TestingTower(28, 11),

@@ -22,7 +22,7 @@ namespace Tdd.Models
 
         public Cost Cost { get; set; }
 
-        public string Effects { get; set; }
+        public dynamic Effects { get; set; }
     }
 
 }

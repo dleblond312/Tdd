@@ -42,6 +42,7 @@ namespace Tdd.Services
                 // Move
                 new Thread(async () =>
                 {
+                    int frame = 0;
                     GameRoom room = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
                     var startTime = DateTime.UtcNow;
                     var endTime = startTime.AddMinutes(60);
@@ -64,9 +65,19 @@ namespace Tdd.Services
                                 {
                                     this.mobMovementService.RemoveMobsAtEnding(mob, room, round);
                                     this.mobMovementService.UpdateMobLocation(mob, room, round);
+                                    this.towerProjectileService.TickDots(room, round);
                                     this.towerProjectileService.UpdateProjectiles(room, round);
                                     this.scaleoutService.Store(Persist.GameRound, roomId, round);
                                 }
+
+                                
+                            }
+
+                            frame++;
+
+                            if(frame > 30)
+                            {
+                                frame = 0; // frame zero occurs roughly once a second, used for updates that don't need to occur as often
                             }
                             Thread.Sleep(30); // Makes ~30 FPS
                         }
