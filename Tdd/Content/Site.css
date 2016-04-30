@@ -3,9 +3,9 @@
   background-color: #333333;
 }
 .game-area {
-  margin-bottom: 175px;
+  margin-bottom: 250px;
   position: relative;
-  height: 1125px;
+  height: 1000px;
 }
 .game-area canvas {
   position: absolute;
@@ -36,9 +36,10 @@
 }
 .game-area .tower {
   z-index: 1;
+  background-image: url('Images/basicTower1.png');
 }
 .command-card {
-  height: 150px;
+  height: 250px;
   width: 100%;
   position: fixed;
   left: 0;
@@ -65,9 +66,6 @@
 .command-card .command-details {
   left: 30%;
 }
-.command-card .command-details .menu-action {
-  margin: 12px 6px;
-}
 .command-card .command-actions {
   width: 40%;
   left: 60%;
@@ -75,9 +73,6 @@
 .chat-area .chat-messages {
   width: 100%;
   z-index: 90;
-}
-.chat-area .chat-messages .message {
-  display: block;
 }
 .chat-area .chat-input {
   width: 100%;
