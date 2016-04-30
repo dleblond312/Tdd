@@ -33,14 +33,16 @@
                     context.fill();
 
                     // Draw mob paths
-                    if (scope.gameRound && scope.gameRound.mobs) {
-                        context.fillStyle = '#7D26CD';
-                        for (var i = 0; i < scope.gameRound.mobs.length; i++) {
-                            for (var j = 0; j < scope.gameRound.mobs[i].path.length; j++) {
-                                context.fillRect(scope.gameRound.mobs[i].path[j].x * scope.gameRatio, scope.gameRound.mobs[i].path[j].y * scope.gameRatio, scope.gameRatio, scope.gameRatio);
-                            }
-                        }
-                    }
+                    //if (scope.gameRound && scope.gameRound.mobs) {
+                    //    context.fillStyle = '#7D26CD';
+                    //    for (var i = 0; i < scope.gameRound.mobs.length; i++) {
+                    //        if (scope.gameRound.mobs[i].path && scope.gameRound.mobs[i].path.length) {
+                    //            for (var j = 0; j < scope.gameRound.mobs[i].path.length; j++) {
+                    //                context.fillRect(scope.gameRound.mobs[i].path[j].x * scope.gameRatio, scope.gameRound.mobs[i].path[j].y * scope.gameRatio, scope.gameRatio, scope.gameRatio);
+                    //            }
+                    //        }
+                    //    }
+                    //}
 
                     // context.fillText("(" + scope.event.offsetX + "," + scope.event.offsetY + ")", 0, canvas.height - 20);
                 }

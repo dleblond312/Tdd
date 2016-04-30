@@ -8,7 +8,7 @@ namespace Tdd.Models
     [Serializable]
     public class TowerType
     {
-        public int Id { get; set; }
+        public Constants.TowerList Id { get; set; }
 
         public string Text { get; set; }
 
@@ -21,5 +21,8 @@ namespace Tdd.Models
         public double Range { get; set; }
 
         public Cost Cost { get; set; }
+
+        public dynamic Effects { get; set; }
     }
+
 }
