@@ -8,6 +8,7 @@
   height: 1000px;
 }
 .game-area canvas {
+  background-image: url('Images/gameBoardBackground.png');
   position: absolute;
   top: 0;
   left: 0;
@@ -28,11 +29,11 @@
   width: 150px;
 }
 .game-area .projectile {
-  background: blue;
+  background-image: url('Images/basicProjectile.png');
   z-index: 3;
   position: absolute;
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
 }
 .game-area .tower {
   z-index: 1;
