@@ -307,7 +307,9 @@
     <Content Include="Client\Services\socketService.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\basicProjectile.png" />
     <Content Include="Content\Images\basicTower1.png" />
+    <Content Include="Content\Images\gameBoardBackground.png" />
     <Content Include="Content\Site.min.css">
       <DependentUpon>Site.css</DependentUpon>
     </Content>
