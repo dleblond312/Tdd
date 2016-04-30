@@ -110,8 +110,14 @@ namespace Tdd.Services
                         throw new HttpException(400, "Existing tower conflicts with build location");
                     }
 
+                    int parsed;
+                    if(!int.TryParse(towerId, out parsed))
+                    {
+                        throw new HttpException(400, "Tower Id non-integer value");
+                    }
+
                     var currentPlayer = gameRoom.Players.Where(p => p.Context.ConnectionId == context.ConnectionId).First();
-                    var towerToBuild = Constants.TowerTypes.Where(t => t.Id == int.Parse(towerId)).First();
+                    var towerToBuild = Constants.TowerTypes.Where(t => (int)t.Id == parsed).First();
                     if (currentPlayer.Resources.CanAfford(towerToBuild.Cost))
                     {
                         if (currentPlayer.Resources.Subtract(towerToBuild.Cost))
