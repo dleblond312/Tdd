@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using Tdd.Models;
 
 namespace Tdd.Services
@@ -20,7 +22,7 @@ namespace Tdd.Services
         {
             foreach (Tower tower in room.Towers)
             {
-                if (tower.ReadyAt <= DateTime.UtcNow)
+                if (tower.Damage > 0 && tower.ReadyAt <= DateTime.UtcNow)
                 {
                     foreach (Mob mob in round.Mobs)
                     {
@@ -40,6 +42,18 @@ namespace Tdd.Services
                 projectile.Location = Point.TrackTo(projectile.Location, projectile.Target.CurrentLocation, (span.Milliseconds * (projectile.Speed / Constants.GameSpeed)));
                 if (Point.IsNear(projectile.Location, projectile.Target.CurrentLocation, 0.1))
                 {
+                    switch(projectile.TowerType)
+                    {
+                        case Constants.TowerList.Slowing:
+                            var towerType = Constants.TowerTypes.Where(t => t.Id == projectile.TowerType).First();
+                            dynamic effects = JsonConvert.DeserializeObject(towerType.Effects);
+                            projectile.Target.Status.slow = effects.slow;
+                            projectile.Target.Status.slow.remaining = DateTime.UtcNow.AddMilliseconds((int)effects.slow.duration);
+                            break;
+                        default:
+                            // No-op
+                            break;
+                    }
                     projectile.Target.Health -= projectile.Damage;
                     round.Projectiles.Remove(projectile);
                     if (projectile.Target.Health <= 0)

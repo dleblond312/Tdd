@@ -17,6 +17,7 @@ namespace Tdd.Models
             this.Target = mob;
             this.Speed = tower.ProjectileSpeed;
             this.Damage = tower.Damage;
+            this.TowerType = tower.Type;
         }
 
         public Point Location { get; set; }
@@ -30,6 +31,8 @@ namespace Tdd.Models
         public double Speed { get; private set; }
 
         public int Damage { get; private set; }
+
+        public Constants.TowerList TowerType { get; set; }
 
         public override string ToString()
         {
