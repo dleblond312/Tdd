@@ -268,7 +268,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthorizationServerProvider.cs" />
     <Compile Include="Services\ChatService.cs" />
-    <Compile Include="Services\GameRoomService.cs" />
+    <Compile Include="Services\GameRoundService.cs" />
     <Compile Include="Services\IChatService.cs" />
     <Compile Include="Services\IGameRoundService.cs" />
     <Compile Include="Services\GameService.cs" />

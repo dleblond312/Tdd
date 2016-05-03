@@ -1,10 +1,11 @@
 ﻿app.service('buildOptionsService', ['gameDataService', function (gameDataService) {
     var promise = gameDataService.getTowerTypes().then(function (success) {
         towers = success.data;
+        return success;
     });
 
     this.getAllTowers = function () {
-        return towers;
+        return promise;
     }
 
     this.getTower = function (id) {
