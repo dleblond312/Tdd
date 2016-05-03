@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Tdd.Services
 
         public void UpdateProjectiles(GameRoom room, GameRound round)
         {
-            foreach (Tower tower in room.Towers)
+            foreach (var tower in room.Towers.Values)
             {
                 if (tower.Damage > 0 && tower.ReadyAt <= DateTime.UtcNow)
                 {
