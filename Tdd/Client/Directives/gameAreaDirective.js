@@ -63,8 +63,8 @@
                 if (scope.selectedBuild && scope.selectedStyles) {
                     gameService.buildTower(scope.selectedBuild.id, parseInt(scope.selectedStyles.x) / scope.gameRatio, parseInt(scope.selectedStyles.y) / scope.gameRatio);
                     
-                    // Shift lets you place more towers
-                    if (!event.shiftKey) {
+                    // !Shift lets you place more towers
+                    if (event.shiftKey) {
                         scope.selectedBuild = null;
                         scope.selectedStyles = {
                             display: 'none'

@@ -42,7 +42,7 @@ namespace Tdd.Services
             {
                 var span = DateTime.UtcNow.Subtract(projectile.LastUpdated);
                 projectile.Location = Point.TrackTo(projectile.Location, projectile.Target.CurrentLocation, (span.Milliseconds * (projectile.Speed / Constants.GameSpeed)));
-                if (Point.IsNear(projectile.Location, projectile.Target.CurrentLocation, 0.1))
+                if (projectile.Location == projectile.Target.CurrentLocation) // Inefficient to call Point.IsNear(projectile.Location, projectile.Target.CurrentLocation, 0.1)
                 {
                     TowerType towerType;
                     switch(projectile.TowerType)
