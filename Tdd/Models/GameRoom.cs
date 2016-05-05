@@ -20,7 +20,7 @@ namespace Tdd.Models
 
         public DateTime CurrentRoundStartTime { get; set; }
 
-        public IList<Tower> Towers { get; set; }
+        public IDictionary<Point, Tower> Towers { get; set; }
 
         public IList<Point> Map { get; set; }
 
@@ -32,7 +32,7 @@ namespace Tdd.Models
                 new Player(context, 0)
             };
             this.CurrentRound = 0;
-            this.Towers = new List<Tower>();
+            this.Towers = new Dictionary<Point, Tower>();
             this.Map = Constants.Map;
             this.MapSize = Constants.MapSize;
         }

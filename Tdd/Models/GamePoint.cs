@@ -26,41 +26,41 @@ namespace Tdd.Models
 
             get
             {
+                var intX = (int)this.X;
+                var intY = (int)this.Y;
+                var comparePoint = new Point(intX, intY);
                 var list = new List<GamePoint>();
 
-                var upPoint = new GamePoint(this.GameRoom, X, Y - 1);
-                var up = this.GameRoom.Towers.Where(t => Point.IsNear(upPoint, t.Location, MaxDistance)).Any();
-                if(!up)
+                comparePoint.Y = intY - 1;
+                if(intY - 1 > 0 && !this.GameRoom.Towers.ContainsKey(comparePoint))
                 {
-                    list.Add(new GamePoint(this.GameRoom, upPoint));
+                    list.Add(new GamePoint(this.GameRoom, intX, intY - 1));
                 }
 
-                var leftPoint = new GamePoint(this.GameRoom, X - 1, Y);
-                var left = this.GameRoom.Towers.Where(t => Point.IsNear(leftPoint, t.Location, MaxDistance)).Any();
-                if(!left)
+                comparePoint.Y = intY + 1;
+                if(intY + 1 <= Constants.MapSize && !this.GameRoom.Towers.ContainsKey(comparePoint))
                 {
-                    list.Add(new GamePoint(this.GameRoom, leftPoint));
+                    list.Add(new GamePoint(this.GameRoom, intX, intY + 1));
                 }
 
-                var rightPoint = new GamePoint(this.GameRoom, X + 1, Y);
-                var right = this.GameRoom.Towers.Where(t => Point.IsNear(rightPoint, t.Location, MaxDistance)).Any();
-                if(!right)
+                comparePoint.X = intX - 1;
+                comparePoint.Y = intY;
+                if(intX - 1 > 0 && !this.GameRoom.Towers.ContainsKey(comparePoint))
                 {
-                    list.Add(new GamePoint(this.GameRoom, rightPoint));
+                    list.Add(new GamePoint(this.GameRoom, intX - 1, intY));
                 }
 
-                var downPoint = new GamePoint(this.GameRoom, X, Y+1);
-                var down = this.GameRoom.Towers.Where(t => Point.IsNear(downPoint, t.Location, MaxDistance)).Any();
-                if(!down)
+                comparePoint.X = intX + 1;
+                comparePoint.Y = intY;
+                if (intX + 1 <= Constants.MapSize && !this.GameRoom.Towers.ContainsKey(comparePoint))
                 {
-                    list.Add(new GamePoint(this.GameRoom, downPoint));
+                    list.Add(new GamePoint(this.GameRoom, intX + 1, intY));
                 }
 
-                // return list;
 
                 // Game boundary limits
                 return list.Where(p => 
-                    (p.X >= 0 && p.X <= Constants.MapSize && p.Y >= 0 && p.Y <= Constants.MapSize) && (
+                    (
                         (p.X >= Constants.MapThird && p.X < Constants.MapThird * 2) || 
                         (p.Y >= Constants.MapThird && p.Y < Constants.MapThird * 2)
                     ));

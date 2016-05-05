@@ -8,7 +8,7 @@ namespace Tdd.Models
     public class TestingConstants
     {
 
-        public static List<Tower> Maze = new List<Tower>
+        public static Dictionary<Point, Tower> Maze = new Dictionary<Point, Tower>
         {
             //new TestingTower(15, 11),
             //new TestingTower(16, 11),

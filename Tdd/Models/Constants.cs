@@ -62,7 +62,7 @@ namespace Tdd.Models
 
         public static readonly Resources StartingResources = new Resources()
         {
-            Primary = 10000,
+            Primary = 150,
             Income = 10
         };
 

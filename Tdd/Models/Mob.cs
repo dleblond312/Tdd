@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -24,9 +25,10 @@ namespace Tdd.Models
 
         public DateTime LastUpdated { get; set; }
 
-        //public List<GamePoint> Path { get; set; } // Debugging
-
         public dynamic Status { get; private set; }
+
+        [JsonIgnore]
+        public IEnumerable<GamePoint> Path { get; set; }
 
     }
 }
