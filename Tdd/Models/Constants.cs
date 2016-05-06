@@ -52,8 +52,8 @@ namespace Tdd.Models
             {
                 MoveSpeed = 50,
                 StartingHealth = 1000,
-                Abilities = JsonConvert.DeserializeObject("{)
-            }
+                Abilities = JsonConvert.DeserializeObject("{ 'evasion': 0.5}")
+            },
             new MobType()
             {
                 MoveSpeed = 200,
@@ -79,7 +79,7 @@ namespace Tdd.Models
             {
                 MoveSpeed = 100,
                 StartingHealth = 1750,
-                Abilities = JsonConvert.DeserializeObject("{'evasion': 0.15")
+                Abilities = JsonConvert.DeserializeObject("{'evasion': 0.15}")
             }
         };
 

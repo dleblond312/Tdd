@@ -15,7 +15,7 @@ namespace Tdd.Models
 
         /// <summary>
         /// Abilities list:
-        /// TODO Evasion: double -- Dodges % of attacks
+        /// Evasion: double -- Dodges % of attacks
         /// TODO Fracture: { count: int, shard : MobType } -- Splits into {count} of units of type {shard}
         /// TODO Avenger: { range: double, bonus : double }  -- On death, gives all nearby enemies +{bonus}% move speed 
         /// TODO Recovery: { step: int, value: int } -- Every {step}ms gain {value} health
