@@ -48,10 +48,38 @@ namespace Tdd.Models
 
         public static readonly List<MobType> MobTypes = new List<MobType>()
         {
+            new MobType() // TODO: testing mob for abilities, delete.
+            {
+                MoveSpeed = 50,
+                StartingHealth = 1000,
+                Abilities = JsonConvert.DeserializeObject("{)
+            }
             new MobType()
             {
-                MoveSpeed = 500,
+                MoveSpeed = 200,
                 StartingHealth = 200
+            },
+            new MobType()
+            {
+                MoveSpeed = 200,
+                StartingHealth = 275
+            }, 
+            new MobType()
+            {
+                MoveSpeed = 400,
+                StartingHealth = 250
+            },
+            new MobType()
+            {
+                MoveSpeed = 300,
+                StartingHealth = 250,
+                Abilities = JsonConvert.DeserializeObject("{'evasion': 0.2}")
+            },
+            new MobType()
+            {
+                MoveSpeed = 100,
+                StartingHealth = 1750,
+                Abilities = JsonConvert.DeserializeObject("{'evasion': 0.15")
             }
         };
 
