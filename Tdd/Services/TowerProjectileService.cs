@@ -47,7 +47,7 @@ namespace Tdd.Services
             {
                 var span = DateTime.UtcNow.Subtract(projectile.LastUpdated);
                 projectile.Location = Point.TrackTo(projectile.Location, projectile.Target.CurrentLocation, (span.Milliseconds * (projectile.Speed / Constants.GameSpeed)));
-                if (projectile.Location == projectile.Target.CurrentLocation) // Inefficient to call Point.IsNear(projectile.Location, projectile.Target.CurrentLocation, 0.1)
+                if (Point.IsNear(projectile.Location, projectile.Target.CurrentLocation, 0.1))  // projectile.Location.X == projectile.Target.CurrentLocation)
                 {
                     TowerType towerType;
                     switch(projectile.TowerType)
@@ -71,38 +71,57 @@ namespace Tdd.Services
                             break;
                     }
 
-                    var abilities = (IDictionary<string, object>)projectile.Target.Type.Abilities;
+                    var abilities = projectile.Target.Type.Abilities;
+                    var damage = projectile.Damage;
+
+                    // Stoneskin game mechanic
+                    if (abilities?.Stoneskin.HasValue == true)
+                    {
+                        damage -= abilities.Stoneskin.Value;
+                    }
 
                     // Evasion game mechanic
-                    if (abilities.ContainsKey("evasion"))
+                    if (abilities?.Evasion.HasValue == true)
                     {
                         var roll = random.Value.Next(100);
-                        if(roll < (double)projectile.Target.Type.Abilities.evasion)
+                        if(roll < abilities.Evasion.Value)
                         {
-                            projectile.Target.Health -= projectile.Damage;
+                            damage = 0;
                         }
                     }
-                    else
-                    {
-                        projectile.Target.Health -= projectile.Damage;
-                    }
+
+                    projectile.Target.Health -= Math.Max(damage, 0);
                     round.Projectiles.Remove(projectile);
+
                     if (projectile.Target.Health <= 0)
                     {
                         // Fracture game mechanic
-                        if(abilities.ContainsKey("fracture"))
+                        if(abilities?.Fracture != null)
                         {
-                            var count = (int)projectile.Target.Type.Abilities.fracture.count;
-                            for (var i = 0; i < count; i++)
+                            for (var i = 0; i < abilities.Fracture.Count; i++)
                             {
                                 round.Mobs.Add(new Mob()
                                 {
-                                    Type = (MobType) projectile.Target.Type.Abilities.fracture.shard,
+                                    Type = projectile.Target.Type.Abilities.Fracture.Shard,
                                     CurrentLocation = new Point(projectile.Target.CurrentLocation),
                                     EndingLocation = new Point(projectile.Target.EndingLocation),
-                                    Health = ((MobType) projectile.Target.Type.Abilities.fracture.shard).StartingHealth
+                                    Health = projectile.Target.Type.Abilities.Fracture.Shard.StartingHealth,
+                                    CurrentSpeed = projectile.Target.Type.Abilities.Fracture.Shard.MoveSpeed
 
                                 });
+                            }
+                        }
+
+                        // Avenger game mechanic
+                        if(abilities?.Avenger != null)
+                        {
+                            var range = projectile.Target.Type.Abilities.Avenger.Range;
+                            foreach(var mob in round.Mobs.Reverse())
+                            {
+                                if(Point.IsNear(projectile.Target.CurrentLocation, mob.CurrentLocation, range))
+                                {
+                                    mob.CurrentSpeed *= (1 + projectile.Target.Type.Abilities.Avenger.Bonus);
+                                }
                             }
                         }
 

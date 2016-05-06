@@ -51,8 +51,18 @@ namespace Tdd.Models
             new MobType() // TODO: testing mob for abilities, delete.
             {
                 MoveSpeed = 50,
-                StartingHealth = 1000,
-                Abilities = JsonConvert.DeserializeObject("{ 'evasion': 50.0}")
+                StartingHealth = 100,
+                Abilities = new Abilities()
+                {
+                    Evasion = 30,
+                    Avenger = new Abilities.AvengerAbility(range: 2, bonus: 0.4),
+                    Fracture = new Abilities.FractureAbility(count: 2, shard: new MobType()
+                    {
+                        MoveSpeed = 200,
+                        StartingHealth = 50
+                    }),
+                    Stoneskin = 2
+                }
             },
             new MobType()
             {
@@ -73,13 +83,20 @@ namespace Tdd.Models
             {
                 MoveSpeed = 300,
                 StartingHealth = 250,
-                Abilities = JsonConvert.DeserializeObject("{'evasion': 20.0}")
+                Abilities = new Abilities()
+                {
+                    Evasion = 25
+                }
             },
             new MobType()
             {
                 MoveSpeed = 100,
                 StartingHealth = 1750,
-                Abilities = JsonConvert.DeserializeObject("{'evasion': 15.0}")
+                Abilities = new Abilities()
+                {
+                    Evasion = 5,
+                    Stoneskin = 2
+                }
             }
         };
 

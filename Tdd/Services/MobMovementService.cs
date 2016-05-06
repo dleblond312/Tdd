@@ -85,7 +85,7 @@ namespace Tdd.Services
 
                 if (next != null)
                 {
-                    var moveSpeed = mob.Type.MoveSpeed;
+                    var moveSpeed = mob.CurrentSpeed;
 
                     // Adjust mob speed for slow effects
                     if ((mob.Status as IDictionary<string, object>)?.ContainsKey("slow") ?? false)
