@@ -2,7 +2,8 @@
     if (!($ && $.connection && $.connection.hub)) {
         window.alert("Can't instantiate a socket");
     }
-    $.connection.hub.logging = true;
+
+    $.connection.hub.logging = false;
 
     var game = $.connection.gameHub;
 

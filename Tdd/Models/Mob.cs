@@ -13,8 +13,10 @@ namespace Tdd.Models
         public Mob()
         {
             this.Status = new ExpandoObject(); // Default the status to an empty dictionary
+            this.LastUpdated = DateTime.UtcNow; // Default last updated to now
         }
 
+        [JsonIgnore] // Pretty costly to send over the network
         public MobType Type { get; set; }
 
         public int Health { get; set; }
@@ -24,6 +26,8 @@ namespace Tdd.Models
         public Point EndingLocation { get; set; }
 
         public DateTime LastUpdated { get; set; }
+
+        public double CurrentSpeed { get; set; }
 
         public dynamic Status { get; private set; }
 

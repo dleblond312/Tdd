@@ -122,6 +122,15 @@ namespace Tdd.Services
                         if (currentPlayer.Resources.Subtract(towerToBuild.Cost))
                         {
                             gameRoom.Towers.Add(location, new Tower(towerToBuild, context.ConnectionId, location, towerId));
+                            var round = this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
+                            if(round != null)
+                            {
+                                foreach(var mob in round.Mobs)
+                                {
+                                    mob.Path = null; // The path is no longer valid for the next update
+                                }
+                                this.scaleoutService.Store(Persist.GameRound, roomId, round);
+                            }
                         }
                     }
 
