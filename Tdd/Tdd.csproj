@@ -276,7 +276,7 @@
     <Compile Include="Services\IMobMovementService.cs" />
     <Compile Include="Services\IPathingService.cs" />
     <Compile Include="Services\IScaleoutService.cs" />
-    <Compile Include="Services\ITowerProjectService.cs" />
+    <Compile Include="Services\ITowerProjectileService.cs" />
     <Compile Include="Services\MobMovementService.cs" />
     <Compile Include="Services\PathingService.cs" />
     <Compile Include="Services\ScaleoutService.cs" />

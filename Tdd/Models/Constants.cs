@@ -48,22 +48,6 @@ namespace Tdd.Models
 
         public static readonly List<MobType> MobTypes = new List<MobType>()
         {
-            new MobType() // TODO: testing mob for abilities, delete.
-            {
-                MoveSpeed = 50,
-                StartingHealth = 100,
-                Abilities = new Abilities()
-                {
-                    Evasion = 30,
-                    Avenger = new Abilities.AvengerAbility(range: 2, bonus: 0.4),
-                    Fracture = new Abilities.FractureAbility(count: 2, shard: new MobType()
-                    {
-                        MoveSpeed = 200,
-                        StartingHealth = 50
-                    }),
-                    Stoneskin = 2
-                }
-            },
             new MobType()
             {
                 MoveSpeed = 200,
@@ -97,7 +81,23 @@ namespace Tdd.Models
                     Evasion = 5,
                     Stoneskin = 2
                 }
-            }
+            },
+            new MobType() // TODO: testing mob for abilities, delete.
+            {
+                MoveSpeed = 50,
+                StartingHealth = 100,
+                Abilities = new Abilities()
+                {
+                    Evasion = 30,
+                    Avenger = new Abilities.AvengerAbility(range: 2, bonus: 0.4),
+                    Fracture = new Abilities.FractureAbility(count: 2, shard: new MobType()
+                    {
+                        MoveSpeed = 200,
+                        StartingHealth = 50
+                    }),
+                    Stoneskin = 2
+                }
+            },
         };
 
         public static readonly int RoundSize = 10;

@@ -67,6 +67,7 @@ namespace Tdd.Services
                                     this.mobMovementService.UpdateMobLocation(mob, room, round);
                                     this.towerProjectileService.TickDots(room, round);
                                     this.towerProjectileService.UpdateProjectiles(room, round);
+
                                     this.scaleoutService.Store(Persist.GameRound, roomId, round);
                                 }
 
