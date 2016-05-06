@@ -23,10 +23,13 @@ namespace Tdd.Models
 
         public Point CurrentLocation { get; set; }
 
+        [JsonIgnore]
         public Point EndingLocation { get; set; }
 
+        [JsonIgnore]
         public DateTime LastUpdated { get; set; }
 
+        [JsonIgnore]
         public double CurrentSpeed { get; set; }
 
         public dynamic Status { get; private set; }
