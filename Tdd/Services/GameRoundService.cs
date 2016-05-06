@@ -115,7 +115,6 @@ namespace Tdd.Services
                                 Type = Constants.MobTypes[0],
                                     CurrentLocation = room.Players[j].StartingLocation,
                                     EndingLocation = room.Players[j].EndingLocation,
-                                LastUpdated = DateTime.UtcNow
 
                             });
                             }

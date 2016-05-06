@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Helpers;
 using Tdd.Models;
@@ -14,6 +15,10 @@ namespace Tdd.Services
     public class TowerProjectileService : ITowerProjectileService
     {
         private readonly IScaleoutService scaleoutService;
+
+        // Thread safe randomness http://stackoverflow.com/questions/19270507/correct-way-to-use-random-in-multithread-application
+        static int seed = Environment.TickCount;
+        static readonly ThreadLocal<Random> random = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref seed)));
 
         public TowerProjectileService(IScaleoutService scaleoutService)
         {
@@ -65,10 +70,42 @@ namespace Tdd.Services
                             // No-op
                             break;
                     }
-                    projectile.Target.Health -= projectile.Damage;
+
+                    var abilities = (IDictionary<string, object>)projectile.Target.Type.Abilities;
+
+                    // Evasion game mechanic
+                    if (abilities.ContainsKey("evasion"))
+                    {
+                        var roll = random.Value.Next(100);
+                        if(roll < (double)projectile.Target.Type.Abilities.evasion)
+                        {
+                            projectile.Target.Health -= projectile.Damage;
+                        }
+                    }
+                    else
+                    {
+                        projectile.Target.Health -= projectile.Damage;
+                    }
                     round.Projectiles.Remove(projectile);
                     if (projectile.Target.Health <= 0)
                     {
+                        // Fracture game mechanic
+                        if(abilities.ContainsKey("fracture"))
+                        {
+                            var count = (int)projectile.Target.Type.Abilities.fracture.count;
+                            for (var i = 0; i < count; i++)
+                            {
+                                round.Mobs.Add(new Mob()
+                                {
+                                    Type = (MobType) projectile.Target.Type.Abilities.fracture.shard,
+                                    CurrentLocation = new Point(projectile.Target.CurrentLocation),
+                                    EndingLocation = new Point(projectile.Target.EndingLocation),
+                                    Health = ((MobType) projectile.Target.Type.Abilities.fracture.shard).StartingHealth
+
+                                });
+                            }
+                        }
+
                         round.Mobs.Remove(projectile.Target);
                     }
                 }

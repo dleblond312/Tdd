@@ -13,6 +13,7 @@ namespace Tdd.Models
         public Mob()
         {
             this.Status = new ExpandoObject(); // Default the status to an empty dictionary
+            this.LastUpdated = DateTime.UtcNow; // Default last updated to now
         }
 
         public MobType Type { get; set; }
