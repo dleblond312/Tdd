@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Helpers;
 using Tdd.Models;
@@ -14,6 +16,10 @@ namespace Tdd.Services
     {
         private readonly IScaleoutService scaleoutService;
 
+        // Thread safe randomness http://stackoverflow.com/questions/19270507/correct-way-to-use-random-in-multithread-application
+        static int seed = Environment.TickCount;
+        static readonly ThreadLocal<Random> random = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref seed)));
+
         public TowerProjectileService(IScaleoutService scaleoutService)
         {
             this.scaleoutService = scaleoutService;
@@ -21,7 +27,7 @@ namespace Tdd.Services
 
         public void UpdateProjectiles(GameRoom room, GameRound round)
         {
-            foreach (Tower tower in room.Towers)
+            foreach (var tower in room.Towers.Values)
             {
                 if (tower.Damage > 0 && tower.ReadyAt <= DateTime.UtcNow)
                 {
@@ -41,7 +47,7 @@ namespace Tdd.Services
             {
                 var span = DateTime.UtcNow.Subtract(projectile.LastUpdated);
                 projectile.Location = Point.TrackTo(projectile.Location, projectile.Target.CurrentLocation, (span.Milliseconds * (projectile.Speed / Constants.GameSpeed)));
-                if (Point.IsNear(projectile.Location, projectile.Target.CurrentLocation, 0.1))
+                if (Point.IsNear(projectile.Location, projectile.Target.CurrentLocation, 0.1))  // projectile.Location.X == projectile.Target.CurrentLocation)
                 {
                     TowerType towerType;
                     switch(projectile.TowerType)
@@ -64,10 +70,61 @@ namespace Tdd.Services
                             // No-op
                             break;
                     }
-                    projectile.Target.Health -= projectile.Damage;
+
+                    var abilities = projectile.Target.Type.Abilities;
+                    var damage = projectile.Damage;
+
+                    // Stoneskin game mechanic
+                    if (abilities?.Stoneskin.HasValue == true)
+                    {
+                        damage -= abilities.Stoneskin.Value;
+                    }
+
+                    // Evasion game mechanic
+                    if (abilities?.Evasion.HasValue == true)
+                    {
+                        var roll = random.Value.Next(100);
+                        if(roll < abilities.Evasion.Value)
+                        {
+                            damage = 0;
+                        }
+                    }
+
+                    projectile.Target.Health -= Math.Max(damage, 0);
                     round.Projectiles.Remove(projectile);
+
                     if (projectile.Target.Health <= 0)
                     {
+                        // Fracture game mechanic
+                        if(abilities?.Fracture != null)
+                        {
+                            for (var i = 0; i < abilities.Fracture.Count; i++)
+                            {
+                                round.Mobs.Add(new Mob()
+                                {
+                                    Type = projectile.Target.Type.Abilities.Fracture.Shard,
+                                    CurrentLocation = new Point(projectile.Target.CurrentLocation),
+                                    EndingLocation = new Point(projectile.Target.EndingLocation),
+                                    Health = projectile.Target.Type.Abilities.Fracture.Shard.StartingHealth,
+                                    CurrentSpeed = projectile.Target.Type.Abilities.Fracture.Shard.MoveSpeed
+
+                                });
+                            }
+                        }
+
+                        // Avenger game mechanic
+                        if(abilities?.Avenger != null)
+                        {
+                            var range = projectile.Target.Type.Abilities.Avenger.Range;
+                            foreach(var mob in round.Mobs.Reverse())
+                            {
+                                if(Point.IsNear(projectile.Target.CurrentLocation, mob.CurrentLocation, range))
+                                {
+                                    mob.CurrentSpeed *= (1 + projectile.Target.Type.Abilities.Avenger.Bonus);
+                                }
+                            }
+                        }
+
                         round.Mobs.Remove(projectile.Target);
                     }
                 }

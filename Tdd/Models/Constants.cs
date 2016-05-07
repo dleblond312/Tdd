@@ -50,9 +50,54 @@ namespace Tdd.Models
         {
             new MobType()
             {
-                MoveSpeed = 500,
+                MoveSpeed = 200,
                 StartingHealth = 200
-            }
+            },
+            new MobType()
+            {
+                MoveSpeed = 200,
+                StartingHealth = 275
+            }, 
+            new MobType()
+            {
+                MoveSpeed = 400,
+                StartingHealth = 250
+            },
+            new MobType()
+            {
+                MoveSpeed = 300,
+                StartingHealth = 250,
+                Abilities = new Abilities()
+                {
+                    Evasion = 25
+                }
+            },
+            new MobType()
+            {
+                MoveSpeed = 100,
+                StartingHealth = 1750,
+                Abilities = new Abilities()
+                {
+                    Evasion = 5,
+                    Stoneskin = 2
+                }
+            },
+            new MobType() // TODO: testing mob for abilities, delete.
+            {
+                MoveSpeed = 50,
+                StartingHealth = 100,
+                Abilities = new Abilities()
+                {
+                    Evasion = 30,
+                    Avenger = new Abilities.AvengerAbility(range: 2, bonus: 0.4),
+                    Fracture = new Abilities.FractureAbility(count: 2, shard: new MobType()
+                    {
+                        MoveSpeed = 200,
+                        StartingHealth = 50
+                    }),
+                    Stoneskin = 2
+                }
+            },
         };
 
         public static readonly int RoundSize = 10;
@@ -62,7 +107,7 @@ namespace Tdd.Models
 
         public static readonly Resources StartingResources = new Resources()
         {
-            Primary = 10000,
+            Primary = 150,
             Income = 10
         };
 
@@ -93,7 +138,7 @@ namespace Tdd.Models
                 Damage = 10,
                 Range = 3,
                 Speed = 1000,
-                ProjectileSpeed = 2000,
+                ProjectileSpeed = 1000,
                 Cost = new Cost()
                 {
                     Primary = 10
@@ -106,7 +151,7 @@ namespace Tdd.Models
                 Damage = 6,
                 Range = 4,
                 Speed = 1000,
-                ProjectileSpeed = 2000,
+                ProjectileSpeed = 1000,
                 Effects = JsonConvert.DeserializeObject("{'slow': { speed: 0.7, duration: 3000 }}"),
                 Cost = new Cost()
                 {
@@ -120,7 +165,7 @@ namespace Tdd.Models
                 Damage = 15,
                 Range = 5,
                 Speed = 800,
-                ProjectileSpeed = 2000,
+                ProjectileSpeed = 1000,
                 Cost = new Cost()
                 {
                     Primary = 20
@@ -133,7 +178,7 @@ namespace Tdd.Models
                 Damage = 2,
                 Range = 4,
                 Speed = 1750,
-                ProjectileSpeed = 2000,
+                ProjectileSpeed = 1000,
                 Effects = JsonConvert.DeserializeObject("{'dot': { damage: 2, duration: 20000}}"),
                 Cost = new Cost()
                 {
@@ -147,7 +192,7 @@ namespace Tdd.Models
                 Damage = 20,
                 Range = 1,
                 Speed = 2000,
-                ProjectileSpeed = 2000,
+                ProjectileSpeed = 1000,
                 Cost = new Cost()
                 {
                     Primary = 26

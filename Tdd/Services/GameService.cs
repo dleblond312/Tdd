@@ -24,7 +24,7 @@ namespace Tdd.Services
         public async Task<GameRoom> StartGameAsync(HubCallerContext context)
         {
             var gameRoom = new GameRoom(context);
-            gameRoom.Towers = gameRoom.Towers.Union(TestingConstants.Maze).ToList(); // TODO remove test code
+            // gameRoom.Towers = gameRoom.Towers.Union(TestingConstants.Maze).ToList(); // TODO remove test code
             this.scaleoutService.Subscribe(Persist.GameRoom, gameRoom.Id, context);
             this.scaleoutService.Store(Persist.GameRoom, gameRoom.Id, gameRoom);
             return gameRoom;
@@ -104,8 +104,7 @@ namespace Tdd.Services
                 if (!string.IsNullOrWhiteSpace(towerId))
                 {
                     var location = new Point(x, y);
-                    var existingTower = gameRoom.Towers.Where(t => t.Location == location).Any();
-                    if (existingTower)
+                    if (gameRoom.Towers.ContainsKey(location))
                     {
                         throw new HttpException(400, "Existing tower conflicts with build location");
                     }
@@ -122,7 +121,16 @@ namespace Tdd.Services
                     {
                         if (currentPlayer.Resources.Subtract(towerToBuild.Cost))
                         {
-                            gameRoom.Towers.Add(new Tower(towerToBuild, context.ConnectionId, location, towerId));
+                            gameRoom.Towers.Add(location, new Tower(towerToBuild, context.ConnectionId, location, towerId));
+                            var round = this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
+                            if(round != null)
+                            {
+                                foreach(var mob in round.Mobs)
+                                {
+                                    mob.Path = null; // The path is no longer valid for the next update
+                                }
+                                this.scaleoutService.Store(Persist.GameRound, roomId, round);
+                            }
                         }
                     }
 

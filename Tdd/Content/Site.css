@@ -29,11 +29,11 @@
   width: 150px;
 }
 .game-area .projectile {
-    background-image: url('Images/basicProjectile.gif');
-    z-index: 3;
-    position: absolute;
-    width: 10px;
-    height: 10px;
+  background-image: url('Images/basicProjectile.gif');
+  z-index: 3;
+  position: absolute;
+  width: 10px;
+  height: 10px;
 }
 .game-area .tower {
   z-index: 1;

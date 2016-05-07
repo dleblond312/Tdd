@@ -67,6 +67,7 @@ namespace Tdd.Services
                                     this.mobMovementService.UpdateMobLocation(mob, room, round);
                                     this.towerProjectileService.TickDots(room, round);
                                     this.towerProjectileService.UpdateProjectiles(room, round);
+
                                     this.scaleoutService.Store(Persist.GameRound, roomId, round);
                                 }
 
@@ -109,15 +110,14 @@ namespace Tdd.Services
                             var round = this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
                             for(var j = 0; j < room.Players.Count; j++)
                             {
-                            round.Mobs.Add(new Mob()
-                            {
-                                Health = Constants.MobTypes[0].StartingHealth,
-                                Type = Constants.MobTypes[0],
+                                round.Mobs.Add(new Mob()
+                                {
+                                    Health = Constants.MobTypes[0].StartingHealth,
+                                    Type = Constants.MobTypes[0],
                                     CurrentLocation = room.Players[j].StartingLocation,
                                     EndingLocation = room.Players[j].EndingLocation,
-                                LastUpdated = DateTime.UtcNow
-
-                            });
+                                    CurrentSpeed = Constants.MobTypes[0].MoveSpeed
+                                });
                             }
                             round.RemainingMobs--;
                         }

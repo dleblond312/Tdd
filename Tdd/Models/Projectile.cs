@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -22,16 +23,22 @@ namespace Tdd.Models
 
         public Point Location { get; set; }
 
+        [JsonIgnore]
         public DateTime LastUpdated { get; set; }
 
+        [JsonIgnore]
         public string Owner { get; private set; }
 
+        [JsonIgnore]
         public Mob Target { get; private set; }
 
+        [JsonIgnore]
         public double Speed { get; private set; }
 
+        [JsonIgnore]
         public int Damage { get; private set; }
 
+        [JsonIgnore]
         public Constants.TowerList TowerType { get; set; }
 
         public override string ToString()
