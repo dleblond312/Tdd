@@ -12,6 +12,7 @@ namespace Tdd.Models
         public static readonly int MapSize = 45;
         public static readonly int MapThird = MapSize / 3;
         public static readonly int StartingLife = 30;
+        public static readonly double InterestRate = 1.04;
 
         public static readonly List<Point> StartingLocations = new List<Point>()
         {
@@ -51,17 +52,41 @@ namespace Tdd.Models
             new MobType()
             {
                 MoveSpeed = 200,
-                StartingHealth = 200
+                StartingHealth = 200,
+                Abilities = new Abilities()
+                {
+                    Rewards = new Abilities.RewardAbility()
+                    {
+                        Income = 1,
+                        Primary = 1
+                    }
+                }
             },
             new MobType()
             {
                 MoveSpeed = 200,
-                StartingHealth = 275
+                StartingHealth = 275,
+                Abilities = new Abilities()
+                {
+                    Rewards = new Abilities.RewardAbility()
+                    {
+                        Income = 1,
+                        Primary = 2
+                    }
+                }
             }, 
             new MobType()
             {
                 MoveSpeed = 400,
-                StartingHealth = 250
+                StartingHealth = 250,
+                Abilities = new Abilities()
+                {
+                    Rewards = new Abilities.RewardAbility()
+                    {
+                        Income = 1,
+                        Primary = 2
+                    }
+                }
             },
             new MobType()
             {
@@ -69,7 +94,12 @@ namespace Tdd.Models
                 StartingHealth = 250,
                 Abilities = new Abilities()
                 {
-                    Evasion = 25
+                    Evasion = 25,
+                    Rewards = new Abilities.RewardAbility()
+                    {
+                        Income = 2,
+                        Primary = 2
+                    }
                 }
             },
             new MobType()
@@ -79,25 +109,14 @@ namespace Tdd.Models
                 Abilities = new Abilities()
                 {
                     Evasion = 5,
-                    Stoneskin = 2
-                }
-            },
-            new MobType() // TODO: testing mob for abilities, delete.
-            {
-                MoveSpeed = 50,
-                StartingHealth = 100,
-                Abilities = new Abilities()
-                {
-                    Evasion = 30,
-                    Avenger = new Abilities.AvengerAbility(range: 2, bonus: 0.4),
-                    Fracture = new Abilities.FractureAbility(count: 2, shard: new MobType()
+                    Stoneskin = 2,
+                    Rewards = new Abilities.RewardAbility()
                     {
-                        MoveSpeed = 200,
-                        StartingHealth = 50
-                    }),
-                    Stoneskin = 2
+                        Income = 3,
+                        Primary = 25
+                    }
                 }
-            },
+            }
         };
 
         public static readonly int RoundSize = 10;
@@ -111,7 +130,8 @@ namespace Tdd.Models
             Income = 10
         };
 
-        public enum TowerList {
+        public enum TowerList
+        {
             Rock,
             Basic,
             Slowing,

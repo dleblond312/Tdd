@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using Tdd.Models;
 
 namespace Tdd.Services
@@ -42,7 +41,6 @@ namespace Tdd.Services
                 // Move
                 new Thread(async () =>
                 {
-                    int frame = 0;
                     GameRoom room = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
                     var startTime = DateTime.UtcNow;
                     var endTime = startTime.AddMinutes(60);
@@ -75,12 +73,6 @@ namespace Tdd.Services
                                 this.scaleoutService.Store(Persist.GameRound, roomId, round);
                             }
 
-                            frame++;
-
-                            if(frame > 30)
-                            {
-                                frame = 0; // frame zero occurs roughly once a second, used for updates that don't need to occur as often
-                            }
                             Thread.Sleep(30); // Makes ~30 FPS
                         }
                         
@@ -98,27 +90,43 @@ namespace Tdd.Services
                     }
                 }).Start();
 
-                // Spawn mobs
+                // Spawn mobs & update player resources
                 new Thread(() =>
                 {
-                   var totalMobs = currentRound.RemainingMobs; // snapshot of total count
+                    var totalMobs = currentRound.RemainingMobs; // snapshot of total count
+                    GameRoom room = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
 
-                   for(int i = 0; i < totalMobs; i++)
+                    lock(room)
                     {
-                        GameRoom room = this.scaleoutService.Get(Persist.GameRoom, roomId) as GameRoom;
+                        // Every round, give players their interest and income
+                        foreach(Player player in room.Players)
+                        {
+                            player.GiveInterestAndIncome();
+                        }
+                    }
+
+                    for(int i = 0; i < totalMobs; i++)
+                    {
                         lock(room)
                         {
                             var round = this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
                             for(var j = 0; j < room.Players.Count; j++)
                             {
-                                round.Mobs.Add(new Mob()
+                                MobType mobType;
+                                if(Constants.MobTypes.Count > room.CurrentRound)
                                 {
-                                    Health = Constants.MobTypes[0].StartingHealth,
-                                    Type = Constants.MobTypes[0],
-                                    CurrentLocation = room.Players[j].StartingLocation,
-                                    EndingLocation = room.Players[j].EndingLocation,
-                                    CurrentSpeed = Constants.MobTypes[0].MoveSpeed
-                                });
+                                    mobType = Constants.MobTypes[room.CurrentRound];
+                                }
+                                else
+                                {
+                                    mobType = Constants.MobTypes.Last();
+                                }
+
+                                round.Mobs.Add(
+                                    new Mob(mobType, 
+                                    room.Players[j].StartingLocation, 
+                                    room.Players[j].EndingLocation)
+                                );
                             }
                             round.RemainingMobs--;
                         }

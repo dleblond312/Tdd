@@ -27,7 +27,7 @@ namespace Tdd.Models
         public DateTime LastUpdated { get; set; }
 
         [JsonIgnore]
-        public string Owner { get; private set; }
+        public Player Owner { get; private set; }
 
         [JsonIgnore]
         public Mob Target { get; private set; }

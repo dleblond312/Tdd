@@ -10,7 +10,7 @@ namespace Tdd.Models
     [Serializable]
     public class Tower
     {
-        public Tower(TowerType towerType, string owner, Point location, string id)
+        public Tower(TowerType towerType, Player owner, Point location)
         {
             this.Type = towerType.Id;
             this.Speed = towerType.Speed;
@@ -19,17 +19,14 @@ namespace Tdd.Models
             this.Owner = owner;
             this.Damage = towerType.Damage;
             this.Location = location;
-            this.Id = id;
             this.Effects = towerType.Effects;
         }
 
         public Constants.TowerList Type { get; private set; }
 
-        public string Owner { get; private set; }
+        public Player Owner { get; private set; }
 
         public Point Location { get; private set; }
-
-        public string Id { get; private set; }
 
         public int Speed { get; private set; }
 

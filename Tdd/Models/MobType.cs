@@ -45,6 +45,8 @@ namespace Tdd.Models
         /// </summary>
         public int? Stoneskin { get; set; }
 
+        public RewardAbility Rewards {get; set;}
+
 
         public class FractureAbility
         {
@@ -70,6 +72,26 @@ namespace Tdd.Models
             public double Range { get; private set; }
 
             public double Bonus { get; private set; }
+        }
+
+        public class RewardAbility
+        {
+            public RewardAbility() : this(100)
+            {
+            }
+
+            public RewardAbility(double percent)
+            {
+                this.Percent = percent;
+            }
+            
+            public int Primary { get; set; }
+
+            public int Research { get; set; }
+
+            public int Income { get; set; }
+
+            public double Percent { get; set; }
         }
     }
 }

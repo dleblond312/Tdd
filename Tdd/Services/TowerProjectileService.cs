@@ -95,20 +95,28 @@ namespace Tdd.Services
 
                     if (projectile.Target.Health <= 0)
                     {
+                        // Rewards game mechanic
+                        if(abilities?.Rewards != null)
+                        {
+                            var roll = random.Value.Next(100);
+                            if(roll < abilities.Rewards.Percent)
+                            {
+                                projectile.Owner.Resources.Income += Math.Max(abilities.Rewards.Income, 0);
+                                projectile.Owner.Resources.Primary += Math.Max(abilities.Rewards.Primary, 0);
+                                projectile.Owner.Resources.Research += Math.Max(abilities.Rewards.Research, 0);
+                            }
+                        }
+
                         // Fracture game mechanic
                         if(abilities?.Fracture != null)
                         {
                             for (var i = 0; i < abilities.Fracture.Count; i++)
                             {
-                                round.Mobs.Add(new Mob()
-                                {
-                                    Type = projectile.Target.Type.Abilities.Fracture.Shard,
-                                    CurrentLocation = new Point(projectile.Target.CurrentLocation),
-                                    EndingLocation = new Point(projectile.Target.EndingLocation),
-                                    Health = projectile.Target.Type.Abilities.Fracture.Shard.StartingHealth,
-                                    CurrentSpeed = projectile.Target.Type.Abilities.Fracture.Shard.MoveSpeed
-
-                                });
+                                round.Mobs.Add(new Mob(
+                                    projectile.Target.Type.Abilities.Fracture.Shard, 
+                                    new Point(projectile.Target.CurrentLocation), 
+                                    new Point(projectile.Target.EndingLocation))
+                                );
                             }
                         }
 

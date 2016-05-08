@@ -16,6 +16,15 @@ namespace Tdd.Models
             this.LastUpdated = DateTime.UtcNow; // Default last updated to now
         }
 
+        public Mob(MobType type, Point startingLocation, Point endingLocation) : this()
+        {
+            this.Type = type;
+            this.Health = this.Type.StartingHealth;
+            this.CurrentSpeed = this.Type.MoveSpeed;
+            this.CurrentLocation = startingLocation;
+            this.EndingLocation = endingLocation;
+        }
+
         [JsonIgnore] // Pretty costly to send over the network
         public MobType Type { get; set; }
 

@@ -31,5 +31,14 @@ namespace Tdd.Models
         public Point EndingLocation { get; set; }
 
         public Resources Resources { get; set; }
+
+        public void GiveInterestAndIncome()
+        {
+            if (this.Resources != null)
+            {
+                this.Resources.Primary *= Constants.InterestRate;
+                this.Resources.Primary += this.Resources.Income;
+            }
+        }
     }
 }
