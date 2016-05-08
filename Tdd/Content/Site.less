@@ -24,8 +24,8 @@ body {
         background: red;
         color: green;
         position: absolute;
-        width: 30px;
-        height: 30px;
+        width: @gameRatio;
+        height: @gameRatio;
         z-index: 2;
 
         .health-bar {
@@ -38,6 +38,7 @@ body {
 
     .projectile {
         background-image: url('Images/basicProjectile.gif');
+        background-size: @projectileRatio @projectileRatio;
         z-index: 3;
         position: absolute;
         width: @projectileRatio;
