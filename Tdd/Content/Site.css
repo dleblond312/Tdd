@@ -18,8 +18,8 @@
   background: red;
   color: green;
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   z-index: 2;
 }
 .game-area .mob .health-bar {
@@ -30,6 +30,7 @@
 }
 .game-area .projectile {
   background-image: url('Images/basicProjectile.gif');
+  background-size: 12px 12px;
   z-index: 3;
   position: absolute;
   width: 12px;
