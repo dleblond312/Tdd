@@ -138,7 +138,7 @@ namespace Tdd.Models
                 Damage = 10,
                 Range = 3,
                 Speed = 1000,
-                ProjectileSpeed = 2000,
+                ProjectileSpeed = 1000,
                 Cost = new Cost()
                 {
                     Primary = 10
@@ -151,7 +151,7 @@ namespace Tdd.Models
                 Damage = 6,
                 Range = 4,
                 Speed = 1000,
-                ProjectileSpeed = 2000,
+                ProjectileSpeed = 1000,
                 Effects = JsonConvert.DeserializeObject("{'slow': { speed: 0.7, duration: 3000 }}"),
                 Cost = new Cost()
                 {
@@ -165,7 +165,7 @@ namespace Tdd.Models
                 Damage = 15,
                 Range = 5,
                 Speed = 800,
-                ProjectileSpeed = 2000,
+                ProjectileSpeed = 1000,
                 Cost = new Cost()
                 {
                     Primary = 20
@@ -178,7 +178,7 @@ namespace Tdd.Models
                 Damage = 2,
                 Range = 4,
                 Speed = 1750,
-                ProjectileSpeed = 2000,
+                ProjectileSpeed = 1000,
                 Effects = JsonConvert.DeserializeObject("{'dot': { damage: 2, duration: 20000}}"),
                 Cost = new Cost()
                 {
@@ -192,7 +192,7 @@ namespace Tdd.Models
                 Damage = 20,
                 Range = 1,
                 Speed = 2000,
-                ProjectileSpeed = 2000,
+                ProjectileSpeed = 1000,
                 Cost = new Cost()
                 {
                     Primary = 26

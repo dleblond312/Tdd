@@ -1,4 +1,7 @@
-﻿body {
+﻿@gameRatio: 24px;
+@projectileRatio: 12px;
+
+body {
     padding-top: 70px;
     background-color: #333333;
 }
@@ -34,18 +37,19 @@
     }
 
     .projectile {
-        background-image: url('Images/basicProjectile.png');
+        background-image: url('Images/basicProjectile.gif');
         z-index: 3;
         position: absolute;
-        width: 10px;
-        height: 10px;
+        width: @projectileRatio;
+        height: @projectileRatio;
     }
 
     .tower {
         z-index: 1;
         background-image: url('Images/basicTower1.png');
+        background-size: @gameRatio @gameRatio;
     }
-
+     
 }
 .command-card {
     @command-card-border-color: blue;
