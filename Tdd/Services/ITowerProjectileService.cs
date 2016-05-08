@@ -10,6 +10,6 @@ namespace Tdd.Services
     public interface ITowerProjectileService
     {
         void UpdateProjectiles(GameRoom room, GameRound round);
-        void TickDots(GameRoom room, GameRound round);
+        void TickDots(Mob mob, GameRoom room, GameRound round);
     }
 }

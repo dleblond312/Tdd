@@ -61,17 +61,18 @@ namespace Tdd.Services
                             lock (room)
                             {
                                 round = this.scaleoutService.Get(Persist.GameRound, roomId) as GameRound;
-                                foreach (var mob in round.Mobs.Reverse())
+
+                                foreach (var mob in round.Mobs.Reverse()) // Iterate every mob
                                 {
                                     this.mobMovementService.RemoveMobsAtEnding(mob, room, round);
                                     this.mobMovementService.UpdateMobLocation(mob, room, round);
-                                    this.towerProjectileService.TickDots(room, round);
-                                    this.towerProjectileService.UpdateProjectiles(room, round);
-
+                                    this.towerProjectileService.TickDots(mob, room, round);
                                 }
-                                this.scaleoutService.Store(Persist.GameRound, roomId, round);
 
-                                
+                                // Iterates towers and projectile count
+                                this.towerProjectileService.UpdateProjectiles(room, round);
+
+                                this.scaleoutService.Store(Persist.GameRound, roomId, round);
                             }
 
                             frame++;

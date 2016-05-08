@@ -134,28 +134,25 @@ namespace Tdd.Services
 
         }
 
-        public void TickDots(GameRoom room, GameRound round)
+        public void TickDots(Mob mob, GameRoom room, GameRound round)
         {
-            foreach(Mob mob in round.Mobs.Reverse())
+            if((mob.Status as IDictionary<string, object>)?.ContainsKey("dot") ?? false)
             {
-                if((mob.Status as IDictionary<string, object>)?.ContainsKey("dot") ?? false)
+                var span = DateTime.UtcNow.Subtract((DateTime)mob.Status.dot.lastUpdated);
+
+                if(span.TotalMilliseconds > 500)
                 {
-                    var span = DateTime.UtcNow.Subtract((DateTime)mob.Status.dot.lastUpdated);
+                    mob.Health -= (int)mob.Status.dot.damage;
+                    mob.Status.dot.lastUpdated = DateTime.UtcNow;
 
-                    if(span.TotalMilliseconds > 500)
+                    if(DateTime.UtcNow > (DateTime)mob.Status.dot.remaining)
                     {
-                        mob.Health -= (int)mob.Status.dot.damage;
-                        mob.Status.dot.lastUpdated = DateTime.UtcNow;
+                        (mob.Status as IDictionary<string, object>).Remove("dot");
+                    }
 
-                        if(DateTime.UtcNow > (DateTime)mob.Status.dot.remaining)
-                        {
-                            (mob.Status as IDictionary<string, object>).Remove("dot");
-                        }
-
-                        if(mob.Health <= 0)
-                        {
-                            round.Mobs.Remove(mob);
-                        }
+                    if(mob.Health <= 0)
+                    {
+                        round.Mobs.Remove(mob);
                     }
                 }
             }
