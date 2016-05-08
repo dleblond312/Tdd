@@ -1,8 +1,8 @@
 var app = angular.module('tdd', ['ngRoute', 'ngCookies']);
 
 app.constant('CONSTANTS', {
-    GAME_RATIO: 25,
-    PROJECTILE_RATIO: 10,
+    GAME_RATIO: 24,
+    PROJECTILE_RATIO: 12,
     MINI_MAP_RATIO: 3,
 });
 
