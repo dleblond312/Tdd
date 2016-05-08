@@ -32,12 +32,13 @@
   background-image: url('Images/basicProjectile.gif');
   z-index: 3;
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 .game-area .tower {
   z-index: 1;
   background-image: url('Images/basicTower1.png');
+  background-size: 24px 24px;
 }
 .command-card {
   height: 250px;
