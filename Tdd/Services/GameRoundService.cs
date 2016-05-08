@@ -68,8 +68,8 @@ namespace Tdd.Services
                                     this.towerProjectileService.TickDots(room, round);
                                     this.towerProjectileService.UpdateProjectiles(room, round);
 
-                                    this.scaleoutService.Store(Persist.GameRound, roomId, round);
                                 }
+                                this.scaleoutService.Store(Persist.GameRound, roomId, round);
 
                                 
                             }
