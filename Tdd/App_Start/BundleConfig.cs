@@ -10,7 +10,8 @@ namespace Tdd
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery.signalR-{version}.js"));
+                        "~/Scripts/jquery.signalR-{version}.js",
+                        "~/Scripts/pep.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -29,6 +30,7 @@ namespace Tdd
                 "~/Scripts/angular-route.js",
                 "~/Scripts/angular-resource.js",
                 "~/Scripts/angular-cookies.js",
+                "~/SCripts/angular-touch.js",
                 "~/Scripts/Lib/angular-local-storage/angular-locale-storage.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/client").IncludeDirectory("~/Client", "*.js", true));

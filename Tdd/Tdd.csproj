@@ -296,7 +296,9 @@
     <Content Include="Client\Directives\gameAreaProjectileDirective.js" />
     <Content Include="Client\Directives\gameTowerDirective.js" />
     <Content Include="Client\Directives\menuAction.js" />
-    <Content Include="Client\Directives\miniMapDirective.js" />
+    <Content Include="Client\Directives\multiTouchDirective.js" />
+    <Content Include="Client\Directives\pepDirective.js" />
+    <Content Include="Client\Directives\playerActionsDirective.js" />
     <Content Include="Client\Interceptors\authInterceptor.js" />
     <Content Include="Client\Interceptors\errorInterceptor.js" />
     <Content Include="Client\Services\authService.js" />
@@ -326,7 +328,7 @@
     <Content Include="Partial\Directives\GameAreaProjectile.html" />
     <Content Include="Partial\Directives\GameTower.html" />
     <Content Include="Partial\Directives\MenuAction.html" />
-    <Content Include="Partial\Directives\MiniMap.html" />
+    <Content Include="Partial\Directives\PlayerActions.html" />
     <Content Include="Partial\Home.html" />
     <Content Include="Partial\Account\Register.html" />
     <Content Include="Partial\Test.html" />
@@ -1131,6 +1133,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\pep.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />

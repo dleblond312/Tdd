@@ -1,22 +1,22 @@
-﻿@gameRatio: 24px;
-@projectileRatio: 12px;
+﻿@projectileRatio: 12px;
+
+html, body {
+    height: 100%;
+}
 
 body {
-    padding-top: 70px;
     background-color: #333333;
 }
 
 
 .game-area {
-    margin-bottom: 250px;
     position: relative;
-    height: 1000px;
 
     canvas {
         background-image: url('Images/gameBoardBackground.png');
-        position: absolute;
-        top: 0;
-        left: 0;
+        background-size: cover;
+        background-repeat:no-repeat;
+        display: inline-block;
         z-index: 0;
     }
 
@@ -24,8 +24,6 @@ body {
         background: red;
         color: green;
         position: absolute;
-        width: @gameRatio;
-        height: @gameRatio;
         z-index: 2;
 
         .health-bar {
@@ -48,11 +46,31 @@ body {
     .tower {
         z-index: 1;
         background-image: url('Images/basicTower1.png');
-        background-size: @gameRatio @gameRatio;
     }
      
 }
-.command-card {
+
+.player-actions {
+    position: absolute;
+    height: 100%;
+    top: 0;
+
+
+    &:nth-child(2n) {
+        right: 0;
+    }
+
+    .player-action {
+        background-color: teal;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 26px;
+    }
+}
+
+
+
+/*.command-card {
     @command-card-border-color: blue;
     @command-card-border: thin solid @command-card-border-color;
 
@@ -105,4 +123,4 @@ body {
         position: absolute;
         bottom: 0;
     }
-}
+}*/

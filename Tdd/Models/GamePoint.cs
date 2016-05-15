@@ -13,7 +13,7 @@ namespace Tdd.Models
         private const double MaxDistance = 0.5;
         private readonly GameRoom GameRoom;
 
-        public GamePoint(GameRoom gameRoom, double x, double y) : base(Math.Max(Math.Min(x, Constants.MapSize), 0), Math.Max(Math.Min(y, Constants.MapSize), 0))
+        public GamePoint(GameRoom gameRoom, double x, double y) : base(Math.Max(Math.Min(x, Constants.MapSizeX), 0), Math.Max(Math.Min(y, Constants.MapSizeY), 0))
         {
             this.GameRoom = gameRoom;
         }
@@ -38,7 +38,7 @@ namespace Tdd.Models
                 }
 
                 comparePoint.Y = intY + 1;
-                if(intY + 1 <= Constants.MapSize && !this.GameRoom.Towers.ContainsKey(comparePoint))
+                if(intY + 1 <= Constants.MapSizeY && !this.GameRoom.Towers.ContainsKey(comparePoint))
                 {
                     list.Add(new GamePoint(this.GameRoom, intX, intY + 1));
                 }
@@ -52,22 +52,12 @@ namespace Tdd.Models
 
                 comparePoint.X = intX + 1;
                 comparePoint.Y = intY;
-                if (intX + 1 <= Constants.MapSize && !this.GameRoom.Towers.ContainsKey(comparePoint))
+                if (intX + 1 <= Constants.MapSizeX && !this.GameRoom.Towers.ContainsKey(comparePoint))
                 {
                     list.Add(new GamePoint(this.GameRoom, intX + 1, intY));
                 }
 
-
-                // Game boundary limits
-                return list.Where(p => 
-                    (
-                        (p.X >= Constants.MapThird && p.X < Constants.MapThird * 2) || 
-                        (p.Y >= Constants.MapThird && p.Y < Constants.MapThird * 2)
-                    ));
-
-                //return list.Where(p => 
-                //    (p.X >= Constants.MapThird && p.X <= Constants.MapThird*2 && p.Y >= 0 && p.Y <= Constants.MapSize) ||
-                //    (p.Y >= Constants.MapThird && p.Y <= Constants.MapThird*2 && p.X >= 0&& p.X <= Constants.MapSize));
+                return list;
             }
         }
 

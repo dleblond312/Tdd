@@ -1,4 +1,5 @@
 ﻿<div class="game-area"  ng-click="performAction($event)">
+    <div  class="player-actions" player-actions="0"></div>
     <canvas id="map-background" ng-mousemove="updateMouseMove($event)"></canvas>
     <div ng-repeat="mob in gameRound.mobs track by $index">
         <div game-area-mob="mob"></div>
@@ -12,4 +13,5 @@
     <div class="selected-action" ng-style="{'background-color': selectedStyles.color, 'position': 'absolute', 'top': selectedStyles.y, 'left': selectedStyles.x, 'width': selectedStyles.width, 'height': selectedStyles.height}" ng-cloak>
 
     </div>
+    <div class="player-actions" player-actions="1"></div>
 </div>

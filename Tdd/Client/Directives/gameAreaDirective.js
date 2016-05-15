@@ -1,9 +1,8 @@
-﻿app.directive('gameArea', ['CONSTANTS', 'gameService', 'roundService', 'buildOptionsService', function (CONSTANTS, gameService, roundService, buildOptionsService) {
+﻿app.directive('gameArea', ['$window', 'CONSTANTS', 'gameService', 'roundService', 'buildOptionsService', function ($window, CONSTANTS, gameService, roundService, buildOptionsService) {
     return {
         scope: {},
         templateUrl: '/Partial/Directives/GameArea.html',
         link: function (scope, element, attrs) {
-            scope.gameRatio = CONSTANTS.GAME_RATIO;
 
             function updateReceived() {
                 scope.gameRoom = gameService.getGame();
@@ -13,25 +12,6 @@
             }
 
             function rebuildMap() {
-                var canvas = element.find('#map-background')[0];
-                $(canvas).attr('width', scope.gameRoom.mapSize * scope.gameRatio);
-                $(canvas).attr('height', scope.gameRoom.mapSize * scope.gameRatio);
-
-                //if (canvas) {
-                    
-                //    var context = canvas.getContext('2d');
-                //    context.clearRect(0, 0, canvas.width, canvas.height);
-                //    context.fillStyle = '#00FF00';
-                //    context.beginPath();
-                    
-                //    // Draw the game board
-                //    context.moveTo(scope.gameRoom.map[0].x * scope.gameRatio, scope.gameRoom.map[0].y * scope.gameRatio);
-                //    for (var i = 1; i < scope.gameRoom.map.length; i++) {
-                //        context.lineTo(scope.gameRoom.map[i].x * scope.gameRatio, scope.gameRoom.map[i].y * scope.gameRatio);
-                //    }
-                //    context.closePath();
-                //    context.fill();
-
                 //    // Draw mob paths
                 //    //if (scope.gameRound && scope.gameRound.mobs) {
                 //    //    context.fillStyle = '#7D26CD';
@@ -43,9 +23,6 @@
                 //    //        }
                 //    //    }
                 //    //}
-
-                //    // context.fillText("(" + scope.event.offsetX + "," + scope.event.offsetY + ")", 0, canvas.height - 20);
-                //}
             }
 
             updateReceived();

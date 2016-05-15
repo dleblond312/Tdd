@@ -1,7 +1,7 @@
-﻿<div class="navbar navbar-default navbar-fixed-top">
+﻿<div ng-if="!gameRoom" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/new">Tower Defense</a>
+            <!--<a class="navbar-brand" href="/">Tower Defense</a>-->
             <ul class="nav navbar-nav">
                 <li><a href ng-click="createGame()" ng-if="!gameRoom">Create New Game</a></li>
                 <li><a href ng-click="joinGame()" ng-if="!gameRoom">Join a game</a></li>                
@@ -25,6 +25,4 @@
     <div game-area="gameRoom" game-round="gameRound">
 
     </div>
-
-    <div ng-include="'/Partial/CommandCard.html'"></div>
 </div>

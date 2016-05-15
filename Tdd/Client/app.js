@@ -1,7 +1,6 @@
-var app = angular.module('tdd', ['ngRoute', 'ngCookies']);
+var app = angular.module('tdd', ['ngRoute', 'ngCookies', 'ngTouch']);
 
 app.constant('CONSTANTS', {
-    GAME_RATIO: 24,
     PROJECTILE_RATIO: 12,
     MINI_MAP_RATIO: 3,
 });
@@ -16,16 +15,10 @@ app.config(['$routeProvider', '$locationProvider',
     }).when("/register", {
         controller: "registerController",
         templateUrl: "/Partial/Account/Register.html"
-    }).when('/test', {
-        templateUrl: '/Partial/Test.html',
-        controller: 'HomeController',
-        reloadOnSearch: false
-    }).when('/new', {
-        redirectTo: '/'
     }).when('/', {
         templateUrl: '/Partial/Home.html',
         controller: 'HomeController',
-        reloadOnSearch: false
+        reloadOnSearch: true
     });
 
 }]);

@@ -1,25 +1,24 @@
-﻿body {
-  padding-top: 70px;
+﻿html,
+body {
+  height: 100%;
+}
+body {
   background-color: #333333;
 }
 .game-area {
-  margin-bottom: 250px;
   position: relative;
-  height: 1000px;
 }
 .game-area canvas {
   background-image: url('Images/gameBoardBackground.png');
-  position: absolute;
-  top: 0;
-  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: inline-block;
   z-index: 0;
 }
 .game-area .mob {
   background: red;
   color: green;
   position: absolute;
-  width: 24px;
-  height: 24px;
   z-index: 2;
 }
 .game-area .mob .health-bar {
@@ -39,47 +38,72 @@
 .game-area .tower {
   z-index: 1;
   background-image: url('Images/basicTower1.png');
-  background-size: 24px 24px;
 }
-.command-card {
-  height: 250px;
-  width: 100%;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  background-color: white;
-  z-index: 900;
-}
-.command-card div {
-  display: inline-block;
-}
-.command-card .mini-map,
-.command-card .command-details,
-.command-card .command-actions {
-  border: thin solid blue;
-  height: 100%;
-  width: 30%;
+.player-actions {
   position: absolute;
-  left: 0;
-}
-.command-card .mini-map #mini-map-canvas {
-  width: 100%;
   height: 100%;
+  top: 0;
 }
-.command-card .command-details {
-  left: 30%;
+.player-actions:nth-child(2n) {
+  right: 0;
 }
-.command-card .command-actions {
-  width: 40%;
-  left: 60%;
+.player-actions .player-action {
+  background-color: teal;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 26px;
 }
-.chat-area .chat-messages {
-  width: 100%;
-  z-index: 90;
+/*.command-card {
+    @command-card-border-color: blue;
+    @command-card-border: thin solid @command-card-border-color;
+
+    height: 250px;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 900;
+
+    div {
+        display: inline-block;
+    }
+
+    .mini-map, .command-details, .command-actions {
+        border: @command-card-border;
+        height: 100%;
+        width: 30%;
+        position: absolute;
+        left: 0;
+    }
+
+    .mini-map {
+        #mini-map-canvas {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .command-details {
+        left: 30%;
+    }
+
+    .command-actions {
+        width: 40%;
+        left: 60%;
+    }
 }
-.chat-area .chat-input {
-  width: 100%;
-  z-index: 99;
-  position: absolute;
-  bottom: 0;
-}
+
+.chat-area {
+    .chat-messages {
+        width: 100%;
+        z-index: 90;
+
+    }
+    .chat-input {
+        width: 100%;
+        z-index: 99;
+        position: absolute;
+        bottom: 0;
+    }
+}*/
