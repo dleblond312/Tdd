@@ -1,4 +1,4 @@
-﻿app.service('gameService', ['$window', '$q', '$rootScope', 'socketService', function ($window, $q, $rootScope, socketService) {
+﻿app.service('gameService', ['$window', '$q', '$rootScope', '$timeout', 'socketService', function ($window, $q, $rootScope, $timeout, socketService) {
     var gameRoom = {};
     var gameRatio = 40;
     this.createGame = function () {
@@ -29,6 +29,7 @@
     rescaleGameArea = function () {
         if (gameRoom && gameRoom.mapSize) {
             gameRatio = Math.min(window.innerWidth || document.body.clientWidth, window.innerHeight || document.body.clientHeight) / (gameRoom.mapSize.y + 1);
+            console.log('game ratio set at', gameRatio);
             var canvas = $('#map-background')[0];
             $(canvas).attr('width', (gameRoom.mapSize.x * gameRatio) + (gameRatio * 4));
             $(canvas).attr('height', gameRoom.mapSize.y * gameRatio);
@@ -40,6 +41,10 @@
     }
 
     angular.element($window).bind('resize', function () {
+        rescaleGameArea();
+    });
+
+    $timeout(function () {
         rescaleGameArea();
     });
 

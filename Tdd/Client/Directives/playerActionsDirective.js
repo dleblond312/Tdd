@@ -1,4 +1,4 @@
-﻿app.directive('playerActions', ['$timeout', '$window', '$rootScope', 'gameService', 'roundService', function ($timeout, $window, $rootScope, gameService, roundService) {
+﻿app.directive('playerActions', ['$timeout', '$window', '$rootScope', '$uibModal', 'gameService', 'roundService', function ($timeout, $window, $rootScope, $uibModal, gameService, roundService) {
     return {
         templateUrl: 'Partial/Directives/PlayerActions.html',
         scope: {
@@ -23,12 +23,21 @@
                 rescalePlayerArea();
             });
 
-            scope.showTowerSelect = function () {
-                console.log('show tower select');
+            scope.showMobSelect = function () {
             }
 
-            scope.longPressTower = function () {
-                console.log('long press');
+            scope.showTowerSelect = function () {
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'Partial/Modal/TowerSelect.html',
+                    controller: 'TowerSelectModalController',
+                    animation: false,
+                });
+
+                modalInstance.result.then(function (selectedTower) {
+                    console.log('Tower selected!', selectedTower);
+                    $scope.selectedTower = selectedTower;
+                });
+                
             }
             
         }

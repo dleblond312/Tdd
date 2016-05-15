@@ -31,7 +31,8 @@ namespace Tdd
                 "~/Scripts/angular-resource.js",
                 "~/Scripts/angular-cookies.js",
                 "~/SCripts/angular-touch.js",
-                "~/Scripts/Lib/angular-local-storage/angular-locale-storage.js"));
+                "~/Scripts/Lib/angular-local-storage/angular-locale-storage.js",
+                "~/Scripts/ui-bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/client").IncludeDirectory("~/Client", "*.js", true));
 

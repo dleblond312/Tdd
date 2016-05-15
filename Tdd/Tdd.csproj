@@ -290,7 +290,9 @@
     <Content Include="Client\Controllers\loginController.js" />
     <Content Include="Client\Controllers\registerController.js" />
     <Content Include="Client\Controllers\testController.js" />
+    <Content Include="Client\Controllers\towerSelectModalController.js" />
     <Content Include="Client\Directives\chatAreaDirective.js" />
+    <Content Include="Client\Directives\distributeCircularDirective.js" />
     <Content Include="Client\Directives\gameAreaDirective.js" />
     <Content Include="Client\Directives\gameAreaMobDirective.js" />
     <Content Include="Client\Directives\gameAreaProjectileDirective.js" />
@@ -331,6 +333,7 @@
     <Content Include="Partial\Directives\PlayerActions.html" />
     <Content Include="Partial\Home.html" />
     <Content Include="Partial\Account\Register.html" />
+    <Content Include="Partial\Modal\TowerSelect.html" />
     <Content Include="Partial\Test.html" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -1136,6 +1139,7 @@
     <Content Include="Scripts\pep.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\ui-bootstrap.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

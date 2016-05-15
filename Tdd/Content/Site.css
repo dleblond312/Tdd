@@ -4,6 +4,8 @@ body {
 }
 body {
   background-color: #333333;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 .game-area {
   position: relative;
@@ -48,10 +50,29 @@ body {
   right: 0;
 }
 .player-actions .player-action {
+  cursor: pointer;
   background-color: teal;
   border-radius: 50%;
   text-align: center;
   font-size: 26px;
+}
+.distribute-circular .circle-node {
+  width: 400px;
+  height: 400px;
+  margin: 2em;
+  float: left;
+  position: relative;
+  background: #ccc;
+  overflow: hidden;
+  font-weight: bold;
+  text-align: center;
+}
+.modal-dialog {
+  padding: 0;
+}
+.tower-select-modal {
+  position: relative;
+  font-size: 20px;
 }
 /*.command-card {
     @command-card-border-color: blue;
