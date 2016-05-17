@@ -1,5 +1,5 @@
 ﻿<div class="game-area">
-    <div  class="player-actions" player-actions="0"></div>
+    <div  class="player-actions" player-actions="0" style="left:0;"></div>
     <canvas id="map-background"></canvas>
     <div ng-repeat="mob in gameRound.mobs track by $index">
         <div game-area-mob="mob"></div>
@@ -13,5 +13,5 @@
     <div class="selected-action" ng-style="{'background-color': selectedStyles.color, 'position': 'absolute', 'top': selectedStyles.y, 'left': selectedStyles.x, 'width': selectedStyles.width, 'height': selectedStyles.height}" ng-cloak>
 
     </div>
-    <div class="player-actions" player-actions="1"></div>
+    <div class="player-actions" player-actions="1" style="right:0;"></div>
 </div>

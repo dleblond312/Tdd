@@ -1,4 +1,4 @@
-﻿app.directive('playerActions', ['$timeout', '$window', '$rootScope', '$uibModal', 'gameService', 'roundService', function ($timeout, $window, $rootScope, $uibModal, gameService, roundService) {
+﻿app.directive('playerActions', ['$timeout', '$window', '$rootScope', '$uibModal', 'gameService', 'buildOptionsService', 'roundService', function ($timeout, $window, $rootScope, $uibModal, gameService, buildOptionsService, roundService) {
     return {
         templateUrl: 'Partial/Directives/PlayerActions.html',
         scope: {
@@ -33,6 +33,11 @@
                     controller: 'TowerSelectModalController',
                     animation: false,
                 });
+
+                modalInstance.result.then(function (selectedTower) {
+                    scope.selectedTower = buildOptionsService.getSelectedTower();
+                });
+                
             }
             
         }

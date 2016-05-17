@@ -1,7 +1,7 @@
 ﻿<div class="tower-select-modal"> 
     <div class="distribute-circular" distribute-circular>
-        <div ng-repeat="tower in towers">
-            <div class="circle-node" style="display:none;" ng-click="selectTower(tower)">
+        <div ng-repeat="tower in towers" tower-select-option="tower">
+            <div class="circle-node" style="display:none;">
                 {{tower.text}}
             </div>
         </div>

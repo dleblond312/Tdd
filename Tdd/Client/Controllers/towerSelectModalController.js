@@ -7,8 +7,9 @@
         $scope.fetching = false;
     });
 
-    $scope.selectTower = function (tower) {
-        buildOptionsService.setSelectedTower(tower);
-        $uibModalInstance.close(tower);
+    $scope.close = function () {
+        $uibModalInstance.close();
     }
+
+
 }]);

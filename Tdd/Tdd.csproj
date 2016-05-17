@@ -301,6 +301,7 @@
     <Content Include="Client\Directives\multiTouchDirective.js" />
     <Content Include="Client\Directives\pepDirective.js" />
     <Content Include="Client\Directives\playerActionsDirective.js" />
+    <Content Include="Client\Directives\towerSelectOptionDirective.js" />
     <Content Include="Client\Interceptors\authInterceptor.js" />
     <Content Include="Client\Interceptors\errorInterceptor.js" />
     <Content Include="Client\Services\authService.js" />

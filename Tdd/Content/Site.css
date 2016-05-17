@@ -40,14 +40,12 @@ body {
 .game-area .tower {
   z-index: 1;
   background-image: url('Images/basicTower1.png');
+  background-size: contain;
 }
 .player-actions {
   position: absolute;
   height: 100%;
   top: 0;
-}
-.player-actions:nth-child(2n) {
-  right: 0;
 }
 .player-actions .player-action {
   cursor: pointer;

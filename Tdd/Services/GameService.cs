@@ -104,7 +104,7 @@ namespace Tdd.Services
                 if (!string.IsNullOrWhiteSpace(towerId))
                 {
                     var location = new Point(x, y);
-                    if (gameRoom.Towers.ContainsKey(location))
+                    if (gameRoom.Towers.ContainsKey(location) || x == Constants.MapSizeX / 2 || x == (Constants.MapSizeX / 2) - 1)
                     {
                         throw new HttpException(400, "Existing tower conflicts with build location");
                     }

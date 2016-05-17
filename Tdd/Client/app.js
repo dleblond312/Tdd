@@ -1,4 +1,4 @@
-var app = angular.module('tdd', ['ngRoute', 'ngCookies', 'ngTouch', 'ui.bootstrap']);
+var app = angular.module('tdd', ['ngRoute', 'ngCookies', 'ui.bootstrap']);
 
 app.constant('CONSTANTS', {
     PROJECTILE_RATIO: 12,

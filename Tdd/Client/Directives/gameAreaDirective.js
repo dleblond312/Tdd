@@ -1,4 +1,4 @@
-﻿app.directive('gameArea', ['$window', 'CONSTANTS', 'gameService', 'roundService', 'buildOptionsService', function ($window, CONSTANTS, gameService, roundService, buildOptionsService) {
+﻿app.directive('gameArea', ['$window', '$timeout', 'gameService', 'roundService', 'buildOptionsService', function ($window, $timeout, gameService, roundService, buildOptionsService) {
     return {
         scope: {},
         templateUrl: '/Partial/Directives/GameArea.html',
@@ -12,6 +12,11 @@
             }
 
             function rebuildMap() {
+
+                var canvas = element.find('#map-background')[0];
+                $(canvas).attr('width', ((scope.gameRoom.mapSize.x + 4) * gameService.getGameRatio()));
+                $(canvas).attr('height', (scope.gameRoom.mapSize.y * gameService.getGameRatio()));
+
                 //    // Draw mob paths
                 //    //if (scope.gameRound && scope.gameRound.mobs) {
                 //    //    context.fillStyle = '#7D26CD';
@@ -25,16 +30,18 @@
                 //    //}
             }
 
-            updateReceived();
+            $timeout(function () {
+                updateReceived();
+            }, 100);
 
             element.bind('pointerup', function (event) {
                 var x = parseInt(event.originalEvent.pageX / gameService.getGameRatio()) - 2;
-                var y = parseInt((event.originalEvent.pageY / gameService.getGameRatio()) - 0.5);
+                var y = (event.originalEvent.pageY / gameService.getGameRatio()) - 0.5;
 
                 var selectedTower = buildOptionsService.getSelectedTower();
 
                 if (selectedTower && x >= 0 && x < gameService.getGame().mapSize.x && y >= 0 && y < gameService.getGame().mapSize.y) {
-                    gameService.buildTower(selectedTower.id, x, y);
+                    gameService.buildTower(selectedTower.id, x, parseInt(y));
                 }
             });
 
