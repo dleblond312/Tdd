@@ -1,15 +1,17 @@
-﻿app.directive('gameTower', ['CONSTANTS', function (CONSTANTS) {
+﻿app.directive('gameTower', ['gameService', function (gameService) {
     return {
         scope: {
             gameTower: '='
         },
         templateUrl: '/Partial/Directives/GameTower.html',
         link: function (scope, element, attrs) {
+            var gameRatio = gameService.getGameRatio();
+
             scope.style = {
-                x: scope.gameTower.location.x * CONSTANTS.GAME_RATIO + "px",
-                y: scope.gameTower.location.y * CONSTANTS.GAME_RATIO + "px",
-                width: CONSTANTS.GAME_RATIO + "px",
-                height: CONSTANTS.GAME_RATIO + "px"
+                x: (gameRatio * 2) + scope.gameTower.location.x * gameRatio + "px",
+                y: (gameRatio * 0.5) + scope.gameTower.location.y * gameRatio + "px",
+                width: gameRatio + "px",
+                height: gameRatio + "px"
             }
         }
     }

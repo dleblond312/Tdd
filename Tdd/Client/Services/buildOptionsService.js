@@ -4,6 +4,8 @@
         return success;
     });
 
+    var selectedTower;
+
     this.getAllTowers = function () {
         return promise;
     }
@@ -16,5 +18,13 @@
             return tower[0];
         }
         return null;
+    }
+
+    this.setSelectedTower = function (tower) {
+        selectedTower = tower;
+    }
+
+    this.getSelectedTower = function () {
+        return selectedTower;
     }
 }]);

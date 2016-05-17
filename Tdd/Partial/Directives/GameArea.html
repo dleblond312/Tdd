@@ -1,6 +1,6 @@
-﻿<div class="game-area"  ng-click="performAction($event)">
+﻿<div class="game-area">
     <div  class="player-actions" player-actions="0"></div>
-    <canvas id="map-background" ng-mousemove="updateMouseMove($event)"></canvas>
+    <canvas id="map-background"></canvas>
     <div ng-repeat="mob in gameRound.mobs track by $index">
         <div game-area-mob="mob"></div>
     </div>

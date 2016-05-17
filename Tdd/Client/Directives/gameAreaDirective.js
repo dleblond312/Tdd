@@ -27,51 +27,20 @@
 
             updateReceived();
 
-            scope.updateMouseMove = function (event) {
-                if (scope.selectedBuild && event.target === event.currentTarget && event.offsetX && event.offsetY) {
-                    scope.selectedStyles.x = (parseInt(event.offsetX / scope.gameRatio) * scope.gameRatio) + 'px';
-                    scope.selectedStyles.y = (parseInt(event.offsetY / scope.gameRatio) * scope.gameRatio) + 'px';
-                }
+            element.bind('pointerup', function (event) {
+                var x = parseInt(event.originalEvent.pageX / gameService.getGameRatio()) - 2;
+                var y = parseInt((event.originalEvent.pageY / gameService.getGameRatio()) - 0.5);
 
-                updateReceived();
-            }
+                var selectedTower = buildOptionsService.getSelectedTower();
 
-            scope.performAction = function (event) {
-                if (scope.selectedBuild && scope.selectedStyles) {
-                    gameService.buildTower(scope.selectedBuild.id, parseInt(scope.selectedStyles.x) / scope.gameRatio, parseInt(scope.selectedStyles.y) / scope.gameRatio);
-                    
-                    // !Shift lets you place more towers
-                    if (event.shiftKey) {
-                        scope.selectedBuild = null;
-                        scope.selectedStyles = {
-                            display: 'none'
-                        }
-                    }
+                if (selectedTower && x >= 0 && x < gameService.getGame().mapSize.x && y >= 0 && y < gameService.getGame().mapSize.y) {
+                    gameService.buildTower(selectedTower.id, x, y);
                 }
-            }
+            });
+
 
             scope.$on('propertyUpdated', function (event, model) {
                 updateReceived();
-            });
-
-            scope.$on('menuAction', function (event, model) {
-                if (model.type === 'buildTower' && model.value) {
-                    var tower = buildOptionsService.getTower(model.value);
-                    if (scope.selectedBuild && scope.selectedBuild === tower) { // Double click to unselect
-                        scope.selectedBuild = null;
-                        scope.selectedStyles = {
-                            display: 'none'
-                        }
-                    } else {
-                        scope.selectedBuild = tower;
-                        scope.selectedStyles = {
-                            width: scope.gameRatio,
-                            height: scope.gameRatio,
-                            color: 'RED',
-                            display: 'block'
-                        }
-                    }
-                }
             });
         }
     }

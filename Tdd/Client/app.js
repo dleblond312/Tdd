@@ -2,7 +2,6 @@ var app = angular.module('tdd', ['ngRoute', 'ngCookies', 'ngTouch', 'ui.bootstra
 
 app.constant('CONSTANTS', {
     PROJECTILE_RATIO: 12,
-    MINI_MAP_RATIO: 3,
 });
 
 app.config(['$routeProvider', '$locationProvider',

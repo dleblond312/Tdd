@@ -1,4 +1,4 @@
-﻿app.controller('TowerSelectModalController', ['$scope', 'buildOptionsService', function ($scope, buildOptionsService) {
+﻿app.controller('TowerSelectModalController', ['$scope', '$uibModalInstance', 'buildOptionsService', function ($scope, $uibModalInstance, buildOptionsService) {
     $scope.fetching = true;
 
     buildOptionsService.getAllTowers().then(function (success) {
@@ -6,4 +6,9 @@
     }).finally(function () {
         $scope.fetching = false;
     });
+
+    $scope.selectTower = function (tower) {
+        buildOptionsService.setSelectedTower(tower);
+        $uibModalInstance.close(tower);
+    }
 }]);

@@ -24,6 +24,7 @@
             });
 
             scope.showMobSelect = function () {
+                // TODO
             }
 
             scope.showTowerSelect = function () {
@@ -32,12 +33,6 @@
                     controller: 'TowerSelectModalController',
                     animation: false,
                 });
-
-                modalInstance.result.then(function (selectedTower) {
-                    console.log('Tower selected!', selectedTower);
-                    $scope.selectedTower = selectedTower;
-                });
-                
             }
             
         }
