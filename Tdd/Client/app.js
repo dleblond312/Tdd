@@ -17,7 +17,7 @@ app.config(['$routeProvider', '$locationProvider',
     }).when('/', {
         templateUrl: '/Partial/Home.html',
         controller: 'HomeController',
-        reloadOnSearch: true
+        reloadOnSearch: false
     });
 
 }]);

@@ -1,8 +1,10 @@
 ﻿app.service('gameService', ['$window', '$q', '$rootScope', '$timeout', 'socketService', function ($window, $q, $rootScope, $timeout, socketService) {
     var gameRoom = {};
     var gameRatio = 40;
+
     this.createGame = function () {
         socketService.send('createGame');
+        rescaleGameArea();
     }
 
     this.joinGame = function (roomId) {
@@ -50,7 +52,9 @@
     $rootScope.$on("propertyUpdated", function (event, model) {
         if (model.type.indexOf("GameRoom") == 0) {
             gameRoom = model.value;
-            rescaleGameArea();
+            $timeout(function () {
+                rescaleGameArea();
+            });
         }
     })
 }]);

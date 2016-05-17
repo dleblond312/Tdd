@@ -10,6 +10,17 @@ body {
 .game-area {
   position: relative;
 }
+.game-area .player-info {
+  display: block;
+  position: absolute;
+  top: 0;
+}
+.game-area .player-info.p-0 {
+  left: 25%;
+}
+.game-area .player-info.p-1 {
+  left: 75%;
+}
 .game-area canvas {
   background-image: url('Images/gameBoardBackground.png');
   background-size: cover;

@@ -104,7 +104,7 @@ namespace Tdd.Services
                 if (!string.IsNullOrWhiteSpace(towerId))
                 {
                     var location = new Point(x, y);
-                    if (gameRoom.Towers.ContainsKey(location) || x == Constants.MapSizeX / 2 || x == (Constants.MapSizeX / 2) - 1)
+                    if (gameRoom.Towers.ContainsKey(location))
                     {
                         throw new HttpException(400, "Existing tower conflicts with build location");
                     }
@@ -116,6 +116,10 @@ namespace Tdd.Services
                     }
 
                     var currentPlayer = gameRoom.Players.Where(p => p.Context.ConnectionId == context.ConnectionId).First();
+
+                    if(x == Constants.MapSizeX / 2 || x == (Constants.MapSizeX / 2) - 1) {
+                        throw new HttpException(400, "Outside of tower build area");
+                    }
                     var towerToBuild = Constants.TowerTypes.Where(t => (int)t.Id == parsed).First();
                     if (currentPlayer.Resources.CanAfford(towerToBuild.Cost))
                     {

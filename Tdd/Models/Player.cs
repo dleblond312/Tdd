@@ -14,12 +14,15 @@ namespace Tdd.Models
     {
         public Player(HubCallerContext context, int position)
         {
+            this.Id = context.ConnectionId;
             this.Context = context;
             this.StartingLocation = Constants.StartingLocations[position];
             this.EndingLocation = Constants.EndingLocations[position];
             this.CurrentLife = Constants.StartingLife;
             this.Resources = JsonConvert.DeserializeObject<Resources>(JsonConvert.SerializeObject(Constants.StartingResources));
         }
+
+        public string Id { get; set; }
 
         [JsonIgnore]
         public HubCallerContext Context {get; set;}

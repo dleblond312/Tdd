@@ -2,10 +2,13 @@
     return {
         templateUrl: 'Partial/Directives/PlayerActions.html',
         scope: {
-            playerActions: '=',
+            playerActions: '@',
         },
         link: function (scope, element, attrs) {
+
             scope.gameRoom = gameService.getGame();
+            scope.player = scope.gameRoom.players[scope.playerActions];
+            scope.current = scope.player.id == $.connection.hub.id;
 
             rescalePlayerArea = function () {
                 var actions = $('.player-actions');
@@ -17,27 +20,30 @@
 
             $timeout(function () {
                 rescalePlayerArea();
-            }, 100);
+            }, 10);
 
             angular.element($window).bind('resize', function () {
                 rescalePlayerArea();
             });
 
             scope.showMobSelect = function () {
-                // TODO
+                if (scope.current) {
+                    // TODO
+                }
             }
 
             scope.showTowerSelect = function () {
-                var modalInstance = $uibModal.open({
-                    templateUrl: 'Partial/Modal/TowerSelect.html',
-                    controller: 'TowerSelectModalController',
-                    animation: false,
-                });
+                if (scope.current) {
+                    var modalInstance = $uibModal.open({
+                        templateUrl: 'Partial/Modal/TowerSelect.html',
+                        controller: 'TowerSelectModalController',
+                        animation: false,
+                    });
 
-                modalInstance.result.then(function (selectedTower) {
-                    scope.selectedTower = buildOptionsService.getSelectedTower();
-                });
-                
+                    modalInstance.result.then(function (selectedTower) {
+                        scope.selectedTower = buildOptionsService.getSelectedTower();
+                    });
+                }
             }
             
         }
