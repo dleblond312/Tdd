@@ -5,7 +5,6 @@
         },
         templateUrl: '/Partial/Directives/GameTower.html',
         link: function (scope, element, attrs) {
-
             scope.calculateSize = function () {
                 var gameRatio = gameService.getGameRatio();
                 scope.style = {
@@ -16,6 +15,10 @@
                 }
             }
             scope.calculateSize();
+
+            scope.$on('propertyUpdated', function (event, model) {
+                scope.calculateSize();
+            });
 
             angular.element($window).bind('resize', function () {
                 $timeout(function () {

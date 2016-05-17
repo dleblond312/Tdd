@@ -33,7 +33,7 @@ namespace Tdd.Services
                 {
                     foreach (Mob mob in round.Mobs)
                     {
-                        if (Point.IsNear(tower.Location, mob.CurrentLocation, tower.Range))
+                        if (Point.IsNear(tower.Location, mob.Location, tower.Range))
                         {
                             round.Projectiles.Add(new Projectile(tower, mob));
                             tower.ReadyAt = DateTime.UtcNow.AddMilliseconds(tower.Speed); // TODO: Should have a Game constant scale modifier here
@@ -46,8 +46,8 @@ namespace Tdd.Services
             foreach(Projectile projectile in round.Projectiles.Reverse())
             {
                 var span = DateTime.UtcNow.Subtract(projectile.LastUpdated);
-                projectile.Location = Point.TrackTo(projectile.Location, projectile.Target.CurrentLocation, (span.Milliseconds * (projectile.Speed / Constants.GameSpeed)));
-                if (Point.IsNear(projectile.Location, projectile.Target.CurrentLocation, 0.1))  // projectile.Location.X == projectile.Target.CurrentLocation)
+                projectile.Location = Point.TrackTo(projectile.Location, projectile.Target.Location, (span.Milliseconds * (projectile.Speed / Constants.GameSpeed)));
+                if (Point.IsNear(projectile.Location, projectile.Target.Location, 0.1))
                 {
                     TowerType towerType;
                     switch(projectile.TowerType)
@@ -114,7 +114,7 @@ namespace Tdd.Services
                             {
                                 round.Mobs.Add(new Mob(
                                     projectile.Target.Type.Abilities.Fracture.Shard, 
-                                    new Point(projectile.Target.CurrentLocation), 
+                                    new Point(projectile.Target.Location), 
                                     new Point(projectile.Target.EndingLocation))
                                 );
                             }
@@ -126,7 +126,7 @@ namespace Tdd.Services
                             var range = projectile.Target.Type.Abilities.Avenger.Range;
                             foreach(var mob in round.Mobs.Reverse())
                             {
-                                if(Point.IsNear(projectile.Target.CurrentLocation, mob.CurrentLocation, range))
+                                if(Point.IsNear(projectile.Target.Location, mob.Location, range))
                                 {
                                     mob.CurrentSpeed *= (1 + projectile.Target.Type.Abilities.Avenger.Bonus);
                                 }

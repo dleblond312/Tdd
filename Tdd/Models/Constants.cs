@@ -16,14 +16,14 @@ namespace Tdd.Models
 
         public static readonly List<Point> StartingLocations = new List<Point>()
         {
-            new Point(Constants.MapSizeX/2, 0),
-            new Point(Constants.MapSizeX/2, Constants.MapSizeY),
+            new Point(0, Constants.MapSizeY/2),
+            new Point(Constants.MapSizeX, Constants.MapSizeY/2),
         };
 
         public static readonly List<Point> EndingLocations = new List<Point>()
         {
-            new Point(Constants.MapSizeX/2, Constants.MapSizeY),
-            new Point(Constants.MapSizeX/2, 0),
+            new Point(Constants.MapSizeX, Constants.MapSizeY/2),
+            new Point(0, Constants.MapSizeY/2),
         };
 
         public static readonly List<MobType> MobTypes = new List<MobType>()

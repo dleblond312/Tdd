@@ -2,6 +2,9 @@
     <div class="player-info p-{{$index}}" ng-repeat="player in gameRoom.players | limitTo:2 track by $index">
         {{player.id}}
     </div>
+    <div class="start-round" pointerdown="startRound">
+        Start Round
+    </div>
     <div class="player-info p-1" ng-if="gameRoom.players.length < 2">
         Single player mode
     </div>

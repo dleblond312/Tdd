@@ -20,7 +20,7 @@ namespace Tdd.Services
 
         public void RemoveMobsAtEnding(Mob mob, GameRoom room, GameRound round)
         {
-            if (Point.IsNear(mob.CurrentLocation, mob.EndingLocation, 0.5))
+            if (Point.IsNear(mob.Location, mob.EndingLocation, 0.5))
             {
                 foreach (var player in room.Players)
                 {
@@ -37,7 +37,7 @@ namespace Tdd.Services
 
         private GamePoint CalculateMobPath(Mob mob, GameRoom room)
         {
-            var path = this.pathingService.FindPath<GamePoint>(new GamePoint(room, mob.CurrentLocation), new GamePoint(room, mob.EndingLocation), (p1, p2) =>
+            var path = this.pathingService.FindPath<GamePoint>(new GamePoint(room, mob.Location), new GamePoint(room, mob.EndingLocation), (p1, p2) =>
             {
                 // Euclidian Squared heuristic
                 var dx = p1.X - p2.X;
@@ -71,7 +71,7 @@ namespace Tdd.Services
             if (span.Milliseconds > 0)
             {
                 var next = mob.Path?.FirstOrDefault();
-                if(next != null && Point.IsNear(mob.CurrentLocation, next, 0.1))
+                if(next != null && Point.IsNear(mob.Location, next, 0.1))
                 {
                     mob.Path = mob.Path.Skip(1);
                     next = mob.Path?.FirstOrDefault();
@@ -100,13 +100,13 @@ namespace Tdd.Services
 
                     }
 
-                    mob.CurrentLocation = Point.TrackTo(mob.CurrentLocation, next, (span.TotalMilliseconds * moveSpeed / Constants.GameSpeed));
+                    mob.Location = Point.TrackTo(mob.Location, next, (span.TotalMilliseconds * moveSpeed / Constants.GameSpeed));
                     // mob.Path = path?.ToList(); // Debugging
                 }
                 else
                 {
                     Console.WriteLine("No valid path found for mob");
-                    mob.CurrentLocation = new Point(mob.EndingLocation.X, mob.EndingLocation.Y);
+                    mob.Location = new Point(mob.EndingLocation.X, mob.EndingLocation.Y);
                 }
 
                 mob.LastUpdated = DateTime.UtcNow;

@@ -21,7 +21,7 @@ namespace Tdd.Models
             this.Type = type;
             this.Health = this.Type.StartingHealth;
             this.CurrentSpeed = this.Type.MoveSpeed;
-            this.CurrentLocation = startingLocation;
+            this.Location = startingLocation;
             this.EndingLocation = endingLocation;
         }
 
@@ -30,7 +30,7 @@ namespace Tdd.Models
 
         public int Health { get; set; }
 
-        public Point CurrentLocation { get; set; }
+        public Point Location { get; set; }
 
         [JsonIgnore]
         public Point EndingLocation { get; set; }

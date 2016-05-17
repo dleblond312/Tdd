@@ -43,7 +43,7 @@ namespace Tdd.Models
 
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "{0} -> {1}", this.Location, this.Target.CurrentLocation);
+            return string.Format(CultureInfo.InvariantCulture, "{0} -> {1}", this.Location, this.Target.Location);
         }
 
     }

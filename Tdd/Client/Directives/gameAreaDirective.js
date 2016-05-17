@@ -45,6 +45,10 @@
                 }
             });
 
+            scope.startRound = function () {
+                gameService.startRound();
+            }
+
 
             scope.$on('propertyUpdated', function (event, model) {
                 updateReceived();

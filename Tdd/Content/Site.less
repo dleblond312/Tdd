@@ -18,14 +18,27 @@ body {
         display: block;
         position: absolute;
         top: 0;
+        display:none;
 
         &.p-0 {
             left: 25%;
+            display: block;
         }
 
         &.p-1 {
             left: 75%;
+            display: block;
         }
+
+
+    }
+
+    .start-round {
+        margin: 0 -20px;
+        position:absolute;
+        top: 0;
+        left: 50%;
+        right: 50%;
     }
 
 
@@ -63,6 +76,7 @@ body {
     }
 
     .tower {
+        position: absolute;
         z-index: 1;
         background-image: url('Images/basicTower1.png');
         background-size: contain;
